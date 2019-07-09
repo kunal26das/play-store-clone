@@ -4,7 +4,15 @@
     <color name="colorPrimaryDark">@color/colorDarkGreen</color>
     <color name="colorAccent">#fff</color>
 
+    <color name="colorCategoryText">@color/colorGrey</color>
+    <color name="colorSubCategory">@color/colorGreyDark</color>
+    
+
+
+
+    <!--Raw colors-->
     <color name="colorGreen">#008F5F</color>
     <color name="colorDarkGreen">#00734D</color>
     <color name="colorGrey">#767676</color>
+    <color name="colorGreyDark">#616161</color>
 </resources>
