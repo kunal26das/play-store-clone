@@ -1,7 +1,10 @@
 package com.emre1s.playstore;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -22,8 +25,13 @@ import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FloatingSearchView searchView;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -50,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        FloatingSearchView searchView = findViewById(R.id.floating_search_view);
+        searchView = findViewById(R.id.floating_search_view);
 
         searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
@@ -74,6 +82,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onActionMenuItemSelected(MenuItem item) {
                 Toast.makeText(MainActivity.this, "Check done", Toast.LENGTH_SHORT).show();
+                promptSpeechInput();
             }
         });
         navigationView.setNavigationItemSelectedListener(this);
@@ -105,5 +114,35 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Say something");
+        try {
+            startActivityForResult(intent, 100);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "Sorry! Your device doesn't support speech input",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK && null != data) {
+
+                ArrayList<String> result = data
+                        .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                searchView.setSearchText(result.get(0));
+            }
+        }
     }
 }
