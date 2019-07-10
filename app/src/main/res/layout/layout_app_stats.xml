@@ -59,7 +59,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:paddingBottom="4dp"
-                android:src="@mipmap/ic_download_foreground" />
+                android:src="@mipmap/ic_download" />
 
             <TextView
                 android:id="@+id/tv_app_download_size"
