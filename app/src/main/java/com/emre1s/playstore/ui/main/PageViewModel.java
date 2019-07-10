@@ -1,5 +1,7 @@
 package com.emre1s.playstore.ui.main;
 
+import android.util.Log;
+
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +9,9 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.AppByCategoryCallback;
+import com.emre1s.playstore.api.AppByCategoryFactory;
+import com.emre1s.playstore.models.AppByCategoryApiResponse;
 
 public class PageViewModel extends ViewModel {
 
@@ -20,6 +25,8 @@ public class PageViewModel extends ViewModel {
 
     private String[] tabItemNames = {"For You", "Top Charts", "Categories",
             "Family"};
+
+    private MutableLiveData<AppByCategoryApiResponse> receivedAppLiveData;
 
     String[] allCategories = new String[]{
             "GAME",
@@ -88,6 +95,11 @@ public class PageViewModel extends ViewModel {
             R.drawable.ic_category,
             R.drawable.icons8_starfish_24};
 
+    public PageViewModel() {
+        receivedAppLiveData = new MutableLiveData<>();
+
+    }
+
     public void setIndex(int index) {
         mIndex.setValue(index);
     }
@@ -106,6 +118,15 @@ public class PageViewModel extends ViewModel {
 
     public String[] getAllCategories() {
         return allCategories;
+    }
+
+    public void makeApiCall(String category, AppByCategoryCallback appByCategoryCallback) {
+        AppByCategoryFactory appByCategoryFactory = AppByCategoryFactory.getInstance();
+        appByCategoryFactory.apiCall(appByCategoryCallback, category);
+    }
+
+    public MutableLiveData<AppByCategoryApiResponse> getReceivedAppLiveData() {
+        return receivedAppLiveData;
     }
 }
 
