@@ -45,7 +45,7 @@
                 android:id="@+id/tv_app_reviews_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="reviews count"
+                android:text="Reviews Count"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -65,7 +65,7 @@
                 android:id="@+id/tv_app_download_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="download size"
+                android:text="Download Size"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -92,7 +92,7 @@
                 android:id="@+id/tv_app_age_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="rating"
+                android:text="Rating ⓘ"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -114,7 +114,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="downloads"
+                android:text="Downloads"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

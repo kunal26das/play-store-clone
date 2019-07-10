@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/whiteColor"
     android:orientation="vertical"
+    android:paddingTop="12dp"
     android:paddingStart="16dp"
-    android:paddingTop="10dp"
     android:paddingEnd="16dp"
     android:paddingBottom="10dp">
 
@@ -47,9 +47,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/chip"
-        android:paddingStart="8dp"
+        android:paddingStart="12dp"
         android:paddingTop="6dp"
-        android:paddingEnd="8dp"
+        android:paddingEnd="12dp"
         android:paddingBottom="6dp"
         android:text="App Genre"
         android:textSize="12sp"
