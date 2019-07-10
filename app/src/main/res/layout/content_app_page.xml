@@ -4,11 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/content_app_info" />
+    <include layout="@layout/layout_app_info" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1.25dp"
         android:background="@color/silverColor" />
 
+    <include
+        layout="@layout/layout_app_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1.25dp"
+        android:background="@color/silverColor" />
 </LinearLayout>

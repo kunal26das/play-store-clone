@@ -21,4 +21,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+
+    <style name="style_stats_linear_layout">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 </resources>
