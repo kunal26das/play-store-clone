@@ -16,21 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
-import com.emre1s.playstore.api.AppByCategoryCallback;
-import com.emre1s.playstore.api.AppByCategoryFactory;
-import com.emre1s.playstore.listeners.OnAppClickedListener;
-import com.emre1s.playstore.models.AppByCategoryApiResponse;
+import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
-public class ForYouFragment extends Fragment implements OnAppClickedListener {
+public class ForYouFragment extends Fragment {
 
     public ForYouFragment() {
 
     }
 
     public static ForYouFragment newInstance() {
-        ForYouFragment forYouFragment = new ForYouFragment();
-        return forYouFragment;
+        return new ForYouFragment();
     }
 
     @Nullable
@@ -45,17 +42,27 @@ public class ForYouFragment extends Fragment implements OnAppClickedListener {
         forYouRecycler.setAdapter(forYouAdapter);
         Log.d("Emre1s", "ForYouFragment was called");
 
-        pageViewModel.getReceivedAppLiveData().observe(this, new Observer<AppByCategoryApiResponse>() {
+        pageViewModel.getReceivedAppLiveData().observe(this, new Observer<App>() {
             @Override
-            public void onChanged(AppByCategoryApiResponse appByCategoryApiResponse) {
-                Log.d("Emre1s", "App received: " + appByCategoryApiResponse.getTitle());
+            public void onChanged(App app) {
+                Log.d("Emre1s", "App received: " + app.getTitle());
             }
         });
+
+//        pageViewModel.makeCollectionApiCall("topselling_free", new ApiResponseCallback() {
+//            @Override
+//            public void onSuccess(App[] popularApp) {
+//                for (App app : popularApp) {
+//                    Log.d("Emre1s", "Collection received: " + app.getTitle());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure() {
+//                Log.d("Emre1s", "Collection failure.");
+//            }
+//        });
         return view;
     }
 
-    @Override
-    public void showAppDetail(AppByCategoryApiResponse appByCategoryApiResponse) {
-
-    }
 }

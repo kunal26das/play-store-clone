@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.listeners.OnAppClickedListener;
-import com.emre1s.playstore.models.AppByCategoryApiResponse;
+import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -22,11 +21,11 @@ import java.util.Random;
 
 public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHolder> {
 
-    private List<AppByCategoryApiResponse> appByCategoryApiResponses;
+    private List<App> appByCategoryApiRespons;
     private PageViewModel pageViewModel;
 
     public AppCardAdapter(PageViewModel pageViewModel) {
-        appByCategoryApiResponses = new ArrayList<>();
+        appByCategoryApiRespons = new ArrayList<>();
         this.pageViewModel = pageViewModel;
     }
 
@@ -41,22 +40,22 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d("Emre1s", "Image icon: " + appByCategoryApiResponses.get(position).getIcon());
-        Picasso.get().load("https:" + appByCategoryApiResponses.get(position)
+        Log.d("Emre1s", "Image icon: " + appByCategoryApiRespons.get(position).getIcon());
+        Picasso.get().load("https:" + appByCategoryApiRespons.get(position)
                 .getIcon()).into(holder.appIcon);
-        holder.appName.setText(appByCategoryApiResponses.get(position).getTitle());
+        holder.appName.setText(appByCategoryApiRespons.get(position).getTitle());
         holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponses.get(position));
+                pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiRespons.get(position));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return appByCategoryApiResponses.size();
+        return appByCategoryApiRespons.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,8 +71,8 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
         }
     }
 
-    public void setAppByCategoryApiResponses(List<AppByCategoryApiResponse> appByCategoryApiResponses) {
-        this.appByCategoryApiResponses = appByCategoryApiResponses;
+    public void setAppByCategoryApiRespons(List<App> appByCategoryApiRespons) {
+        this.appByCategoryApiRespons = appByCategoryApiRespons;
         notifyDataSetChanged();
     }
 

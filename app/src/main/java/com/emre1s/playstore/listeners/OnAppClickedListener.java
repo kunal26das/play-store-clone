@@ -1,7 +1,7 @@
 package com.emre1s.playstore.listeners;
 
-import com.emre1s.playstore.models.AppByCategoryApiResponse;
+import com.emre1s.playstore.models.App;
 
 public interface OnAppClickedListener {
-    void showAppDetail(AppByCategoryApiResponse appByCategoryApiResponse);
+    void showAppDetail(App app);
 }

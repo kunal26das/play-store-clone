@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.api.AppByCategoryCallback;
-import com.emre1s.playstore.listeners.OnAppClickedListener;
-import com.emre1s.playstore.models.AppByCategoryApiResponse;
+import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.Arrays;
@@ -43,10 +42,10 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.categoryName.setText(categoryNames[position]);
-        pageViewModel.makeApiCall(categoryNames[position], new AppByCategoryCallback() {
+        pageViewModel.makeCategoryApiCall(categoryNames[position], new ApiResponseCallback() {
             @Override
-            public void onSuccess(AppByCategoryApiResponse[] popularApp) {
-                holder.appCardAdapter.setAppByCategoryApiResponses(Arrays.asList(popularApp));
+            public void onSuccess(App[] popularApp) {
+                holder.appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
             }
 
             @Override

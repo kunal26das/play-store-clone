@@ -1,7 +1,5 @@
 package com.emre1s.playstore.ui.main;
 
-import android.util.Log;
-
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -9,9 +7,9 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.api.AppByCategoryCallback;
-import com.emre1s.playstore.api.AppByCategoryFactory;
-import com.emre1s.playstore.models.AppByCategoryApiResponse;
+import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.models.App;
 
 public class PageViewModel extends ViewModel {
 
@@ -26,7 +24,7 @@ public class PageViewModel extends ViewModel {
     private String[] tabItemNames = {"For You", "Top Charts", "Categories",
             "Family"};
 
-    private MutableLiveData<AppByCategoryApiResponse> receivedAppLiveData;
+    private MutableLiveData<App> receivedAppLiveData;
 
     String[] allCategories = new String[]{
             "GAME",
@@ -120,12 +118,17 @@ public class PageViewModel extends ViewModel {
         return allCategories;
     }
 
-    public void makeApiCall(String category, AppByCategoryCallback appByCategoryCallback) {
-        AppByCategoryFactory appByCategoryFactory = AppByCategoryFactory.getInstance();
-        appByCategoryFactory.apiCall(appByCategoryCallback, category);
+    public void makeCategoryApiCall(String category, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.appsByCategoryApiCall(apiResponseCallback, category);
     }
 
-    public MutableLiveData<AppByCategoryApiResponse> getReceivedAppLiveData() {
+    public void makeCollectionApiCall(String collection, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.appsByCollectionApiCall(apiResponseCallback, collection);
+    }
+
+    public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
 }

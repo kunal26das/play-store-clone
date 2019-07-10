@@ -3,7 +3,7 @@ package com.emre1s.playstore.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AppByCategoryApiResponse {
+public class App {
 
     @SerializedName("url")
     @Expose
