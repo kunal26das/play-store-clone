@@ -92,7 +92,33 @@ public class RetrofitApiFactory {
                 Log.d("Emre1s", "Collection response entire failure. Damn");
             }
         });
+    }
 
+    public void similarAppsApiCall(final ApiResponseCallback apiResponseCallback,
+                                        String packageName) {
+        retrofitAPICalls.getSimilarApps(packageName).enqueue(new Callback<App[]>() {
+            @Override
+            public void onResponse(Call<App[]> call, Response<App[]> response) {
+
+                if (response.isSuccessful()) {
+                    Log.d("Emre1s", "Successful similar apps response");
+                    App[] appsByCollectionApiResponse = response.body();
+                    if (appsByCollectionApiResponse != null) {
+                        apiResponseCallback.onSuccess(appsByCollectionApiResponse);
+                    } else {
+                        apiResponseCallback.onFailure();
+                        Log.d("Emre1s", "similar apps response is empty");
+                    }
+                } else {
+                    Log.d("Emre1s", "Response not successful similar apps API");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<App[]> call, Throwable t) {
+                Log.d("Emre1s", "similar apps response entire failure. Damn");
+            }
+        });
     }
 
 

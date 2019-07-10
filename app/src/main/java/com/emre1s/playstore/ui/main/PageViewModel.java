@@ -128,6 +128,10 @@ public class PageViewModel extends ViewModel {
         retrofitApiFactory.appsByCollectionApiCall(apiResponseCallback, collection);
     }
 
+    public void makeSimilarAppsApiCall(String packageName, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
+    }
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
