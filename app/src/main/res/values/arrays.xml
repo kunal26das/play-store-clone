@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="top_categories">
+        <item>Photography</item>
+        <item>Family</item>
+        <item>Music &amp; Video</item>
+        <item>Entertainment</item>
+        <item>Shopping</item>
+        <item>Personalization</item>
+        <item>Social</item>
+        <item>Communication</item>
+    </string-array>
+
+    <integer-array name="top_categories_icons">
+        <item>@drawable/camera</item>
+        <item>@drawable/star</item>
+        <item>@drawable/music</item>
+        <item>@drawable/domain</item>
+        <item>@drawable/access_point_network</item>
+        <item>@drawable/brush</item>
+        <item>@drawable/book_open</item>
+        <item>@drawable/forum</item>
+    </integer-array>
+</resources>

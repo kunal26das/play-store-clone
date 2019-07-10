@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Play Store</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="category_label">Top categories</string>
+    <string name="all_categories">All categories</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
