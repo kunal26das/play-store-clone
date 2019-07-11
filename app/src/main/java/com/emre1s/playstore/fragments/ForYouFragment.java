@@ -48,34 +48,6 @@ public class ForYouFragment extends Fragment {
                 Log.d("Emre1s", "App received: " + app.getTitle());
             }
         });
-
-//        pageViewModel.makeCollectionApiCall("topselling_free", new ApiResponseCallback() {
-//            @Override
-//            public void onSuccess(App[] popularApp) {
-//                for (App app : popularApp) {
-//                    Log.d("Emre1s", "Collection received: " + app.getTitle());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//                Log.d("Emre1s", "Collection failure.");
-//            }
-//        });
-
-//        pageViewModel.makeSimilarAppsApiCall("com.whatsapp", new ApiResponseCallback() {
-//            @Override
-//            public void onSuccess(App[] popularApp) {
-//                for (App app : popularApp) {
-//                    Log.d("Emre1s", "Similar apps received: " + app.getTitle());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure() {
-//                Log.d("Emre1s", "Similar apps failure");
-//            }
-//        });
         return view;
     }
 

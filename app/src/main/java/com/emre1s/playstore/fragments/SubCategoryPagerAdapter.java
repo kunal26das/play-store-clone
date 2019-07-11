@@ -2,7 +2,6 @@ package com.emre1s.playstore.fragments;
 
 import android.util.Log;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -22,10 +21,11 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
                 return ForYouFragment.newInstance();
             }
             case 1: {
-                return AppCategoryFragment.newInstance();
+
+                return new TopChartsTabFragment();
             }
             case 2: {
-                return ForYouFragment.newInstance();
+                return AppCategoryFragment.newInstance();
             }
             case 3: {
                 return AppCategoryFragment.newInstance();
