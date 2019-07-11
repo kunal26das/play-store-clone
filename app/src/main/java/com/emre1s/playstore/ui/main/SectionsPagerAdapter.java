@@ -1,7 +1,6 @@
 package com.emre1s.playstore.ui.main;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -14,8 +13,8 @@ import com.emre1s.playstore.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.games, R.string.apps,
-            R.string.movies, R.string.books, R.string.music};
+    private static final int[] TAB_TITLES = new int[] {R.string.games,R.string.apps,
+            R.string.movies,R.string.books,R.string.music};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -26,8 +25,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-            return PlaceholderFragment.newInstance(position + 1);
-
+        // Return a PlaceholderFragment (defined as a static inner class below).
+        return PlaceholderFragment.newInstance(position);
     }
 
     @Nullable

@@ -1,11 +1,10 @@
 package com.emre1s.playstore.fragments;
 
-import androidx.annotation.Nullable;
+import android.util.Log;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import com.emre1s.playstore.ui.main.TopChartsFragment;
 
 public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 4;
@@ -16,18 +15,22 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        Log.d("Emre1s", "POSITION: " + position);
         switch (position) {
             case 0: {
-                return AppCategoryFragment.newInstance();
+                return ForYouFragment.newInstance();
             }
             case 1: {
                 return new TopChartsFragment();
             }
             case 2: {
+                return ForYouFragment.newInstance();
+            }
+            case 3: {
                 return AppCategoryFragment.newInstance();
             }
             default: {
-                return AppCategoryFragment.newInstance();
+                return null;
             }
         }
     }
@@ -37,9 +40,4 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
         return NUM_ITEMS;
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return "Page" + position;
-    }
 }

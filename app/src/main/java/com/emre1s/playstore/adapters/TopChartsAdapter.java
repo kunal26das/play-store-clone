@@ -12,14 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.model.TopChartsApp;
+import com.emre1s.playstore.models.App;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopChartsViewHolder> {
-    private List<TopChartsApp> mList;
+    public void setmList(List<App> mList) {
+        this.mList = mList;
+        notifyDataSetChanged();
+    }
 
-    public TopChartsAdapter(List<TopChartsApp> list) {
-        mList=list;
+    private List<App> mList=new ArrayList<>();
+
+    public TopChartsAdapter() {
     }
 
     @NonNull
@@ -36,10 +43,12 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     @Override
     public void onBindViewHolder(@NonNull TopChartsAdapter.TopChartsViewHolder holder, int position) {
         Log.d("TopCharts", mList.get(position).getTitle());
+        String iconPath="https:";
+        Picasso.get().load(iconPath+ mList.get(position).getIcon()).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
         holder.appSize.setText("46MB");
-        holder.appRating.setText(mList.get(position).getScore());
+        holder.appRating.setText(mList.get(position).getScore()+"");
     }
 
     @Override
