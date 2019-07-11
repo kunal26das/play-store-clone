@@ -6,10 +6,7 @@
 
     <include layout="@layout/layout_app_info" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1.25dp"
-        android:background="@color/silverColor" />
+    <include layout="@layout/divider" />
 
     <include
         layout="@layout/layout_app_stats"
@@ -17,8 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="1.25dp"
-        android:background="@color/silverColor" />
+    <include layout="@layout/divider" />
+
+    <include layout="@layout/layout_app_intro" />
+
+    <include layout="@layout/divider" />
 </LinearLayout>

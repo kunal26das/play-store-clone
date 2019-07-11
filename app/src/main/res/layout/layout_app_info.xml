@@ -5,24 +5,24 @@
     android:layout_height="match_parent"
     android:background="@color/whiteColor"
     android:orientation="vertical"
-    android:paddingTop="12dp"
+    android:paddingTop="16dp"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/iv_app_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_app_name"
+        android:id="@+id/tv_app_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:paddingBottom="4dp"
         android:text="App Name"
         android:textColor="@color/blackColor"
@@ -31,20 +31,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_app_publisher_name"
+        android:id="@+id/tv_app_developer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:text="App Publisher Name"
         android:textColor="@color/primaryColor"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_app_title" />
 
     <TextView
         android:id="@+id/tv_app_genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/chip"
         android:paddingStart="12dp"
@@ -57,9 +57,10 @@
         app:chipStrokeColor="@color/grayColor"
         app:chipStrokeWidth="1dp"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_app_publisher_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_app_developer" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:layout_marginTop="24dp"
@@ -70,5 +71,15 @@
         app:cornerRadius="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_app_icon" />
+
+    <TextView
+        android:id="@+id/tv_app_monetize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="In-app purchases"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

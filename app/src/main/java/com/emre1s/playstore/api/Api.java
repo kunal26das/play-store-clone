@@ -1,6 +1,6 @@
 package com.emre1s.playstore.api;
 
-import com.emre1s.playstore.apps.AppDetails;
+import com.emre1s.playstore.app_details.AppDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

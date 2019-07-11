@@ -6,10 +6,10 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.emre1s.playstore.apps.AppDetailsEntity;
+import com.emre1s.playstore.app_details.AppDetailsEntity;
 
 import static com.emre1s.playstore.GlobalConstants.TABLE_APP_DETAILS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_APP_ID;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_APP_ID;
 
 @Dao
 public interface SingletonDao {

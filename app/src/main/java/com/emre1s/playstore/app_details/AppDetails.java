@@ -1,4 +1,4 @@
-package com.emre1s.playstore.apps;
+package com.emre1s.playstore.app_details;
 
 import androidx.annotation.NonNull;
 
@@ -6,46 +6,46 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_AD_SUPPORTED;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_ANDROID_VERSION;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_ANDROID_VERSION_TEXT;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_APP_ID;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_COMMENTS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_CONTENT_RATING;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_CURRENCY;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DESCRIPTION;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DESCRIPTION_HTML;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DEVELOPER;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DEVELOPER_ADDRESS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DEVELOPER_EMAIL;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DEVELOPER_ID;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DEVELOPER_INTERNAL_ID;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_DEVELOPER_WEBSITE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_FREE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_GENRE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_GENRE_ID;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_HEADER_IMAGE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_HISTOGRAM;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_ICON;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_INSTALLS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_MIN_INSTALLS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_OFFERS_IAP;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_PRICE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_PRICE_TEXT;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_PRIVACY_POLICY;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_RATINGS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_RECENT_CHANGES;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_RELEASED;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_REVIEWS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_SCORE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_SCORE_TEXT;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_SCREENSHOTS;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_SIZE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_SUMMARY;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_TITLE;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_UPDATED;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_URL;
-import static com.emre1s.playstore.apps.AppDetailsKeys.KEY_VERSION;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_AD_SUPPORTED;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_ANDROID_VERSION;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_ANDROID_VERSION_TEXT;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_APP_ID;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_COMMENTS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_CONTENT_RATING;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_CURRENCY;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DESCRIPTION;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DESCRIPTION_HTML;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER_ADDRESS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER_EMAIL;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER_ID;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER_INTERNAL_ID;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER_WEBSITE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_FREE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_GENRE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_GENRE_ID;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_HEADER_IMAGE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_HISTOGRAM;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_ICON;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_INSTALLS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_MIN_INSTALLS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_OFFERS_IAP;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_PRICE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_PRICE_TEXT;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_PRIVACY_POLICY;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_RATINGS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_RECENT_CHANGES;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_RELEASED;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_REVIEWS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SCORE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SCORE_TEXT;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SCREENSHOTS;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SIZE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SUMMARY;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_TITLE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_UPDATED;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_URL;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VERSION;
 
 public class AppDetails {
 
@@ -80,7 +80,7 @@ public class AppDetails {
     private Integer mReviews;
 
     @SerializedName(KEY_HISTOGRAM)
-    private List<Integer> mHistograms;
+    private Histogram mHistograms;
 
     @SerializedName(KEY_PRICE)
     private Integer mPrice;
@@ -152,7 +152,7 @@ public class AppDetails {
     private String mReleased;
 
     @SerializedName(KEY_UPDATED)
-    private Integer mUpdated;
+    private Long mUpdated;
 
     @SerializedName(KEY_VERSION)
     private String mVersion;
@@ -179,7 +179,7 @@ public class AppDetails {
                       @NonNull String mScoreText,
                       @NonNull Integer mRatings,
                       @NonNull Integer mReviews,
-                      @NonNull List<Integer> mHistograms,
+                      @NonNull Histogram mHistograms,
                       @NonNull Integer mPrice,
                       @NonNull Boolean mFree,
                       @NonNull String mCurrency,
@@ -203,7 +203,7 @@ public class AppDetails {
                       @NonNull String mContentRating,
                       @NonNull Boolean mAdSupported,
                       @NonNull String mReleased,
-                      @NonNull Integer mUpdated,
+                      @NonNull Long mUpdated,
                       @NonNull String mVersion,
                       @NonNull String mRecentChanges,
                       @NonNull List<String> mComments,
@@ -291,7 +291,7 @@ public class AppDetails {
         return mReviews;
     }
 
-    public List<Integer> getmHistograms() {
+    public Histogram getmHistograms() {
         return mHistograms;
     }
 
@@ -311,7 +311,7 @@ public class AppDetails {
         return mPriceText;
     }
 
-    public Boolean getmOffersIap() {
+    public Boolean hasInAppPurchases() {
         return mOffersIap;
     }
 
@@ -379,7 +379,7 @@ public class AppDetails {
         return mContentRating;
     }
 
-    public Boolean getmAdSupported() {
+    public Boolean hasAdSupport() {
         return mAdSupported;
     }
 
@@ -387,7 +387,7 @@ public class AppDetails {
         return mReleased;
     }
 
-    public Integer getmUpdated() {
+    public Long getmUpdated() {
         return mUpdated;
     }
 

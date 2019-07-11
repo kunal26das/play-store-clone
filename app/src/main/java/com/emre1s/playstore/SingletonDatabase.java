@@ -11,8 +11,8 @@ import androidx.room.RoomDatabase;
 
 import com.emre1s.playstore.api.Api;
 import com.emre1s.playstore.api.ApiClient;
-import com.emre1s.playstore.apps.AppDetails;
-import com.emre1s.playstore.apps.AppDetailsEntity;
+import com.emre1s.playstore.app_details.AppDetails;
+import com.emre1s.playstore.app_details.AppDetailsEntity;
 
 import retrofit2.Call;
 import retrofit2.Response;
