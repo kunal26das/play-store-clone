@@ -23,8 +23,9 @@ import java.util.Arrays;
 
 
 public class TopChartsFragment extends Fragment {
-    public TopChartsFragment(){
-
+    private String category;
+    public TopChartsFragment(String category){
+        this.category=category;
     }
 
     @Nullable
@@ -37,7 +38,7 @@ public class TopChartsFragment extends Fragment {
         appList.setAdapter(topChartsAdapter);
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        pageViewModel.makeCollectionApiCall("topselling_free", new ApiResponseCallback() {
+        pageViewModel.makeCollectionApiCall(category, new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
                 Log.d("Success",popularApp.length+"");
@@ -49,7 +50,6 @@ public class TopChartsFragment extends Fragment {
                 Log.d("onEmptyResponse", "Returned empty response");
             }
         });
-
         return root;
     }
 }

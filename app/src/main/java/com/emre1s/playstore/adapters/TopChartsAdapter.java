@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.model.TopChartsApp;
 import com.emre1s.playstore.models.App;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +32,7 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     @Override
     public TopChartsAdapter.TopChartsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.app_list_item, null);
+                .inflate(R.layout.app_list_item, parent,false);
         TopChartsViewHolder itemViewHolder = new TopChartsViewHolder(itemLayoutView);
 
         return itemViewHolder;
@@ -44,11 +43,12 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     public void onBindViewHolder(@NonNull TopChartsAdapter.TopChartsViewHolder holder, int position) {
         Log.d("TopCharts", mList.get(position).getTitle());
         String iconPath="https:";
+        holder.sNo.setText(position+1+"");
         Picasso.get().load(iconPath+ mList.get(position).getIcon()).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
         holder.appSize.setText("46MB");
-        holder.appRating.setText(mList.get(position).getScore()+"");
+        holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
     }
 
     @Override
@@ -62,9 +62,11 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         public TextView appDeveloper;
         public TextView appSize;
         public TextView appRating;
+        TextView sNo;
 
         public TopChartsViewHolder(View itemLayoutView) {
             super(itemLayoutView);
+            sNo=itemLayoutView.findViewById(R.id.s_no);
             appIcon=itemLayoutView.findViewById(R.id.app_icon);
             appName=itemLayoutView.findViewById(R.id.app_name);
             appDeveloper= itemLayoutView.findViewById(R.id.app_developer);

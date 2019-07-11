@@ -21,10 +21,11 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
                 return ForYouFragment.newInstance();
             }
             case 1: {
-                return new TopChartsFragment();
+
+                return new TopChartsTabFragment();
             }
             case 2: {
-                return ForYouFragment.newInstance();
+                return AppCategoryFragment.newInstance();
             }
             case 3: {
                 return AppCategoryFragment.newInstance();

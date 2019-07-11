@@ -3,58 +3,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/s_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="1" />
 
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="5dp"
+        android:layout_marginStart="32dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/s_no"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/app_name"
-        android:layout_width="94dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginBottom="70dp"
-        android:text="HAGO"
-        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="5dp"
+        android:maxLines="1"
+        android:maxWidth="200dp"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/app_icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/app_icon"
+        tools:text="HAGO" />
 
     <TextView
         android:id="@+id/app_developer"
         android:layout_width="99dp"
         android:layout_height="18dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="0dp"
-        android:text="Hago Games"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="137dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/app_icon"
-        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+        app:layout_constraintTop_toBottomOf="@+id/app_name"
+        tools:text="Hago Games" />
 
     <TextView
         android:id="@+id/app_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="34dp"
-        android:text="46MB ."
-        app:layout_constraintStart_toEndOf="@+id/app_icon"
-        app:layout_constraintTop_toBottomOf="@+id/app_developer" />
+        android:layout_marginTop="37dp"
+        app:layout_constraintBottom_toBottomOf="@+id/app_icon"
+        app:layout_constraintStart_toStartOf="@+id/app_developer"
+        app:layout_constraintTop_toBottomOf="@+id/app_developer"
+        tools:text="46MB ." />
 
     <TextView
         android:id="@+id/app_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="34dp"
-        android:text="4.5 *"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="137dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/app_size"
-        app:layout_constraintTop_toBottomOf="@+id/app_developer" />
+        app:layout_constraintTop_toBottomOf="@+id/app_developer"
+        tools:text="4.5 *" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

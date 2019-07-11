@@ -26,4 +26,8 @@
     <string name="music">MUSIC</string>
     <string name="test">Test</string>
     <string name="app_icon_card">App Icon</string>
+    <string name="topFree">TOP FREE</string>
+    <string name="topGrossing">TOP GROSSING</string>
+    <string name="trending">TRENDING</string>
+    <string name="topPaid">TOP PAID</string>
 </resources>
