@@ -51,6 +51,8 @@ import java.util.Locale;
 
 import java.util.Arrays;
 
+import io.reactivex.Observable;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                Log.d("Success", "SearchTextChanged");
+                Log.d("Emre1s", "SearchTextChanged" + "Old query: " + oldQuery + "New query: " + newQuery);
 //                searchView.swapSuggestions(newSuggestions);
             }
         });
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
             @Override
             public void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView, SearchSuggestion item, int itemPosition) {
-                Log.d("Success", "BindSuggestion" + item.getBody());
+                Log.d("Emre1s", "BindSuggestion" + item.getBody());
 //                textView.setText(item.getBody());
             }
         });
