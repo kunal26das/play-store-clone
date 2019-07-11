@@ -1,6 +1,7 @@
 package com.emre1s.playstore.app_details;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -46,6 +47,8 @@ import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_TITLE;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_UPDATED;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_URL;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VERSION;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO_IMAGE;
 
 public class AppDetails {
 
@@ -142,6 +145,12 @@ public class AppDetails {
     @SerializedName(KEY_SCREENSHOTS)
     private List<String> mScreenshots;
 
+    @SerializedName(KEY_VIDEO)
+    private String mVideo;
+
+    @SerializedName(KEY_VIDEO_IMAGE)
+    private String mVideoImage;
+
     @SerializedName(KEY_CONTENT_RATING)
     private String mContentRating;
 
@@ -200,6 +209,8 @@ public class AppDetails {
                       @NonNull String mIcon,
                       @NonNull String mHeaderImage,
                       @NonNull List<String> mScreenshots,
+                      @Nullable String mVideo,
+                      @Nullable String mVideoImage,
                       @NonNull String mContentRating,
                       @NonNull Boolean mAdSupported,
                       @NonNull String mReleased,
@@ -240,6 +251,8 @@ public class AppDetails {
         this.mIcon = mIcon;
         this.mHeaderImage = mHeaderImage;
         this.mScreenshots = mScreenshots;
+        this.mVideo = mVideo;
+        this.mVideoImage = mVideoImage;
         this.mContentRating = mContentRating;
         this.mAdSupported = mAdSupported;
         this.mReleased = mReleased;
@@ -373,6 +386,14 @@ public class AppDetails {
 
     public List<String> getmScreenshots() {
         return mScreenshots;
+    }
+
+    public String getmVideo() {
+        return mVideo;
+    }
+
+    public String getmVideoImage() {
+        return mVideoImage;
     }
 
     public String getmContentRating() {

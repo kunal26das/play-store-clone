@@ -1,6 +1,7 @@
 package com.emre1s.playstore.ui;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -20,7 +21,9 @@ import com.emre1s.playstore.app_details.AppDetailsViewModel;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AppPageActivity extends AppCompatActivity {
 
@@ -73,7 +76,7 @@ public class AppPageActivity extends AppCompatActivity {
                             } else if (appDetails.getAdSupported()) {
                                 appMonetize.setText("Contains ads");
                             } else if (appDetails.getOffersIap()) {
-                                appMonetize.setText(" In-app purchases");
+                                appMonetize.setText("In-app purchases");
                             }
 
                             String contentRating = appDetails.getContentRating();
@@ -85,8 +88,13 @@ public class AppPageActivity extends AppCompatActivity {
                             appInstalls.setText(appDetails.getInstalls());
                             appRate.setText(contentRate);
 
-                            appSummary.setText(appDetails.getSummary());
-                            screenshotsAdapter.setScreenshots(Arrays.asList(appDetails.getScreenshots().split(",")));
+                            appSummary.setText(Html.fromHtml(appDetails.getSummary()));
+                            List<String> appScreenshots = new ArrayList<>(Arrays.asList(appDetails.getScreenshots().split(",")));
+                            String appVideoImage = appDetails.getVideoImage();
+                            if (appVideoImage != null) {
+                                appScreenshots.add(0, appVideoImage);
+                            }
+                            screenshotsAdapter.setScreenshots(appScreenshots);
                         }
                     }
                 });

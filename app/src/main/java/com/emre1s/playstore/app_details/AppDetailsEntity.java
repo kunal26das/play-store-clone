@@ -1,6 +1,7 @@
 package com.emre1s.playstore.app_details;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -22,6 +23,8 @@ import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SCREENSHOTS;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SIZE;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SUMMARY;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_TITLE;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO;
+import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO_IMAGE;
 
 @Entity(tableName = TABLE_APP_DETAILS)
 public class AppDetailsEntity {
@@ -75,6 +78,14 @@ public class AppDetailsEntity {
     @ColumnInfo(name = KEY_SCREENSHOTS)
     private String mScreenshots;
 
+    @Nullable
+    @ColumnInfo(name = KEY_VIDEO)
+    private String mVideo;
+
+    @Nullable
+    @ColumnInfo(name = KEY_VIDEO_IMAGE)
+    private String mVideoImage;
+
     @NonNull
     @ColumnInfo(name = KEY_AD_SUPPORTED)
     private Boolean mAdSupported;
@@ -95,6 +106,8 @@ public class AppDetailsEntity {
                             @NonNull String mGenre,
                             @NonNull String mIcon,
                             @NonNull String mScreenshots,
+                            @Nullable String mVideo,
+                            @Nullable String mVideoImage,
                             @NonNull Boolean mAdSupported,
                             @NonNull String mContentRating) {
         this.mAppId = mAppId;
@@ -109,6 +122,8 @@ public class AppDetailsEntity {
         this.mGenre = mGenre;
         this.mIcon = mIcon;
         this.mScreenshots = mScreenshots;
+        this.mVideo = mVideo;
+        this.mVideoImage = mVideoImage;
         this.mAdSupported = mAdSupported;
         this.mContentRating = mContentRating;
     }
@@ -126,6 +141,8 @@ public class AppDetailsEntity {
         this.mGenre = appDetails.getmGenre();
         this.mIcon = appDetails.getmIcon();
         this.mScreenshots = getString(appDetails.getmScreenshots());
+        this.mVideo = appDetails.getmVideo();
+        this.mVideoImage = appDetails.getmVideoImage();
         this.mAdSupported = appDetails.hasAdSupport();
         this.mContentRating = appDetails.getmContentRating();
     }
@@ -245,6 +262,24 @@ public class AppDetailsEntity {
 
     public void setScreenshots(@NonNull String mScreenshots) {
         this.mScreenshots = mScreenshots;
+    }
+
+    @Nullable
+    public String getVideo() {
+        return mVideo;
+    }
+
+    public void setVideo(@Nullable String mVideo) {
+        this.mVideo = mVideo;
+    }
+
+    @Nullable
+    public String getVideoImage() {
+        return mVideoImage;
+    }
+
+    public void setVideoImage(@Nullable String mVideoImage) {
+        this.mVideoImage = mVideoImage;
     }
 
     @NonNull

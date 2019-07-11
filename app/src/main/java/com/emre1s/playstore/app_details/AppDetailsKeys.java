@@ -33,6 +33,8 @@ public class AppDetailsKeys {
     public static final String KEY_ICON = "icon";
     public static final String KEY_HEADER_IMAGE = "headerImage";
     public static final String KEY_SCREENSHOTS = "screenshots";
+    public static final String KEY_VIDEO = "video";
+    public static final String KEY_VIDEO_IMAGE = "videoImage";
     public static final String KEY_CONTENT_RATING = "contentRating";
     public static final String KEY_AD_SUPPORTED = "adSupported";
     public static final String KEY_RELEASED = "released";
