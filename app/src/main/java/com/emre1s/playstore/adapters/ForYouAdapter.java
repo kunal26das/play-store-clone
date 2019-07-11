@@ -21,14 +21,19 @@ import java.util.Arrays;
 
 public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder> {
 
+    public void setCategoryNames(String[] categoryNames) {
+        this.categoryNames = categoryNames;
+        notifyDataSetChanged();
+    }
+
     private String[] categoryNames;
     private Context context;
     private PageViewModel pageViewModel;
 
-    public ForYouAdapter(Context context,PageViewModel pageViewModel, String[] categoryNames) {
+    public ForYouAdapter(Context context,PageViewModel pageViewModel) {
         this.context = context;
         this.pageViewModel = pageViewModel;
-        this.categoryNames = categoryNames;
+        categoryNames = new String[0];
     }
 
     @NonNull

@@ -1,7 +1,10 @@
 package com.emre1s.playstore.adapters;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -25,30 +28,36 @@ public class TopChartsTabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
             case 0: {
                 category = "topselling_free";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             case 1: {
                 category = "topgrossing";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             case 2: {
                 category = "movers_shakers";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             case 3: {
                 category="topselling_paid";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             default:{
                 category="topselling_free";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
         }
 
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        Log.d(TopChartsTabAdapter.class.getSimpleName(), "I was called");
+        return super.instantiateItem(container, position);
     }
 
     @Override

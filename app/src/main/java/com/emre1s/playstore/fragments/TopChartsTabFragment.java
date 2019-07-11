@@ -32,6 +32,7 @@ public class TopChartsTabFragment extends Fragment {
         ViewPager topChartsViewPager= root.findViewById(R.id.top_charts_viewpager);
         topChartsTab.setupWithViewPager(topChartsViewPager);
         topChartsTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
+
         TopChartsTabAdapter topChartsTabAdapter=new TopChartsTabAdapter(getContext(), getChildFragmentManager());
         topChartsViewPager.setAdapter(topChartsTabAdapter);
 
