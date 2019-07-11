@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "404115264029",
+    "firebase_url": "https://play-store-1b998.firebaseio.com",
+    "project_id": "play-store-1b998",
+    "storage_bucket": "play-store-1b998.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404115264029:android:f45f533d92f4f20e",
+        "android_client_info": {
+          "package_name": "com.emre1s.playstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404115264029-16lmh6iv5b8b4ah3ah95qrfj66skupe7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAigTvzGWzg7uFvskMNjw0RU8oLNSc42sw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404115264029-16lmh6iv5b8b4ah3ah95qrfj66skupe7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
