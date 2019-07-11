@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="94dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginBottom="70dp"
+        android:text="HAGO"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/app_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_developer"
+        android:layout_width="99dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="0dp"
+        android:text="Hago Games"
+        app:layout_constraintStart_toEndOf="@+id/app_icon"
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+    <TextView
+        android:id="@+id/app_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="34dp"
+        android:text="46MB ."
+        app:layout_constraintStart_toEndOf="@+id/app_icon"
+        app:layout_constraintTop_toBottomOf="@+id/app_developer" />
+
+    <TextView
+        android:id="@+id/app_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="34dp"
+        android:text="4.5 *"
+        app:layout_constraintStart_toEndOf="@+id/app_size"
+        app:layout_constraintTop_toBottomOf="@+id/app_developer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.emre1s.playstore.ui.main.TopChartsFragment;
+
 public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 4;
 
@@ -19,7 +21,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
                 return AppCategoryFragment.newInstance();
             }
             case 1: {
-                return AppCategoryFragment.newInstance();
+                return new TopChartsFragment();
             }
             case 2: {
                 return AppCategoryFragment.newInstance();
