@@ -7,6 +7,9 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.models.App;
 
 public class PageViewModel extends ViewModel {
 
@@ -20,9 +23,80 @@ public class PageViewModel extends ViewModel {
 
     private String[] tabItemNames = {"For You", "Top Charts", "Categories",
             "Family"};
+
+    private MutableLiveData<App> receivedAppLiveData;
+
+    String[] allCategories = new String[]{
+            "GAME",
+            "FAMILY",
+            "ART_AND_DESIGN",
+            "AUTO_AND_VEHICLES",
+            "BEAUTY",
+            "BOOKS_AND_REFERENCE",
+            "BUSINESS",
+            "COMICS",
+            "COMMUNICATION",
+            "DATING",
+            "EDUCATION",
+            "ENTERTAINMENT",
+            "EVENTS",
+            "FINANCE",
+            "FOOD_AND_DRINK",
+            "HEALTH_AND_FITNESS",
+            "HOUSE_AND_HOME",
+            "LIBRARIES_AND_DEMO",
+            "LIFESTYLE",
+            "MAPS_AND_NAVIGATION",
+            "MEDICAL",
+            "MUSIC_AND_AUDIO",
+            "NEWS_AND_MAGAZINES",
+            "PARENTING",
+            "PERSONALIZATION",
+            "PHOTOGRAPHY",
+            "PRODUCTIVITY",
+            "SHOPPING",
+            "SOCIAL",
+            "SPORTS",
+            "TOOLS",
+            "TRAVEL_AND_LOCAL",
+            "VIDEO_PLAYERS",
+            "ANDROID_WEAR",
+            "WEATHER",
+            "GAME",
+            "GAME_ACTION",
+            "GAME_ADVENTURE",
+            "GAME_ARCADE",
+            "GAME_BOARD",
+            "GAME_CARD",
+            "GAME_CASINO",
+            "GAME_CASUAL",
+            "GAME_EDUCATIONAL",
+            "GAME_MUSIC",
+            "GAME_PUZZLE",
+            "GAME_RACING",
+            "GAME_ROLE_PLAYING",
+            "GAME_SIMULATION",
+            "GAME_SPORTS",
+            "GAME_STRATEGY",
+            "GAME_TRIVIA",
+            "GAME_WORD",
+            "FAMILY",
+            "FAMILY_ACTION",
+            "FAMILY_BRAINGAMES",
+            "FAMILY_CREATE",
+            "FAMILY_EDUCATION",
+            "FAMILY_MUSICVIDEO",
+            "FAMILY_PRETEND",
+            "APPLICATION"
+    };
     private int[] tabItemIcons = {R.drawable.ic_explorer, R.drawable.ic_graphic_eq_black_24dp,
             R.drawable.ic_category,
             R.drawable.icons8_starfish_24};
+
+    public PageViewModel() {
+        receivedAppLiveData = new MutableLiveData<>();
+
+    }
 
     public void setIndex(int index) {
         mIndex.setValue(index);
@@ -38,6 +112,28 @@ public class PageViewModel extends ViewModel {
 
     public int[] getTabItemIcons() {
         return tabItemIcons;
+    }
+
+    public String[] getAllCategories() {
+        return allCategories;
+    }
+
+    public void makeCategoryApiCall(String category, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.appsByCategoryApiCall(apiResponseCallback, category);
+    }
+
+    public void makeCollectionApiCall(String collection, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.appsByCollectionApiCall(apiResponseCallback, collection);
+    }
+
+    public void makeSimilarAppsApiCall(String packageName, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
+    }
+    public MutableLiveData<App> getReceivedAppLiveData() {
+        return receivedAppLiveData;
     }
 }
 
