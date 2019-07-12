@@ -19,6 +19,22 @@ public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
+    public CategoryList getAppCategoryList() {
+        return appCategoryList;
+    }
+
+    public CategoryList getFamilyCategoryList() {
+        return familyCategoryList;
+    }
+
+    public CategoryList getGamesCategoryList() {
+        return gamesCategoryList;
+    }
+
+    private CategoryList appCategoryList = RetrofitApiFactory.getAppCategories();
+    private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
+    private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
+
     private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override

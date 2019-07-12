@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.repository.Repository;
 import com.facebook.stetho.Stetho;
@@ -66,9 +67,9 @@ public class MainActivity extends AppCompatActivity
         CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
         CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
         CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
-        Repository.setAppCategories(appsCategory);
-        Repository.setFamilyCategories(familyCategory);
-        Repository.setGameCategories(gamesCategory);
+        RetrofitApiFactory.setAppCategories(appsCategory);
+        RetrofitApiFactory.setFamilyCategories(familyCategory);
+        RetrofitApiFactory.setGameCategories(gamesCategory);
 
         for (CategoryList.Category category : appsCategory.getCategoryList()) {
             Log.d(TAG, " App Category Name: "  + category.getName() + " ID: " + category.getId());

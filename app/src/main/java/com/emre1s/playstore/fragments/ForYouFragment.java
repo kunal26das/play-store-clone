@@ -85,9 +85,9 @@ public class ForYouFragment extends Fragment {
             @Override
             public void onChanged(Integer tabPosition) {
                 if (tabPosition == 0) {
-                    forYouAdapter.setCategoryNames(Repository.getGameCategories());
+                    forYouAdapter.setCategoryNames(pageViewModel.getGamesCategoryList());
                 } else {
-                    forYouAdapter.setCategoryNames(Repository.getAppCategories());
+                    forYouAdapter.setCategoryNames(pageViewModel.getAppCategoryList());
                 }
             }
         });
