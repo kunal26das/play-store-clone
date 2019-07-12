@@ -60,7 +60,7 @@ public class PlaceholderFragment extends Fragment {
         SubCategoryPagerAdapter subCategoryPagerAdapter =
                 new SubCategoryPagerAdapter(getChildFragmentManager(), pageViewModel.getmIndex().getValue());
         subViewPager.setAdapter(subCategoryPagerAdapter);
-        //subViewPager.setOffscreenPageLimit(3);
+        subViewPager.setOffscreenPageLimit(4); //Todo: Might want to remove this
 
         setupTabViews(tabLayout, pageViewModel.getTabItemNames(), pageViewModel.getTabItemIcons());
 

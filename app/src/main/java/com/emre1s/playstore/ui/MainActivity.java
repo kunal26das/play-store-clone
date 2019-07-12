@@ -1,63 +1,51 @@
-package com.emre1s.playstore;
+package com.emre1s.playstore.ui;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.emre1s.playstore.adapters.AllCategoriesAdapter;
-import com.emre1s.playstore.adapters.TopCategoryAdapter;
+import com.emre1s.playstore.R;
+import com.emre1s.playstore.models.CategoryList;
+import com.emre1s.playstore.repository.Repository;
 import com.facebook.stetho.Stetho;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import android.view.Menu;
 import android.view.MenuItem;
 
-import android.view.Menu;
 import android.speech.RecognizerIntent;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
-
-
-import java.util.Arrays;
-
-import io.reactivex.Observable;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FloatingSearchView searchView;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -65,6 +53,36 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Stetho.initializeWithDefaults(this);
+
+        String myJson = inputStreamToString(getResources().openRawResource(R.raw.apps));
+        Log.d(TAG,  myJson);
+
+        String familyJson = inputStreamToString(getResources().openRawResource(R.raw.family));
+        Log.d(TAG,  familyJson);
+
+        String gamesJson = inputStreamToString(getResources().openRawResource(R.raw.games));
+        Log.d(TAG, gamesJson);
+
+        CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
+        CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
+        CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
+        Repository.setAppCategories(appsCategory);
+        Repository.setFamilyCategories(familyCategory);
+        Repository.setGameCategories(gamesCategory);
+
+        for (CategoryList.Category category : appsCategory.getCategoryList()) {
+            Log.d(TAG, " App Category Name: "  + category.getName() + " ID: " + category.getId());
+        }
+
+        for (CategoryList.Category category : familyCategory.getCategoryList()) {
+            Log.d(TAG, "Family Category name: " + category.getName() + category.getId());
+        }
+
+        for (CategoryList.Category category : gamesCategory.getCategoryList()) {
+            Log.d(TAG, "Game Category name: " + category.getName() + category.getId());
+        }
+
+
 
         SectionsPagerAdapter sectionsPagerAdapter = new 
         SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -166,6 +184,17 @@ public class MainActivity extends AppCompatActivity
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 searchView.setSearchText(result.get(0));
             }
+        }
+    }
+
+    public String inputStreamToString(InputStream inputStream) {
+        try {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, bytes.length);
+            String json = new String(bytes);
+            return json;
+        } catch (IOException e) {
+            return null;
         }
     }
 }

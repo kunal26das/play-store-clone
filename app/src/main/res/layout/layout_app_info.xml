@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteColor"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     android:paddingTop="16dp"
     android:paddingStart="16dp"
@@ -25,7 +25,7 @@
         android:layout_marginStart="20dp"
         android:paddingBottom="4dp"
         android:text="App Name"
-        android:textColor="@color/blackColor"
+        android:textColor="@android:color/black"
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="App Publisher Name"
-        android:textColor="@color/primaryColor"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_title" />
 
@@ -53,8 +53,8 @@
         android:paddingBottom="6dp"
         android:text="App Genre"
         android:textSize="12sp"
-        app:chipBackgroundColor="@color/whiteColor"
-        app:chipStrokeColor="@color/grayColor"
+        app:chipBackgroundColor="@color/colorWhite"
+        app:chipStrokeColor="@color/colorGrey"
         app:chipStrokeWidth="1dp"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_developer" />
@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="46dp"
         android:layout_marginTop="24dp"
-        android:background="@color/primaryColor"
+        android:background="@color/colorPrimary"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:text="INSTALL"

@@ -1,5 +1,6 @@
 package com.emre1s.playstore.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.models.CategoryList;
+import com.emre1s.playstore.repository.Repository;
+import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 public class ForYouFragment extends Fragment {
@@ -61,6 +65,19 @@ public class ForYouFragment extends Fragment {
             @Override
             public void onChanged(App app) {
                 Log.d("Emre1s", "App received: " + app.getTitle());
+//                Intent intent = new Intent(getContext(), AppPageActivity.class);
+//                intent.putExtra("packageName", app.getAppId());
+//                startActivity(intent);
+            }
+        });
+
+        pageViewModel.getSelectedCategory().observe(this, new Observer<CategoryList.Category>() {
+            @Override
+            public void onChanged(CategoryList.Category category) {
+                Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+                Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                startActivity(intent);
             }
         });
 
@@ -68,9 +85,9 @@ public class ForYouFragment extends Fragment {
             @Override
             public void onChanged(Integer tabPosition) {
                 if (tabPosition == 0) {
-                    forYouAdapter.setCategoryNames(pageViewModel.getGameCategories());
+                    forYouAdapter.setCategoryNames(Repository.getGameCategories());
                 } else {
-                    forYouAdapter.setCategoryNames(pageViewModel.getAllCategories());
+                    forYouAdapter.setCategoryNames(Repository.getAppCategories());
                 }
             }
         });

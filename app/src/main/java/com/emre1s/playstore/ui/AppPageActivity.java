@@ -1,7 +1,9 @@
 package com.emre1s.playstore.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -28,12 +30,16 @@ import java.util.List;
 public class AppPageActivity extends AppCompatActivity {
 
     private static final String EMPTY_STRING = "";
-    private static final String SAMPLE_APP_ID = "com.supercell.clashofclans";
+    private static String SAMPLE_APP_ID = "com.supercell.clashofclans";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_page);
+
+        Intent intent = getIntent();
+        SAMPLE_APP_ID = intent.getStringExtra("packageName");
+        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + SAMPLE_APP_ID);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
@@ -110,8 +116,12 @@ public class AppPageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.homeAsUp:
+                this.finish();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 }
