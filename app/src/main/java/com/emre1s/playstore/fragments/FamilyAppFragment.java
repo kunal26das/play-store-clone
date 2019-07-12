@@ -59,8 +59,6 @@ public class FamilyAppFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Hello",Toast.LENGTH_SHORT).show();
-//                Intent intent=new Intent(getContext(), TopCharts.class);
-//                startActivity(intent);
             }
         });
 
