@@ -32,7 +32,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
                 return AppCategoryFragment.newInstance();
             }
             case 3: {
-                return AppCategoryFragment.newInstance();
+                return FamilyAppFragment.newInstance();
             }
             default: {
                 return null;

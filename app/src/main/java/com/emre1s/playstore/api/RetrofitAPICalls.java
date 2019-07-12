@@ -23,4 +23,11 @@ interface RetrofitAPICalls {
 
 //    @GET("suggestions/")
 //    Call<>
+
+    @GET(" ")
+    Call<App[]> getAppsByCollectionCategory(
+            @Query("collection") String collection,
+            @Query("category") String category
+    );
+
 }
