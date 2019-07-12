@@ -93,6 +93,8 @@ public class PageViewModel extends ViewModel {
             R.drawable.ic_category,
             R.drawable.icons8_starfish_24};
 
+    private String collection= "topselling_free";
+
     public PageViewModel() {
         receivedAppLiveData = new MutableLiveData<>();
 
@@ -132,8 +134,12 @@ public class PageViewModel extends ViewModel {
         RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
         retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
     }
+
+    public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback){
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
+    }
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
 }
-

@@ -20,7 +20,7 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textAlignment="center"
-        android:textColor="@color/blackColor"
+        android:textColor="@android:color/black"
         android:textSize="14sp" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_gravity="center"
         android:paddingTop="16dp"
         android:text="READ MORE"
-        android:textColor="@color/primaryColor"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
 </LinearLayout>

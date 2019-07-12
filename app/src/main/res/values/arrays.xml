@@ -21,4 +21,13 @@
         <item>@drawable/book_open</item>
         <item>@drawable/forum</item>
     </integer-array>
+
+    <string-array name="family_categories">
+        <item>Action &amp; Adventure</item>
+        <item>Brain Games</item>
+        <item>Creativity</item>
+        <item>Education</item>
+        <item>Music &amp; Video</item>
+        <item>Pretend Play</item>
+    </string-array>
 </resources>

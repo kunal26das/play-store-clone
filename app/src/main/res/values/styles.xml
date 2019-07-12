@@ -1,34 +1,69 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<!--<resources xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimaryDark">@android:color/white</item>-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="android:navigationBarColor">@android:color/white</item>-->
+    <!--</style>-->
+
+    <!--<style name="ToolbarTheme" parent="AppTheme">-->
+        <!--<item name="android:textColorSecondary">@android:color/darker_gray</item>-->
+        <!--<item name="android:background">@android:color/white</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
+
+    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />-->
+
+    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />-->
+
+
+    <!--<style name="style_stats_linear_layout">-->
+        <!--<item name="android:layout_gravity">center</item>-->
+        <!--<item name="android:paddingTop">4dp</item>-->
+        <!--<item name="android:paddingEnd">20dp</item>-->
+        <!--<item name="android:paddingStart">20dp</item>-->
+        <!--<item name="android:paddingBottom">8dp</item>-->
+        <!--<item name="android:orientation">vertical</item>-->
+    <!--</style>-->
+
+<!--</resources>-->
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">@color/whiteColor</item>
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="android:navigationBarColor">@color/whiteColor</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ToolbarTheme" parent="AppTheme">
-        <item name="android:textColorSecondary">@color/grayColor</item>
-        <item name="android:background">@color/whiteColor</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ToolbarTheme" parent="AppTheme">
+    <item name="android:textColorSecondary">@android:color/darker_gray</item>
+    <item name="android:background">@android:color/white</item>
+    </style>
 
     <style name="style_stats_linear_layout">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingEnd">20dp</item>
-        <item name="android:paddingStart">20dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:orientation">vertical</item>
+    <item name="android:layout_gravity">center</item>
+    <item name="android:paddingTop">4dp</item>
+    <item name="android:paddingEnd">20dp</item>
+    <item name="android:paddingStart">20dp</item>
+    <item name="android:paddingBottom">8dp</item>
+    <item name="android:orientation">vertical</item>
     </style>
 
 </resources>
