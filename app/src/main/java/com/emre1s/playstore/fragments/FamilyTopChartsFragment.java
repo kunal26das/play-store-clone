@@ -23,12 +23,14 @@ import java.util.Arrays;
 
 public class FamilyTopChartsFragment extends Fragment {
     private String collection;
-    public FamilyTopChartsFragment(String collection){
-        this.collection=collection;
+
+    public FamilyTopChartsFragment(String collection) {
+        this.collection = collection;
     }
 
-    public FamilyTopChartsFragment(){
+    public FamilyTopChartsFragment() {
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,8 +45,8 @@ public class FamilyTopChartsFragment extends Fragment {
         pageViewModel.makeCategoryCollectionApiCall(collection, "FAMILY", new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
-                Log.d("Success",popularApp.length+"");
-                topChartsAdapter.setmList(Arrays.asList(popularApp).subList(0,3));
+                Log.d("Success", popularApp.length + "");
+                topChartsAdapter.setmList(Arrays.asList(popularApp).subList(0, 3));
             }
 
             @Override

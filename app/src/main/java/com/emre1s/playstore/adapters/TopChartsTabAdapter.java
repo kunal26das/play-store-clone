@@ -18,11 +18,11 @@ public class TopChartsTabAdapter extends FragmentPagerAdapter {
     String category;
     Context mContext;
     @StringRes
-    private static final int[] topChartsTabItemNames =new int[] {R.string.topFree,R.string.topGrossing,R.string.trending,R.string.topPaid};
+    private static final int[] topChartsTabItemNames = new int[]{R.string.topFree, R.string.topGrossing, R.string.trending, R.string.topPaid};
 
-    public TopChartsTabAdapter(Context context, FragmentManager fragmentManager){
+    public TopChartsTabAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
-        mContext=context;
+        mContext = context;
     }
 
     @Override
@@ -41,11 +41,11 @@ public class TopChartsTabAdapter extends FragmentPagerAdapter {
                 return new TopChartsFragment(category);
             }
             case 3: {
-                category="topselling_paid";
+                category = "topselling_paid";
                 return new TopChartsFragment(category);
             }
-            default:{
-                category="topselling_free";
+            default: {
+                category = "topselling_free";
                 return new TopChartsFragment(category);
             }
         }

@@ -25,12 +25,14 @@ import java.util.Arrays;
 public class TopChartsFragment extends Fragment {
 
     private String category;
-    public TopChartsFragment(String category){
-        this.category=category;
+
+    public TopChartsFragment(String category) {
+        this.category = category;
     }
 
-    public TopChartsFragment(){
+    public TopChartsFragment() {
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class TopChartsFragment extends Fragment {
         pageViewModel.makeCollectionApiCall(category, new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
-                Log.d("Success",popularApp.length+"");
+                Log.d("Success", popularApp.length + "");
                 topChartsAdapter.setmList(Arrays.asList(popularApp));
             }
 

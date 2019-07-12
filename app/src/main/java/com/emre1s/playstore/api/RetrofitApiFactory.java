@@ -95,7 +95,7 @@ public class RetrofitApiFactory {
     }
 
     public void similarAppsApiCall(final ApiResponseCallback apiResponseCallback,
-                                        String packageName) {
+                                   String packageName) {
         retrofitAPICalls.getSimilarApps(packageName).enqueue(new Callback<App[]>() {
             @Override
             public void onResponse(Call<App[]> call, Response<App[]> response) {
@@ -122,8 +122,8 @@ public class RetrofitApiFactory {
     }
 
     public void appsByCollectionCategoryApiCall(String collection, String category,
-                                                final ApiResponseCallback apiResponseCallback){
-        retrofitAPICalls.getAppsByCollectionCategory(collection,category).enqueue(new Callback<App[]>() {
+                                                final ApiResponseCallback apiResponseCallback) {
+        retrofitAPICalls.getAppsByCollectionCategory(collection, category).enqueue(new Callback<App[]>() {
             @Override
             public void onResponse(Call<App[]> call, Response<App[]> response) {
 
