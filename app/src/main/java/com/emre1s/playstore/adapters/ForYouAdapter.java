@@ -45,7 +45,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         pageViewModel.makeCategoryApiCall(categoryNames[position], new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
-                holder.appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
+                holder.appCardAdapter.setAppByCategoryApiResponse(Arrays.asList(popularApp));
             }
 
             @Override

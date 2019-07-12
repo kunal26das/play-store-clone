@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/whiteColor</item>
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="android:navigationBarColor">@color/whiteColor</item>
+        <item name="android:navigationBarColor">@color/whiteColorTransparent</item>
 
         <item name="android:windowLightStatusBar">true</item>
 

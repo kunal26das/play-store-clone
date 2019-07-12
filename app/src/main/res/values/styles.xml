@@ -4,7 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimaryDark">@color/whiteColor</item>
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="android:navigationBarColor">@color/whiteColor</item>
+        <item name="android:navigationBarColor">@color/whiteColorTransparent</item>
     </style>
 
     <style name="ToolbarTheme" parent="AppTheme">

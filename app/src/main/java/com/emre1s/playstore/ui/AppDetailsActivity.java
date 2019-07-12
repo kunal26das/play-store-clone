@@ -25,10 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AppPageActivity extends AppCompatActivity {
+public class AppDetailsActivity extends AppCompatActivity {
 
     private static final String EMPTY_STRING = "";
-    private static final String SAMPLE_APP_ID = "com.supercell.clashofclans";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,14 @@ public class AppPageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        String appId = null;
+
+        if (getIntent().hasExtra("APP_ID")) {
+            appId = getIntent().getStringExtra("APP_ID");
+        } else {
+            finish();
         }
 
         final ImageView appIcon = findViewById(R.id.iv_app_icon);
@@ -62,7 +69,7 @@ public class AppPageActivity extends AppCompatActivity {
         appScreenshots.setAdapter(screenshotsAdapter);
 
         AppDetailsViewModel appDetailsViewModel = ViewModelProviders.of(this).get(AppDetailsViewModel.class);
-        appDetailsViewModel.getAppDetails(SAMPLE_APP_ID)
+        appDetailsViewModel.getAppDetails(appId)
                 .observe(this, new Observer<AppDetailsEntity>() {
                     @Override
                     public void onChanged(AppDetailsEntity appDetails) {
@@ -110,6 +117,10 @@ public class AppPageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case android.R.id.home: {
+                onBackPressed();
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

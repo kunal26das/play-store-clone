@@ -6,9 +6,6 @@
 
     <color name="colorCategoryText">@color/colorGrey</color>
     <color name="colorSubCategory">@color/colorGreyDark</color>
-    
-
-
 
     <!--Raw colors-->
     <color name="colorGreen">#008F5F</color>
@@ -16,5 +13,16 @@
     <color name="colorGrey">#767676</color>
     <color name="colorGreyDark">#616161</color>
     <color name="colorLightGrey">#EDEDED</color>
+
+    <!-- Kunal colors -->
+    <color name="primaryColor">#01875f</color>
+    <color name="primaryLightColor">#4bb88c</color>
+    <color name="primaryDarkColor">#005935</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="whiteColor">#ffffff</color>
+    <color name="blackColor">#000000</color>
+    <color name="grayColor">#757575</color>
+    <color name="silverColor">#ecedef</color>
+    <color name="whiteColorTransparent">#FFFFFF</color>
 
 </resources>

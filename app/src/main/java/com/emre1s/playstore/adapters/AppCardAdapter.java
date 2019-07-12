@@ -1,5 +1,6 @@
 package com.emre1s.playstore.adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.ui.AppDetailsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -21,11 +23,11 @@ import java.util.Random;
 
 public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHolder> {
 
-    private List<App> appByCategoryApiRespons;
+    private List<App> appByCategoryApiResponse;
     private PageViewModel pageViewModel;
 
     public AppCardAdapter(PageViewModel pageViewModel) {
-        appByCategoryApiRespons = new ArrayList<>();
+        appByCategoryApiResponse = new ArrayList<>();
         this.pageViewModel = pageViewModel;
     }
 
@@ -40,22 +42,30 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d("Emre1s", "Image icon: " + appByCategoryApiRespons.get(position).getIcon());
-        Picasso.get().load("https:" + appByCategoryApiRespons.get(position)
+        Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
+        Picasso.get().load("https:" + appByCategoryApiResponse.get(position)
                 .getIcon()).into(holder.appIcon);
-        holder.appName.setText(appByCategoryApiRespons.get(position).getTitle());
+        holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
         holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiRespons.get(position));
+                pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position));
+            }
+        });*/
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AppDetailsActivity.class);
+                intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
+                view.getContext().startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return appByCategoryApiRespons.size();
+        return appByCategoryApiResponse.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,8 +81,8 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
         }
     }
 
-    public void setAppByCategoryApiRespons(List<App> appByCategoryApiRespons) {
-        this.appByCategoryApiRespons = appByCategoryApiRespons;
+    public void setAppByCategoryApiResponse(List<App> appByCategoryApiResponse) {
+        this.appByCategoryApiResponse = appByCategoryApiResponse;
         notifyDataSetChanged();
     }
 

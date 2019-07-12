@@ -1,33 +1,12 @@
-package com.emre1s.playstore;
+package com.emre1s.playstore.ui;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.emre1s.playstore.adapters.AllCategoriesAdapter;
-import com.emre1s.playstore.adapters.TopCategoryAdapter;
-import com.facebook.stetho.Stetho;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-
-import android.view.Menu;
-import android.view.MenuItem;
-
-import android.view.Menu;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,15 +20,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.emre1s.playstore.R;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
+import com.facebook.stetho.Stetho;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-
-import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity
