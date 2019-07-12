@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@mipmap/ic_search_foreground"
+        android:orderInCategory="1"
+        android:title=""
+        app:showAsAction="always" />
+    <item
+        android:orderInCategory="2"
+        android:title="Share" />
+    <item
+        android:orderInCategory="3"
+        android:title="Flag as inappropriate" />
+    <item
+        android:orderInCategory="4"
+        android:title="Enable auto-updates" />
+
+</menu>
