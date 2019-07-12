@@ -14,10 +14,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".ui.MoreAppsActivity"></activity>
+
         <activity android:name=".ui.TopCharts"></activity>
-        <activity android:name=".ui.AppPageActivity"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.AppPageActivity"
+            android:theme="@style/AppPage.NoActionBar"></activity>
+
     </application>
 
 </manifest>

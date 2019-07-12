@@ -10,10 +10,32 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.models.CategoryList;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
+
+    public CategoryList getAppCategoryList() {
+        return appCategoryList;
+    }
+
+    public CategoryList getFamilyCategoryList() {
+        return familyCategoryList;
+    }
+
+    public CategoryList getGamesCategoryList() {
+        return gamesCategoryList;
+    }
+
+    private CategoryList appCategoryList = RetrofitApiFactory.getAppCategories();
+    private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
+    private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
+
+    private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
@@ -25,6 +47,39 @@ public class PageViewModel extends ViewModel {
             "Family"};
 
     private MutableLiveData<App> receivedAppLiveData;
+
+    public MutableLiveData<Integer> getTabPosition() {
+        return tabPosition;
+    }
+
+    private MutableLiveData<Integer> tabPosition = new MutableLiveData<>();
+
+    public MutableLiveData<String> getAppTopChartsCategory() {
+        return appTopChartsCategory;
+    }
+
+    private MutableLiveData<String> appTopChartsCategory = new MutableLiveData<>();
+
+//    String[] gameCategories = new String[] {
+//            "GAME",
+//            "GAME_ACTION",
+//            "GAME_ADVENTURE",
+//            "GAME_ARCADE",
+//            "GAME_BOARD",
+//            "GAME_CARD",
+//            "GAME_CASINO",
+//            "GAME_CASUAL",
+//            "GAME_EDUCATIONAL",
+//            "GAME_MUSIC",
+//            "GAME_PUZZLE",
+//            "GAME_RACING",
+//            "GAME_ROLE_PLAYING",
+//            "GAME_SIMULATION",
+//            "GAME_SPORTS",
+//            "GAME_STRATEGY",
+//            "GAME_TRIVIA",
+//            "GAME_WORD"
+//    };
 
     String[] allCategories = new String[]{
             "GAME",
@@ -120,6 +175,10 @@ public class PageViewModel extends ViewModel {
         return allCategories;
     }
 
+//    public String[] getGameCategories() {
+//        return gameCategories;
+//    }
+
     public void makeCategoryApiCall(String category, ApiResponseCallback apiResponseCallback) {
         RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
         retrofitApiFactory.appsByCategoryApiCall(apiResponseCallback, category);
@@ -142,4 +201,15 @@ public class PageViewModel extends ViewModel {
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
+
+    public MutableLiveData<Integer> getmIndex() {
+        return mIndex;
+    }
+
+    public MutableLiveData<CategoryList.Category> getSelectedCategory() {
+        return selectedCategory;
+    }
+
 }
+
+

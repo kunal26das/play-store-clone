@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layouts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -23,10 +23,11 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:floatingSearch_searchHint="Search..."
+            app:floatingSearch_searchHint="Google Play"
             app:floatingSearch_suggestionsListAnimDuration="250"
             app:floatingSearch_showSearchKey="false"
             app:floatingSearch_leftActionMode="showHamburger"
+            app:floatingSearch_dimBackground="false"
             app:floatingSearch_close_search_on_keyboard_dismiss="true"
             app:floatingSearch_menu="@menu/menu_main"/>
 
