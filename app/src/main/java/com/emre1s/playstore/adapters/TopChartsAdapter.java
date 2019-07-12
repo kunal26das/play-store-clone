@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopChartsViewHolder> {
     public void setmList(List<App> mList) {
@@ -47,7 +48,7 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         Picasso.get().load(iconPath+ mList.get(position).getIcon()).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
-        holder.appSize.setText("46MB");
+        holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
         holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
     }
 
@@ -73,5 +74,15 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
             appSize=itemLayoutView.findViewById(R.id.app_size);
             appRating=itemLayoutView.findViewById(R.id.app_rating);
         }
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }

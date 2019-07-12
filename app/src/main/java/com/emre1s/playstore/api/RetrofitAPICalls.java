@@ -19,4 +19,9 @@ interface RetrofitAPICalls {
     @GET("apps/similar/")
     Call<App[]> getSimilarApps(
             @Query("id") String packageName);
+    @GET(" ")
+    Call<App[]> getAppsByCollectionCategory(
+            @Query("collection") String collection,
+            @Query("category") String category
+    );
 }

@@ -121,5 +121,33 @@ public class RetrofitApiFactory {
         });
     }
 
+    public void appsByCollectionCategoryApiCall(String collection, String category,
+                                                final ApiResponseCallback apiResponseCallback){
+        retrofitAPICalls.getAppsByCollectionCategory(collection,category).enqueue(new Callback<App[]>() {
+            @Override
+            public void onResponse(Call<App[]> call, Response<App[]> response) {
+
+                if (response.isSuccessful()) {
+                    Log.d("Ruchika", "Successful collection response");
+                    App[] appsByCollectionCategoryApiResponse = response.body();
+                    if (appsByCollectionCategoryApiResponse != null) {
+                        apiResponseCallback.onSuccess(appsByCollectionCategoryApiResponse);
+                    } else {
+                        apiResponseCallback.onFailure();
+                        Log.d("Ruchika", "Collection response is empty");
+                    }
+                } else {
+                    Log.d("Ruchika", "Response not successful collection API");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<App[]> call, Throwable t) {
+                Log.d("Ruchika", "Collection response entire failure");
+            }
+        });
+
+    }
+
 
 }

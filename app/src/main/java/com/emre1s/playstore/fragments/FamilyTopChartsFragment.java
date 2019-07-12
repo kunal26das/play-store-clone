@@ -21,15 +21,13 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.Arrays;
 
-
-public class TopChartsFragment extends Fragment {
-
-    private String category;
-    public TopChartsFragment(String category){
-        this.category=category;
+public class FamilyTopChartsFragment extends Fragment {
+    private String collection;
+    public FamilyTopChartsFragment(String collection){
+        this.collection=collection;
     }
 
-    public TopChartsFragment(){
+    public FamilyTopChartsFragment(){
     }
     @Nullable
     @Override
@@ -39,13 +37,14 @@ public class TopChartsFragment extends Fragment {
         final TopChartsAdapter topChartsAdapter = new TopChartsAdapter();
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         appList.setAdapter(topChartsAdapter);
+        appList.setHasFixedSize(true);
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        pageViewModel.makeCollectionApiCall(category, new ApiResponseCallback() {
+        pageViewModel.makeCategoryCollectionApiCall(collection, "FAMILY", new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
                 Log.d("Success",popularApp.length+"");
-                topChartsAdapter.setmList(Arrays.asList(popularApp));
+                topChartsAdapter.setmList(Arrays.asList(popularApp).subList(0,3));
             }
 
             @Override

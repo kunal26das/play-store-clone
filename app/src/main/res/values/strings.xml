@@ -30,4 +30,6 @@
     <string name="topGrossing">TOP GROSSING</string>
     <string name="trending">TRENDING</string>
     <string name="topPaid">TOP PAID</string>
+    <string name="show_all">SHOW ALL</string>
+    <string name="family_categories">Family categories</string>
 </resources>
