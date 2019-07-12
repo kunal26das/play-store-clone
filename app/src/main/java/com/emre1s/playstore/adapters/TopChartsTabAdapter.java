@@ -53,13 +53,6 @@ public class TopChartsTabAdapter extends FragmentPagerAdapter {
 
     }
 
-    @NonNull
-    @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        Log.d(TopChartsTabAdapter.class.getSimpleName(), "I was called");
-        return super.instantiateItem(container, position);
-    }
-
     @Override
     public int getCount() {
         return ITEM_NUM;

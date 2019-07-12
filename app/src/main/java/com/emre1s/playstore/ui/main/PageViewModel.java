@@ -11,6 +11,9 @@ import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.App;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();

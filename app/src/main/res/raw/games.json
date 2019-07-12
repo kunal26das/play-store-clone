@@ -1,0 +1,75 @@
+[
+  {
+    "name":"Games",
+    "id":"GAME"
+  },
+  {
+    "name":"Games - Action",
+    "id":"GAME_ACTION",
+  },
+  {
+    "name":"Games - Adventure",
+    "id":"GAME_ADVENTURE",
+  },
+  {
+    "name":"Games - Arcade",
+    "id":"GAME_ARCADE",
+  },
+  {
+    "name":"Games - Board",
+    "id":"GAME_BOARD",
+  },
+  {
+    "name":"Games - Card",
+    "id":"GAME_CARD",
+  },
+  {
+    "name":"Games - Casion",
+    "id":"GAME_CASINO",
+  },
+  {
+    "name":"Games - Casual",
+    "id":"GAME_CASUAL",
+  },
+  {
+    "name":"Games - Educational",
+    "id":"GAME_EDUCATIONAL",
+  },
+  {
+    "name":"Games - Music",
+    "id":"GAME_MUSIC",
+  },
+  {
+    "name":"Games - Puzzle",
+    "id":"GAME_PUZZLE",
+  },
+  {
+    "name":"Games - Racing",
+    "id":"GAME_RACING",
+  },
+  {
+    "name":"Games - Role Playing",
+    "id":"GAME_ROLE_PLAYING",
+  },
+  {
+    "name":"Games - Simulation",
+    "id":"GAME_SIMULATION",
+  },
+  {
+    "name":"Games - Sports",
+    "id":"GAME_SPORTS",
+  },
+  {
+    "name":"Games - Strategy",
+    "id":"GAME_STRATEGY",
+  },
+  {
+    "name":"Games - Trivia",
+    "id":"GAME_TRIVIA",
+  },
+  {
+    "name":"Games - Wordplay",
+    "id":"GAME_WORD",
+  },
+  
+]
