@@ -19,7 +19,6 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
-import com.emre1s.playstore.repository.Repository;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
