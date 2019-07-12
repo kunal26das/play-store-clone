@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.CategoryList;
-import com.emre1s.playstore.repository.Repository;
 import com.facebook.stetho.Stetho;
 import com.google.android.material.tabs.TabLayout;
 
