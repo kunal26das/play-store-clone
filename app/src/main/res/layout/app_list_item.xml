@@ -68,11 +68,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="37dp"
         android:layout_marginEnd="137dp"
+        app:layout_constraintBottom_toBottomOf="@+id/app_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/app_size"
-        app:layout_constraintTop_toBottomOf="@+id/app_developer"
+        app:layout_constraintTop_toTopOf="@+id/app_size"
         tools:text="4.5 *" />
 
     <View

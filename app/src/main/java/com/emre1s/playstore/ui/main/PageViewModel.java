@@ -19,6 +19,8 @@ public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
+    private MutableLiveData<String> familyTopChartsCategory = new MutableLiveData<>();
+
     public CategoryList getAppCategoryList() {
         return appCategoryList;
     }
@@ -207,6 +209,10 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<CategoryList.Category> getSelectedCategory() {
         return selectedCategory;
+    }
+
+    public MutableLiveData<String> getFamilyTopChartsCategory() {
+        return familyTopChartsCategory;
     }
 
 }

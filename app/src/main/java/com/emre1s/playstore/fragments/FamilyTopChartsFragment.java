@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,15 +21,32 @@ import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class FamilyTopChartsFragment extends Fragment {
-    private String collection;
 
-    public FamilyTopChartsFragment(String collection) {
-        this.collection = collection;
+    private PageViewModel pageViewModel;
+
+    public FamilyTopChartsFragment(){
     }
 
-    public FamilyTopChartsFragment() {
+    public static Fragment getInstance(String category) {
+        FamilyTopChartsFragment topChartsFragment = new FamilyTopChartsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("category", category);
+        topChartsFragment.setArguments(bundle);
+        return topChartsFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        String category = "topselling_free";
+        if (getArguments() != null) {
+            category = getArguments().getString("category");
+        }
+        pageViewModel.getFamilyTopChartsCategory().setValue(category);
     }
 
     @Nullable
@@ -42,18 +60,25 @@ public class FamilyTopChartsFragment extends Fragment {
         appList.setHasFixedSize(true);
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        pageViewModel.makeCategoryCollectionApiCall(collection, "FAMILY", new ApiResponseCallback() {
+        pageViewModel.getFamilyTopChartsCategory().observe(this, new Observer<String>() {
             @Override
-            public void onSuccess(App[] popularApp) {
-                Log.d("Success", popularApp.length + "");
-                topChartsAdapter.setmList(Arrays.asList(popularApp).subList(0, 3));
-            }
+            public void onChanged(String collection) {
 
-            @Override
-            public void onFailure() {
-                Log.d("onEmptyResponse", "Returned empty response");
+                pageViewModel.makeCategoryCollectionApiCall(collection, "FAMILY", new ApiResponseCallback() {
+                    @Override
+                    public void onSuccess(List<App> popularApp) {
+                        Log.d("Success",popularApp.size()+"");
+                        topChartsAdapter.setmList(popularApp.subList(0,3));
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Log.d("onEmptyResponse", "Returned empty response");
+                    }
+                });
             }
         });
+
         return root;
     }
 }

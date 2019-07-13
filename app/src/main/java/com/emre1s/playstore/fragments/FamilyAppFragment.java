@@ -1,5 +1,6 @@
 package com.emre1s.playstore.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.FamilyTopChartsAdapter;
 import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
+import com.emre1s.playstore.listeners.OnCategoryChanged;
+import com.emre1s.playstore.models.CategoryList;
+import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.tabs.TabLayout;
 
@@ -74,7 +78,15 @@ public class FamilyAppFragment extends Fragment {
         });
 
         RecyclerView familyRecycler = view.findViewById(R.id.family_app_card_rv);
-        final ForYouAdapter familyAdapter = new ForYouAdapter(getContext(), pageViewModel);
+        final ForYouAdapter familyAdapter = new ForYouAdapter(getContext(), pageViewModel, new OnCategoryChanged() {
+            @Override
+            public void changeCategory(CategoryList.Category category) {
+                Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+                Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                startActivity(intent);
+            }
+        });
 
         familyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         familyRecycler.setAdapter(familyAdapter);

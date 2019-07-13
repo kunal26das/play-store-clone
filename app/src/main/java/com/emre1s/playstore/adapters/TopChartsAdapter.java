@@ -24,7 +24,7 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         notifyDataSetChanged();
     }
 
-    private List<App> mList = new ArrayList<>();
+    private List<App> mList=new ArrayList<>();
 
     public TopChartsAdapter() {
     }
@@ -33,7 +33,7 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     @Override
     public TopChartsAdapter.TopChartsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.app_list_item, parent, false);
+                .inflate(R.layout.app_list_item, parent,false);
         TopChartsViewHolder itemViewHolder = new TopChartsViewHolder(itemLayoutView);
 
         return itemViewHolder;
@@ -43,12 +43,12 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     @Override
     public void onBindViewHolder(@NonNull TopChartsAdapter.TopChartsViewHolder holder, int position) {
         Log.d("TopCharts", mList.get(position).getTitle());
-        String iconPath = "https:";
-        holder.sNo.setText(position + 1 + "");
-        Picasso.get().load(iconPath + mList.get(position).getIcon()).into(holder.appIcon);
+        String iconPath="https:";
+        holder.sNo.setText(position+1+"");
+        Picasso.get().load(iconPath+ mList.get(position).getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange(1, 50) + " MB");
+        holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
         holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
     }
 
@@ -67,12 +67,12 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
 
         public TopChartsViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            sNo = itemLayoutView.findViewById(R.id.s_no);
-            appIcon = itemLayoutView.findViewById(R.id.app_icon);
-            appName = itemLayoutView.findViewById(R.id.app_name);
-            appDeveloper = itemLayoutView.findViewById(R.id.app_developer);
-            appSize = itemLayoutView.findViewById(R.id.app_size);
-            appRating = itemLayoutView.findViewById(R.id.app_rating);
+            sNo=itemLayoutView.findViewById(R.id.s_no);
+            appIcon=itemLayoutView.findViewById(R.id.app_icon);
+            appName=itemLayoutView.findViewById(R.id.app_name);
+            appDeveloper= itemLayoutView.findViewById(R.id.app_developer);
+            appSize=itemLayoutView.findViewById(R.id.app_size);
+            appRating=itemLayoutView.findViewById(R.id.app_rating);
         }
     }
 
