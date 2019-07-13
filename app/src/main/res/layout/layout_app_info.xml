@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_app_developer" />
 
     <Button
-        android:id="@+id/btn_install"
+        android:id="@+id/btn_install_app"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginTop="64dp"
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_app_title">
 
         <Button
-            android:id="@+id/btn_uninstall"
+            android:id="@+id/btn_uninstall_app"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginTop="56dp"
@@ -100,7 +100,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_app_icon" />
 
         <Button
-            android:id="@+id/btn_open"
+            android:id="@+id/btn_open_app"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginStart="4dp"
@@ -120,7 +120,7 @@
         android:id="@+id/tv_app_monetize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="104dp"
         android:text="In-app purchases"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"

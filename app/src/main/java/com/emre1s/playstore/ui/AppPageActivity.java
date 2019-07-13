@@ -2,6 +2,7 @@ package com.emre1s.playstore.ui;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -32,8 +33,8 @@ import java.util.List;
 public class AppPageActivity extends AppCompatActivity {
 
     private static final String EMPTY_STRING = "";
+    private static final int UNINSTALL_REQUEST_CODE = 1;
     private String mAppId;
-    private boolean mAppIsInstalled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,29 +56,33 @@ public class AppPageActivity extends AppCompatActivity {
             finish();
         }
 
-        PackageManager packageManager = getPackageManager();
-        try {
-            packageManager.getPackageInfo(mAppId, 0);
-            mAppIsInstalled = true;
-        } catch (PackageManager.NameNotFoundException e) {
-            mAppIsInstalled = false;
-        }
-
         final ImageView appIcon = findViewById(R.id.iv_app_icon);
         final TextView appTitle = findViewById(R.id.tv_app_title);
         final TextView appDeveloper = findViewById(R.id.tv_app_developer);
         final TextView appGenre = findViewById(R.id.tv_app_genre);
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
-        final Button appInstallButton = findViewById(R.id.btn_install);
-        final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
 
-        if (mAppIsInstalled) {
-            appInstallButton.setVisibility(View.GONE);
-            appInstalledLayout.setVisibility(View.VISIBLE);
-        } else {
-            appInstallButton.setVisibility(View.VISIBLE);
-            appInstalledLayout.setVisibility(View.GONE);
+        final Button appOpenButton = findViewById(R.id.btn_open_app);
+        final Button appUninstallButton = findViewById(R.id.btn_uninstall_app);
+
+        PackageManager packageManager = getPackageManager();
+        try {
+            packageManager.getPackageInfo(mAppId, 0);
+            switchButtons(true);
+        } catch (PackageManager.NameNotFoundException e) {
+            switchButtons(false);
         }
+
+        appOpenButton.setOnClickListener(v -> {
+            Intent intentOpenApp = packageManager.getLaunchIntentForPackage(mAppId);
+            startActivity(intentOpenApp);
+        });
+        appUninstallButton.setOnClickListener(v -> {
+            Intent intentUninstallApp = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+            intentUninstallApp.setData(Uri.parse("package:" + mAppId));
+            intentUninstallApp.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+            startActivityForResult(intentUninstallApp, UNINSTALL_REQUEST_CODE);
+        });
 
         final TextView appScore = findViewById(R.id.tv_app_score);
         final TextView appReviews = findViewById(R.id.tv_app_reviews);
@@ -128,6 +133,38 @@ public class AppPageActivity extends AppCompatActivity {
                 });
     }
 
+    private void switchButtons(boolean appIsInstalled) {
+        final TextView appMonetize = findViewById(R.id.tv_app_monetize);
+        final Button appInstallButton = findViewById(R.id.btn_install_app);
+        final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
+        if (appIsInstalled) {
+            appInstallButton.setVisibility(View.GONE);
+            appInstalledLayout.setVisibility(View.VISIBLE);
+            appMonetize.setVisibility(View.GONE);
+        } else {
+            appInstallButton.setVisibility(View.VISIBLE);
+            appInstalledLayout.setVisibility(View.GONE);
+            appMonetize.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == UNINSTALL_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                //Log.d("TAG", "onActivityResult: user accepted the (un)install");
+                switchButtons(false);
+            } else if (resultCode == RESULT_CANCELED) {
+                //Log.d("TAG", "onActivityResult: user canceled the (un)install");
+                switchButtons(true);
+            } else if (resultCode == RESULT_FIRST_USER) {
+                //Log.d("TAG", "onActivityResult: failed to (un)install");
+                switchButtons(true);
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -138,7 +175,7 @@ public class AppPageActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.homeAsUp:
+            case android.R.id.home:
                 onBackPressed();
                 break;
             default:
