@@ -66,7 +66,7 @@ public class FamilyAppFragment extends Fragment {
         topChartsFamilyTab.setupWithViewPager(topChartsFamilyViewPager);
         topChartsFamilyTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
 
-        FamilyTopChartsAdapter familyTopChartsAdapter = new FamilyTopChartsAdapter(getContext(), getChildFragmentManager());
+        FamilyTopChartsAdapter familyTopChartsAdapter = new FamilyTopChartsAdapter(getContext(), getChildFragmentManager(),3);
         topChartsFamilyViewPager.setAdapter(familyTopChartsAdapter);
 
         Button seeMore = view.findViewById(R.id.see_more_button);

@@ -1,15 +1,20 @@
 package com.emre1s.playstore.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.adapters.FamilyTopChartsAdapter;
 import com.emre1s.playstore.fragments.TopChartsTabFragment;
 import com.emre1s.playstore.listeners.OnShowAllClickedListener;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
@@ -18,12 +23,25 @@ public class TopCharts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_charts);
+        setContentView(R.layout.top_charts_family);
         getSupportActionBar().setTitle("Top Charts");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TopChartsTabFragment topChartsTabFragment = new TopChartsTabFragment();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container_top_charts, topChartsTabFragment).commit();
+
+        TabLayout topChartsFamilyTab = findViewById(R.id.top_charts_family_tab);
+        ViewPager topChartsFamilyViewPager = findViewById(R.id.top_charts_family_viewpager);
+
+        topChartsFamilyTab.setupWithViewPager(topChartsFamilyViewPager);
+        topChartsFamilyTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
+
+        FamilyTopChartsAdapter familyTopChartsAdapter = new FamilyTopChartsAdapter(getApplicationContext(),getSupportFragmentManager(),60);
+        topChartsFamilyViewPager.setAdapter(familyTopChartsAdapter);
+
+        Button seeMore = findViewById(R.id.see_more_button);
+        seeMore.setVisibility(View.GONE);
+//
+//        TopChartsTabFragment topChartsTabFragment = new TopChartsTabFragment();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.container_top_charts, topChartsTabFragment).commit();
     }
 
     @Override
