@@ -41,7 +41,7 @@ public class PageViewModel extends ViewModel {
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
-            return  "Hello world from section: " + input;
+            return "Hello world from section: " + input;
         }
     });
 
@@ -194,10 +194,11 @@ public class PageViewModel extends ViewModel {
         retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
     }
 
-    public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback){
+    public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback) {
         RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
         retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
     }
+
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }

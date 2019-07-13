@@ -57,6 +57,8 @@ public class ForYouFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_for_you, container, false);
 
         RecyclerView forYouRecycler = view.findViewById(R.id.rv_for_you);
+        forYouRecycler.setHasFixedSize(true);
+        forYouRecycler.setItemViewCacheSize(20);
 //        ProgressBar progressBar = view.findViewById(R.id.pb_for_you);
 //        progressBar.setIndeterminate(true);
 //        progressBar.setIndeterminateTintList(ColorStateList

@@ -54,7 +54,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder,final int position) {
         holder.categoryName.setText(categoryList.get(position).getName());
         holder.categoryDetailsContainer.setOnClickListener(new View.OnClickListener() {
             @Override

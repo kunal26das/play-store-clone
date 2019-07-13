@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.TopCharts">
-    <fragment
+    <FrameLayout
         android:id="@+id/container_top_charts"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </fragment>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
