@@ -31,7 +31,7 @@
                     android:layout_marginEnd="4dp"
                     android:paddingBottom="4dp"
                     android:text="5.0"
-                    android:textColor="@color/blackColor"
+                    android:textColor="@android:color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -86,7 +86,7 @@
                 android:paddingStart="1.5dp"
                 android:paddingEnd="1.5dp"
                 android:text="3+"
-                android:textColor="@color/blackColor"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -111,7 +111,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="4dp"
                 android:text="Count"
-                android:textColor="@color/blackColor"
+                android:textColor="@android:color/black"
                 android:textSize="14.5sp" />
 
             <TextView

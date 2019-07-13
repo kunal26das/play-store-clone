@@ -13,6 +13,7 @@
     <color name="colorGrey">#767676</color>
     <color name="colorGreyDark">#616161</color>
     <color name="colorLightGrey">#EDEDED</color>
+    <color name="colorWhite">#FFF</color>
 
     <!-- Kunal colors -->
     <color name="primaryColor">#01875f</color>

@@ -25,27 +25,26 @@ public class TopChartsTabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
             case 0: {
                 category = "topselling_free";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             case 1: {
                 category = "topgrossing";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             case 2: {
                 category = "movers_shakers";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             case 3: {
                 category="topselling_paid";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
             default:{
                 category="topselling_free";
-                return new TopChartsFragment(category);
+                return TopChartsFragment.getInstance(category);
             }
         }
 

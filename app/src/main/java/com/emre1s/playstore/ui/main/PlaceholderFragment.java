@@ -3,7 +3,6 @@ package com.emre1s.playstore.ui.main;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,13 +55,13 @@ public class PlaceholderFragment extends Fragment {
 
         ViewPager subViewPager = root.findViewById(R.id.subViewPager);
         tabLayout.setupWithViewPager(subViewPager,false);
+
         SubCategoryPagerAdapter subCategoryPagerAdapter =
-                new SubCategoryPagerAdapter(getChildFragmentManager());
+                new SubCategoryPagerAdapter(getChildFragmentManager(), pageViewModel.getmIndex().getValue());
         subViewPager.setAdapter(subCategoryPagerAdapter);
-        //subViewPager.setOffscreenPageLimit(3);
+        subViewPager.setOffscreenPageLimit(4); //Todo: Might want to remove this
 
         setupTabViews(tabLayout, pageViewModel.getTabItemNames(), pageViewModel.getTabItemIcons());
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -73,6 +72,8 @@ public class PlaceholderFragment extends Fragment {
 
                 ((TextView)tab.getCustomView().findViewById(R.id.tabText))
                         .setTextColor(getResources().getColor(R.color.colorDarkGreen));
+
+
             }
 
             @Override
@@ -90,6 +91,13 @@ public class PlaceholderFragment extends Fragment {
 
             }
         });
+
+        ((ImageView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
+                .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
+                        android.graphics.PorterDuff.Mode.SRC_IN);
+
+        ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
+                .setTextColor(getResources().getColor(R.color.colorDarkGreen));
 
         pageViewModel.getText().observe(this, new Observer<String>() {
             @Override

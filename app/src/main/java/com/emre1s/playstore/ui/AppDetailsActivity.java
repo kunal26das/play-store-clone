@@ -1,7 +1,9 @@
 package com.emre1s.playstore.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -25,28 +27,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AppDetailsActivity extends AppCompatActivity {
+public class AppPageActivity extends AppCompatActivity {
 
     private static final String EMPTY_STRING = "";
+    private static String SAMPLE_APP_ID = "com.supercell.clashofclans";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_page);
 
+        Intent intent = getIntent();
+        SAMPLE_APP_ID = intent.getStringExtra("packageName");
+        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + SAMPLE_APP_ID);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        String appId = null;
-
-        if (getIntent().hasExtra("APP_ID")) {
-            appId = getIntent().getStringExtra("APP_ID");
-        } else {
-            finish();
         }
 
         final ImageView appIcon = findViewById(R.id.iv_app_icon);
@@ -69,7 +68,7 @@ public class AppDetailsActivity extends AppCompatActivity {
         appScreenshots.setAdapter(screenshotsAdapter);
 
         AppDetailsViewModel appDetailsViewModel = ViewModelProviders.of(this).get(AppDetailsViewModel.class);
-        appDetailsViewModel.getAppDetails(appId)
+        appDetailsViewModel.getAppDetails(SAMPLE_APP_ID)
                 .observe(this, new Observer<AppDetailsEntity>() {
                     @Override
                     public void onChanged(AppDetailsEntity appDetails) {
@@ -117,12 +116,12 @@ public class AppDetailsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case android.R.id.home: {
-                onBackPressed();
-                return true;
-            }
+            case R.id.homeAsUp:
+                this.finish();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 }

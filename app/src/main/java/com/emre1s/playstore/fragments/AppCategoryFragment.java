@@ -36,7 +36,9 @@ public class AppCategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_categories, container, false);
 
-        int[] categoryIcons = new int[]{R.drawable.camera,R.drawable.star,R.drawable.music, R.drawable.domain, R.drawable.access_point_network, R.drawable.brush, R.drawable.book_open, R.drawable.forum};
+        int[] categoryIcons = new int[]{R.drawable.camera, R.drawable.star, R.drawable.music,
+                R.drawable.domain, R.drawable.access_point_network, R.drawable.brush,
+                R.drawable.book_open, R.drawable.forum};
         RecyclerView topCategories = view.findViewById(R.id.rv_top_categories);
 
         TopCategoryAdapter topCategoryAdapter = new TopCategoryAdapter(getResources().getStringArray(R.array.top_categories), categoryIcons);

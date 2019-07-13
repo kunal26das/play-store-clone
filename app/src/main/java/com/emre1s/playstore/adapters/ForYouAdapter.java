@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,20 +17,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder> {
 
-    private String[] categoryNames;
+    private List<CategoryList.Category> categoryList;
+
+    public ForYouAdapter(Context context, PageViewModel pageViewModel) {
+        this.context = context;
+        this.pageViewModel = pageViewModel;
+        categoryList = new ArrayList<>();
+    }
     private Context context;
     private PageViewModel pageViewModel;
 
-    public ForYouAdapter(Context context,PageViewModel pageViewModel, String[] categoryNames) {
-        this.context = context;
-        this.pageViewModel = pageViewModel;
-        this.categoryNames = categoryNames;
+    public void setCategoryNames(CategoryList categoryList) {
+        this.categoryList = categoryList.getCategoryList();
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -41,11 +51,19 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.categoryName.setText(categoryNames[position]);
-        pageViewModel.makeCategoryApiCall(categoryNames[position], new ApiResponseCallback() {
+        holder.categoryName.setText(categoryList.get(position).getName());
+        holder.categoryDetailsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
+                pageViewModel.getSelectedCategory().postValue(categoryList.get(position));
+            }
+        });
+        pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
-                holder.appCardAdapter.setAppByCategoryApiResponse(Arrays.asList(popularApp));
+                holder.container.setVisibility(View.VISIBLE);
+                holder.appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
             }
 
             @Override
@@ -58,10 +76,12 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return categoryNames.length ;
+        return categoryList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        CardView container;
+        ConstraintLayout categoryDetailsContainer;
         TextView categoryName;
         RecyclerView categoryApps;
         AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel);
@@ -71,6 +91,8 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             super(itemView);
             categoryName = itemView.findViewById(R.id.category_name);
             categoryApps = itemView.findViewById(R.id.rv_app_cards);
+            container = itemView.findViewById(R.id.cv_apps);
+            categoryDetailsContainer = itemView.findViewById(R.id.category_details_container);
             categoryApps.setLayoutManager(new LinearLayoutManager(context,
                     LinearLayoutManager.HORIZONTAL, false));
             categoryApps.setAdapter(appCardAdapter);

@@ -1,0 +1,32 @@
+{
+  "categories": [
+    {
+      "name": "Family",
+      "id": "FAMILY"
+    },
+    {
+      "name": "Family - Action",
+      "id": "FAMILY_ACTION"
+    },
+    {
+      "name": "Family - Brain Benders",
+      "id": "FAMILY_BRAINGAMES"
+    },
+    {
+      "name": "Family - Create",
+      "id": "FAMILY_CREATE"
+    },
+    {
+      "name": "Family - Education",
+      "id": "FAMILY_EDUCATION"
+    },
+    {
+      "name": "Family - Music & Videos",
+      "id": "FAMILY_MUSICVIDEO"
+    },
+    {
+      "name": "Family - Pretend",
+      "id": "FAMILY_PRETEND"
+    }
+  ]
+}

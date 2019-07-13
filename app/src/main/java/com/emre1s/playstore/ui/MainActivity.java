@@ -21,11 +21,16 @@ import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
 import com.facebook.stetho.Stetho;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FloatingSearchView searchView;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -41,6 +47,36 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Stetho.initializeWithDefaults(this);
+
+        String myJson = inputStreamToString(getResources().openRawResource(R.raw.apps));
+        Log.d(TAG, myJson);
+
+        String familyJson = inputStreamToString(getResources().openRawResource(R.raw.family));
+        Log.d(TAG, familyJson);
+
+        String gamesJson = inputStreamToString(getResources().openRawResource(R.raw.games));
+        Log.d(TAG, gamesJson);
+
+        CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
+        CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
+        CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
+        RetrofitApiFactory.setAppCategories(appsCategory);
+        RetrofitApiFactory.setFamilyCategories(familyCategory);
+        RetrofitApiFactory.setGameCategories(gamesCategory);
+
+        for (CategoryList.Category category : appsCategory.getCategoryList()) {
+            Log.d(TAG, " App Category Name: " + category.getName() + " ID: " + category.getId());
+        }
+
+        for (CategoryList.Category category : familyCategory.getCategoryList()) {
+            Log.d(TAG, "Family Category name: " + category.getName() + category.getId());
+        }
+
+        for (CategoryList.Category category : gamesCategory.getCategoryList()) {
+            Log.d(TAG, "Game Category name: " + category.getName() + category.getId());
+        }
+
+
 
         SectionsPagerAdapter sectionsPagerAdapter = new 
         SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -51,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabs.getTabAt(1).select();
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -60,7 +97,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                Log.d("Success", "SearchTextChanged");
+                Log.d("Emre1s", "SearchTextChanged" + "Old query: " + oldQuery + "New query: " + newQuery);
 //                searchView.swapSuggestions(newSuggestions);
             }
         });
@@ -70,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
             @Override
             public void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView, SearchSuggestion item, int itemPosition) {
-                Log.d("Success", "BindSuggestion" + item.getBody());
+                Log.d("Emre1s", "BindSuggestion" + item.getBody());
 //                textView.setText(item.getBody());
             }
         });
@@ -141,6 +178,17 @@ public class MainActivity extends AppCompatActivity
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 searchView.setSearchText(result.get(0));
             }
+        }
+    }
+
+    public String inputStreamToString(InputStream inputStream) {
+        try {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, bytes.length);
+            String json = new String(bytes);
+            return json;
+        } catch (IOException e) {
+            return null;
         }
     }
 }
