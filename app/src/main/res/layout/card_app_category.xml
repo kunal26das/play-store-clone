@@ -6,6 +6,8 @@
     app:cardElevation="4dp"
     android:background="@android:color/white"
     android:layout_margin="4dp"
+    android:id="@+id/cv_apps"
+    android:visibility="invisible"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

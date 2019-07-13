@@ -1,6 +1,7 @@
 package com.emre1s.playstore.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +19,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.FamilyTopChartsAdapter;
+import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
+import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class FamilyAppFragment extends Fragment {
+    private PageViewModel pageViewModel;
     public FamilyAppFragment() {
 
     }
@@ -28,6 +33,12 @@ public class FamilyAppFragment extends Fragment {
     public static FamilyAppFragment newInstance() {
         FamilyAppFragment familyAppFragment = new FamilyAppFragment();
         return familyAppFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
     }
 
     @Nullable
@@ -61,6 +72,14 @@ public class FamilyAppFragment extends Fragment {
                 Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
             }
         });
+
+        RecyclerView familyRecycler = view.findViewById(R.id.family_app_card_rv);
+        final ForYouAdapter familyAdapter = new ForYouAdapter(getContext(), pageViewModel);
+
+        familyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        familyRecycler.setAdapter(familyAdapter);
+        Log.d("Ruchika-family",pageViewModel.getFamilyCategoryList().getCategoryList().size()+"");
+        familyAdapter.setCategoryNames(pageViewModel.getFamilyCategoryList());
 
         return view;
     }

@@ -16,5 +16,6 @@
     <color name="colorGrey">#767676</color>
     <color name="colorGreyDark">#616161</color>
     <color name="colorLightGrey">#EDEDED</color>
+    <color name="colorWhite">#FFF</color>
 
 </resources>

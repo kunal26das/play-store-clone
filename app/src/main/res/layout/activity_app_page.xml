@@ -5,7 +5,7 @@
     android:id="@+id/content_attendance"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/colorWhite"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -19,8 +19,8 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ToolbarTheme"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:subtitleTextColor="@android:color/darker_gray"
-            app:titleTextColor="@android:color/darker_gray" />
+            app:subtitleTextColor="@color/colorGrey"
+            app:titleTextColor="@color/colorGrey" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

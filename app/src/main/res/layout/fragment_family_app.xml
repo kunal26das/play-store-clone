@@ -41,6 +41,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +85,7 @@
                 android:id="@+id/see_more_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:padding="10dp"
                 android:background="@android:color/white"
                 android:text="@string/show_all"
                 android:textAlignment="center"
@@ -109,6 +110,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/family_app_card_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
