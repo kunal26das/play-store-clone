@@ -60,9 +60,6 @@ public class FamilyAppFragment extends Fragment {
         familyCategories.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         familyCategories.setAdapter(topCategoryAdapter);
 
-        LinearSnapHelper pagerSnapHelper = new LinearSnapHelper();
-        pagerSnapHelper.attachToRecyclerView(familyCategories);
-
         TabLayout topChartsFamilyTab = view.findViewById(R.id.top_charts_family_tab);
         ViewPager topChartsFamilyViewPager = view.findViewById(R.id.top_charts_family_viewpager);
 
@@ -81,6 +78,8 @@ public class FamilyAppFragment extends Fragment {
         });
 
         RecyclerView familyRecycler = view.findViewById(R.id.family_app_card_rv);
+        familyRecycler.setHasFixedSize(true);
+        familyRecycler.setItemViewCacheSize(20);
         final ForYouAdapter familyAdapter = new ForYouAdapter(getContext(), pageViewModel, new OnCategoryChanged() {
             @Override
             public void changeCategory(CategoryList.Category category) {

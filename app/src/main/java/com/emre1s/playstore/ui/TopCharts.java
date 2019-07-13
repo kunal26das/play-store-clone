@@ -3,7 +3,9 @@ package com.emre1s.playstore.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.fragments.TopChartsTabFragment;
@@ -25,8 +27,23 @@ public class TopCharts extends AppCompatActivity{
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        onBackPressed();
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                onBackPressed();
+                break;
+            }
+            case R.id.action_search:{
+                Toast.makeText(this,"Search",Toast.LENGTH_SHORT).show();
+            }
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
