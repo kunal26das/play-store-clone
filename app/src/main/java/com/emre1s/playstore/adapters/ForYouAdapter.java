@@ -52,12 +52,9 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.categoryName.setText(categoryList.get(position).getName());
-        holder.categoryDetailsContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
-                pageViewModel.getSelectedCategory().postValue(categoryList.get(position));
-            }
+        holder.categoryDetailsContainer.setOnClickListener(v -> {
+            Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
+            pageViewModel.getSelectedCategory().postValue(categoryList.get(position));
         });
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override

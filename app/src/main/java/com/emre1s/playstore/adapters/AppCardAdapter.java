@@ -53,13 +53,10 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
                 pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position));
             }
         });*/
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AppPageActivity.class);
-                intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
-                view.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), AppPageActivity.class);
+            intent.putExtra("packageName", appByCategoryApiResponse.get(position).getAppId());
+            view.getContext().startActivity(intent);
         });
     }
 

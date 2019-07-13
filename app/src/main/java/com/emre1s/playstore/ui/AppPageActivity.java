@@ -1,6 +1,7 @@
 package com.emre1s.playstore.ui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -28,16 +29,25 @@ import java.util.List;
 public class AppPageActivity extends AppCompatActivity {
 
     private static final String EMPTY_STRING = "";
-    private static String SAMPLE_APP_ID = "com.supercell.clashofclans";
+    private String mAppId;
+    private boolean mAppInstalled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_page);
 
+        PackageManager packageManager = getPackageManager();
+        try {
+            packageManager.getPackageInfo(mAppId, 0);
+            mAppInstalled = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            mAppInstalled = false;
+        }
+
         Intent intent = getIntent();
-        SAMPLE_APP_ID = intent.getStringExtra("packageName");
-        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + SAMPLE_APP_ID);
+        mAppId = intent.getStringExtra("packageName");
+        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + mAppId);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
@@ -66,7 +76,7 @@ public class AppPageActivity extends AppCompatActivity {
         appScreenshots.setAdapter(screenshotsAdapter);
 
         AppDetailsViewModel appDetailsViewModel = ViewModelProviders.of(this).get(AppDetailsViewModel.class);
-        appDetailsViewModel.getAppDetails(SAMPLE_APP_ID)
+        appDetailsViewModel.getAppDetails(mAppId)
                 .observe(this, appDetails -> {
                     if (appDetails != null) {
                         Picasso.get().load(appDetails.getIcon()).into(appIcon);
