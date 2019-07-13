@@ -12,6 +12,8 @@ import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 
+import javax.inject.Inject;
+
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
@@ -145,6 +147,7 @@ public class PageViewModel extends ViewModel {
             R.drawable.ic_category,
             R.drawable.icons8_starfish_24};
 
+    @Inject
     public PageViewModel() {
         receivedAppLiveData = new MutableLiveData<>();
 

@@ -21,6 +21,7 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.FamilyTopChartsAdapter;
 import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
+import com.emre1s.playstore.dagger.PageViewModelFactory;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
@@ -28,7 +29,11 @@ import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.tabs.TabLayout;
 
+import javax.inject.Inject;
+
 public class FamilyAppFragment extends Fragment {
+    @Inject
+    PageViewModelFactory pageViewModelFactory;
     OnShowAllClickedListener showAllClickedListener;
     private PageViewModel pageViewModel;
     public FamilyAppFragment() {
@@ -43,7 +48,7 @@ public class FamilyAppFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
     }
 
     @Nullable

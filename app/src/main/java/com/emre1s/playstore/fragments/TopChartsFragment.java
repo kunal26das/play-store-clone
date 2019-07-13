@@ -17,13 +17,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.TopChartsAdapter;
 import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.dagger.PageViewModelFactory;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class TopChartsFragment extends Fragment {
+    @Inject
+    PageViewModelFactory pageViewModelFactory;
 
     private PageViewModel pageViewModel;
 
@@ -41,7 +46,7 @@ public class TopChartsFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
         super.onCreate(savedInstanceState);
         String category = "topselling_free";
         if (getArguments() != null) {

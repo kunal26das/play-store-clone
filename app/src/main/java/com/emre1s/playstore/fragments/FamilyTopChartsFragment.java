@@ -17,12 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.TopChartsAdapter;
 import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.dagger.PageViewModelFactory;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class FamilyTopChartsFragment extends Fragment {
+    @Inject
+    PageViewModelFactory pageViewModelFactory;
 
     private PageViewModel pageViewModel;
     private int limit;
@@ -42,7 +47,7 @@ public class FamilyTopChartsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
         String category = "topselling_free";
         if (getArguments() != null) {
             category = getArguments().getString("category");
@@ -59,7 +64,7 @@ public class FamilyTopChartsFragment extends Fragment {
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         appList.setAdapter(topChartsAdapter);
         appList.setHasFixedSize(true);
-        PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        PageViewModel pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
 
         pageViewModel.getFamilyTopChartsCategory().observe(this, new Observer<String>() {
             @Override
