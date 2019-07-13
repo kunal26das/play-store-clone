@@ -26,13 +26,15 @@ import java.util.List;
 public class FamilyTopChartsFragment extends Fragment {
 
     private PageViewModel pageViewModel;
+    private int limit;
 
     public FamilyTopChartsFragment(){
     }
 
-    public static Fragment getInstance(String category) {
+    public static Fragment getInstance(String category,int limit) {
         FamilyTopChartsFragment topChartsFragment = new FamilyTopChartsFragment();
         Bundle bundle = new Bundle();
+        topChartsFragment.limit=limit;
         bundle.putString("category", category);
         topChartsFragment.setArguments(bundle);
         return topChartsFragment;
@@ -68,7 +70,11 @@ public class FamilyTopChartsFragment extends Fragment {
                     @Override
                     public void onSuccess(List<App> popularApp) {
                         Log.d("Success",popularApp.size()+"");
-                        topChartsAdapter.setmList(popularApp.subList(0,3));
+                        if (limit!=3){
+                            topChartsAdapter.setmList(popularApp);
+                        } else {
+                            topChartsAdapter.setmList(popularApp.subList(0, 3));
+                        }
                     }
 
                     @Override
