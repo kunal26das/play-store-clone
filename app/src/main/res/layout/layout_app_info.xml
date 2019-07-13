@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorWhite"
     android:orientation="vertical"
     android:paddingTop="16dp"
@@ -14,7 +15,6 @@
         android:id="@+id/iv_app_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:paddingBottom="4dp"
-        android:text="@string/app_name"
+        tools:text="@string/app_name"
         android:textColor="@android:color/black"
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="App Publisher Name"
+        tools:text="App Publisher Name"
         android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_title" />
@@ -51,7 +51,7 @@
         android:paddingTop="6dp"
         android:paddingEnd="12dp"
         android:paddingBottom="6dp"
-        android:text="App Genre"
+        tools:text="App Genre"
         android:textSize="12sp"
         app:chipBackgroundColor="@color/colorWhite"
         app:chipStrokeColor="@color/colorGrey"
@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
-        android:text="In-app purchases"
+        tools:text="In-app purchases"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_title" />
