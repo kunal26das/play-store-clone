@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +45,7 @@ public class MoreAppsActivity extends AppCompatActivity {
         pageViewModel.makeCategoryApiCall(category.getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(App[] popularApp) {
-                appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
+                appCardAdapter.setAppByCategoryApiResponse(Arrays.asList(popularApp));
             }
 
             @Override
@@ -55,14 +54,11 @@ public class MoreAppsActivity extends AppCompatActivity {
             }
         });
 
-        pageViewModel.getReceivedAppLiveData().observe(this, new Observer<App>() {
-            @Override
-            public void onChanged(App app) {
-                Log.d(MoreAppsActivity.class.getSimpleName(), "App received: " + app.getTitle());
+        pageViewModel.getReceivedAppLiveData().observe(this, app -> {
+            Log.d(MoreAppsActivity.class.getSimpleName(), "App received: " + app.getTitle());
 //                Intent intent = new Intent(getContext(), AppPageActivity.class);
 //                intent.putExtra("packageName", app.getAppId());
 //                startActivity(intent);
-            }
         });
     }
 

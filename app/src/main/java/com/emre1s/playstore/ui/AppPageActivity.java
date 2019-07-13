@@ -12,13 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.app_details.AppDetailsEntity;
 import com.emre1s.playstore.app_details.AppDetailsViewModel;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
 import com.squareup.picasso.Picasso;
@@ -69,39 +67,36 @@ public class AppPageActivity extends AppCompatActivity {
 
         AppDetailsViewModel appDetailsViewModel = ViewModelProviders.of(this).get(AppDetailsViewModel.class);
         appDetailsViewModel.getAppDetails(SAMPLE_APP_ID)
-                .observe(this, new Observer<AppDetailsEntity>() {
-                    @Override
-                    public void onChanged(AppDetailsEntity appDetails) {
-                        if (appDetails != null) {
-                            Picasso.get().load(appDetails.getIcon()).into(appIcon);
-                            appTitle.setText(appDetails.getTitle());
-                            appDeveloper.setText(appDetails.getDeveloper());
-                            appGenre.setText(appDetails.getGenre());
-                            if (appDetails.getAdSupported() && appDetails.getOffersIap()) {
-                                appMonetize.setText("Contains ads • In-app purchases");
-                            } else if (appDetails.getAdSupported()) {
-                                appMonetize.setText("Contains ads");
-                            } else if (appDetails.getOffersIap()) {
-                                appMonetize.setText("In-app purchases");
-                            }
-
-                            String contentRating = appDetails.getContentRating();
-                            String contentRate = contentRating.substring(contentRating.length() - 3).trim();
-                            appScore.setText(appDetails.getScoreText());
-                            appReviews.setText(appDetails.getReviews() + " reviews");
-                            appSize.setText(appDetails.getSize());
-                            appRating.setText(contentRating + " ⓘ");
-                            appInstalls.setText(appDetails.getInstalls());
-                            appRate.setText(contentRate);
-
-                            appSummary.setText(Html.fromHtml(appDetails.getSummary()));
-                            List<String> appScreenshots = new ArrayList<>(Arrays.asList(appDetails.getScreenshots().split(",")));
-                            String appVideoImage = appDetails.getVideoImage();
-                            if (appVideoImage != null) {
-                                appScreenshots.add(0, appVideoImage);
-                            }
-                            screenshotsAdapter.setScreenshots(appScreenshots);
+                .observe(this, appDetails -> {
+                    if (appDetails != null) {
+                        Picasso.get().load(appDetails.getIcon()).into(appIcon);
+                        appTitle.setText(appDetails.getTitle());
+                        appDeveloper.setText(appDetails.getDeveloper());
+                        appGenre.setText(appDetails.getGenre());
+                        if (appDetails.getAdSupported() && appDetails.getOffersIap()) {
+                            appMonetize.setText("Contains ads • In-app purchases");
+                        } else if (appDetails.getAdSupported()) {
+                            appMonetize.setText("Contains ads");
+                        } else if (appDetails.getOffersIap()) {
+                            appMonetize.setText("In-app purchases");
                         }
+
+                        String contentRating = appDetails.getContentRating();
+                        String contentRate = contentRating.substring(contentRating.length() - 3).trim();
+                        appScore.setText(appDetails.getScoreText());
+                        appReviews.setText(appDetails.getReviews() + " reviews");
+                        appSize.setText(appDetails.getSize());
+                        appRating.setText(contentRating + " ⓘ");
+                        appInstalls.setText(appDetails.getInstalls());
+                        appRate.setText(contentRate);
+
+                        appSummary.setText(Html.fromHtml(appDetails.getSummary()));
+                        List<String> appScreenshots1 = new ArrayList<>(Arrays.asList(appDetails.getScreenshots().split(",")));
+                        String appVideoImage = appDetails.getVideoImage();
+                        if (appVideoImage != null) {
+                            appScreenshots1.add(0, appVideoImage);
+                        }
+                        screenshotsAdapter.setScreenshots(appScreenshots1);
                     }
                 });
     }

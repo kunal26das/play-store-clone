@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
-import com.emre1s.playstore.ui.AppDetailsActivity;
+import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -56,7 +56,7 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AppDetailsActivity.class);
+                Intent intent = new Intent(view.getContext(), AppPageActivity.class);
                 intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
                 view.getContext().startActivity(intent);
             }

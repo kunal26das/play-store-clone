@@ -63,7 +63,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             @Override
             public void onSuccess(App[] popularApp) {
                 holder.container.setVisibility(View.VISIBLE);
-                holder.appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
+                holder.appCardAdapter.setAppByCategoryApiResponse(Arrays.asList(popularApp));
             }
 
             @Override

@@ -59,7 +59,7 @@
         app:layout_constraintStart_toEndOf="@+id/iv_app_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_developer" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/materialButton"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
@@ -69,6 +69,7 @@
         android:paddingEnd="32dp"
         android:text="INSTALL"
         app:cornerRadius="2dp"
+        android:textColor="@color/whiteColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_app_icon" />
 

@@ -149,9 +149,11 @@ public class AppDetailsEntity {
 
     private String getString(List<String> array) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < array.size(); i++) {
-            stringBuilder.append(array.get(i));
-            stringBuilder.append(",");
+        if (array != null) {
+            for (int i = 0; i < array.size(); i++) {
+                stringBuilder.append(array.get(i));
+                stringBuilder.append(",");
+            }
         }
         return stringBuilder.toString();
     }
