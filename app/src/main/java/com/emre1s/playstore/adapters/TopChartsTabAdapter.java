@@ -2,10 +2,6 @@ package com.emre1s.playstore.adapters;
 
 import android.content.Context;
 
-import android.util.Log;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -14,7 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.fragments.TopChartsFragment;
-import com.emre1s.playstore.fragments.TopChartsTabFragment;
 
 public class TopChartsTabAdapter extends FragmentPagerAdapter {
     private static int ITEM_NUM = 4;

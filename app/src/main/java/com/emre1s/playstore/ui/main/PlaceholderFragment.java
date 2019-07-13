@@ -3,7 +3,6 @@ package com.emre1s.playstore.ui.main;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -93,11 +92,11 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
-        ((ImageView)tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
+        ((ImageView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
                 .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
                         android.graphics.PorterDuff.Mode.SRC_IN);
 
-        ((TextView)tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
+        ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
                 .setTextColor(getResources().getColor(R.color.colorDarkGreen));
 
         pageViewModel.getText().observe(this, new Observer<String>() {

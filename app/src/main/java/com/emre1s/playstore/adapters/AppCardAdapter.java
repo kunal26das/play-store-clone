@@ -1,5 +1,6 @@
 package com.emre1s.playstore.adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -21,12 +23,12 @@ import java.util.Random;
 
 public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHolder> {
 
-    private List<App> appByCategoryApiRespons;
+    private List<App> appByCategoryApiResponse;
     private List<Integer> fileSizes;
     private PageViewModel pageViewModel;
 
     public AppCardAdapter(PageViewModel pageViewModel) {
-        appByCategoryApiRespons = new ArrayList<>();
+        appByCategoryApiResponse = new ArrayList<>();
         this.pageViewModel = pageViewModel;
     }
 
@@ -41,22 +43,23 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d("Emre1s", "Image icon: " + appByCategoryApiRespons.get(position).getIcon());
-        Picasso.get().load("https:" + appByCategoryApiRespons.get(position)
+        Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
+        Picasso.get().load("https:" + appByCategoryApiResponse.get(position)
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
-        holder.appName.setText(appByCategoryApiRespons.get(position).getTitle());
+        holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
         holder.appSize.setText(fileSizes.get(position) + " MB");
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiRespons.get(position));
-            }
+        //holder.itemView.setOnClickListener(v -> pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position)));
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), AppPageActivity.class);
+            intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
+            v.getContext().startActivity(intent);
         });
+        holder.itemView.setOnLongClickListener(v -> false);
     }
 
     @Override
     public int getItemCount() {
-        return appByCategoryApiRespons.size();
+        return appByCategoryApiResponse.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,11 +75,11 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
         }
     }
 
-    public void setAppByCategoryApiRespons(List<App> appByCategoryApiRespons) {
-        this.appByCategoryApiRespons = appByCategoryApiRespons;
+    public void setAppByCategoryApiResponse(List<App> appByCategoryApiResponse) {
+        this.appByCategoryApiResponse = appByCategoryApiResponse;
         fileSizes = new ArrayList<>();
-        for (int i = 0; i < appByCategoryApiRespons.size(); i++) {
-            fileSizes.add(getRandomNumberInRange(1,50));
+        for (int i = 0; i < appByCategoryApiResponse.size(); i++) {
+            fileSizes.add(getRandomNumberInRange(1, 50));
         }
         notifyDataSetChanged();
     }

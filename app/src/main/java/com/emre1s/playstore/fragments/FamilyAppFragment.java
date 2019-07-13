@@ -8,14 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -66,7 +64,7 @@ public class FamilyAppFragment extends Fragment {
         topChartsFamilyTab.setupWithViewPager(topChartsFamilyViewPager);
         topChartsFamilyTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
 
-        FamilyTopChartsAdapter familyTopChartsAdapter = new FamilyTopChartsAdapter(getContext(), getChildFragmentManager(),3);
+        FamilyTopChartsAdapter familyTopChartsAdapter = new FamilyTopChartsAdapter(getContext(), getChildFragmentManager(), 3);
         topChartsFamilyViewPager.setAdapter(familyTopChartsAdapter);
 
         Button seeMore = view.findViewById(R.id.see_more_button);
@@ -92,7 +90,7 @@ public class FamilyAppFragment extends Fragment {
 
         familyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         familyRecycler.setAdapter(familyAdapter);
-        Log.d("Ruchika-family",pageViewModel.getFamilyCategoryList().getCategoryList().size()+"");
+        Log.d("Ruchika-family", pageViewModel.getFamilyCategoryList().getCategoryList().size() + "");
         familyAdapter.setCategoryNames(pageViewModel.getFamilyCategoryList());
 
         return view;
@@ -102,7 +100,7 @@ public class FamilyAppFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            showAllClickedListener=(OnShowAllClickedListener)context;
+            showAllClickedListener = (OnShowAllClickedListener) context;
         } catch (ClassCastException e) {
             e.printStackTrace();
         }

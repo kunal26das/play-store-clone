@@ -1,74 +1,76 @@
 {
-"categories": [{
-  "name": "Games",
-  "id": "GAME"
-},
-{
-"name": "Action",
-"id": "GAME_ACTION"
-},
-{
-"name": "Adventure",
-"id": "GAME_ADVENTURE"
-},
-{
-"name": "Arcade",
-"id": "GAME_ARCADE"
-},
-{
-"name": "Board",
-"id":"GAME_BOARD"
-},
-{
-"name": "Card",
-"id": "GAME_CARD"
-},
-{
-"name": "Casino",
-"id": "GAME_CASINO"
-},
-{
-"name": "Casual",
-"id": "GAME_CASUAL"
-},
-{
-"name":"Educational",
-"id": "GAME_EDUCATIONAL"
-},
-{
-"name": "Music",
-"id": "GAME_MUSIC"
-},
-{
-"name": "Puzzle",
-"id": "GAME_PUZZLE"
-},
-{
-"name": "Racing",
-"id": "GAME_RACING"
-},
-{
-"name": "Role Playing",
-"id": "GAME_ROLE_PLAYING"
-},
-{
-"name": "Simulation",
-"id": "GAME_SIMULATION"
-},
-{
-"name": "Sports",
-"id":"GAME_SPORTS"
-},
-{
-"name": "Strategy",
-"id": "GAME_STRATEGY"
-},
-{
-"name": "Trivia",
-"id": "GAME_TRIVIA"
-},
-{
-"name": "Wordplay",
-"id": "GAME_WORD"
-}]
+  "categories": [
+    {
+      "name": "Games",
+      "id": "GAME"
+    },
+    {
+      "name": "Action",
+      "id": "GAME_ACTION"
+    },
+    {
+      "name": "Adventure",
+      "id": "GAME_ADVENTURE"
+    },
+    {
+      "name": "Arcade",
+      "id": "GAME_ARCADE"
+    },
+    {
+      "name": "Board",
+      "id": "GAME_BOARD"
+    },
+    {
+      "name": "Card",
+      "id": "GAME_CARD"
+    },
+    {
+      "name": "Casino",
+      "id": "GAME_CASINO"
+    },
+    {
+      "name": "Casual",
+      "id": "GAME_CASUAL"
+    },
+    {
+      "name": "Educational",
+      "id": "GAME_EDUCATIONAL"
+    },
+    {
+      "name": "Music",
+      "id": "GAME_MUSIC"
+    },
+    {
+      "name": "Puzzle",
+      "id": "GAME_PUZZLE"
+    },
+    {
+      "name": "Racing",
+      "id": "GAME_RACING"
+    },
+    {
+      "name": "Role Playing",
+      "id": "GAME_ROLE_PLAYING"
+    },
+    {
+      "name": "Simulation",
+      "id": "GAME_SIMULATION"
+    },
+    {
+      "name": "Sports",
+      "id": "GAME_SPORTS"
+    },
+    {
+      "name": "Strategy",
+      "id": "GAME_STRATEGY"
+    },
+    {
+      "name": "Trivia",
+      "id": "GAME_TRIVIA"
+    },
+    {
+      "name": "Wordplay",
+      "id": "GAME_WORD"
+    }
+  ]
 }

@@ -1,21 +1,14 @@
 package com.emre1s.playstore.api;
 
-import android.util.Log;
-
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 
-import java.io.IOException;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,7 +18,7 @@ public class RetrofitApiFactory {
     private static RetrofitApiFactory retrofitApiFactory;
     private final RetrofitAPICalls retrofitAPICalls;
 
-    private  static CategoryList gameCategories;
+    private static CategoryList gameCategories;
     private static CategoryList familyCategories;
     private static CategoryList appCategories;
 
@@ -67,9 +60,6 @@ public class RetrofitApiFactory {
                         apiResponseCallback.onFailure();
                     }
                 });
-
-
-
 
 
 //        retrofitAPICalls.getAppsByCategoryResponse(category).enqueue(new Callback<App[]>() {
@@ -126,10 +116,6 @@ public class RetrofitApiFactory {
                         apiResponseCallback.onFailure();
                     }
                 });
-
-
-
-
 
 
 //        retrofitAPICalls.getAppsByCollectionResponse(collection).enqueue(new Callback<App[]>() {
@@ -231,7 +217,7 @@ public class RetrofitApiFactory {
     }
 
     public void appsByCollectionCategoryApiCall(String collection, String category,
-                                                final ApiResponseCallback apiResponseCallback){
+                                                final ApiResponseCallback apiResponseCallback) {
 
         retrofitAPICalls.getAppsByCollectionCategory(collection, category)
                 .subscribeOn(Schedulers.io())
@@ -252,7 +238,6 @@ public class RetrofitApiFactory {
                         apiResponseCallback.onFailure();
                     }
                 });
-
 
 
 //        retrofitAPICalls.getAppsByCollectionCategory(collection,category).enqueue(new Callback<App[]>() {

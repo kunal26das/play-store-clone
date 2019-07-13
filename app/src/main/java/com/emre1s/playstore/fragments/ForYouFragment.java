@@ -1,15 +1,11 @@
 package com.emre1s.playstore.fragments;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
-import com.emre1s.playstore.adapters.PreCachingLayoutManager;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
@@ -78,10 +73,6 @@ public class ForYouFragment extends Fragment {
         });
 
         forYouRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-//        PreCachingLayoutManager preCachingLayoutManager = new PreCachingLayoutManager(getContext()); //Todo: Change to PreCachingLayoutManager for preloading more views
-//        int height = Resources.getSystem().getDisplayMetrics().heightPixels * 2;
-//        preCachingLayoutManager.setExtraLayoutSpace(height);
-//        forYouRecycler.setLayoutManager(preCachingLayoutManager);
         forYouRecycler.setAdapter(forYouAdapter);
         //Log.d("Emre1s", "ForYouFragment was called");
 
@@ -98,7 +89,7 @@ public class ForYouFragment extends Fragment {
         pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer tabPosition) {
-               // progressBar.setVisibility(View.GONE);
+                // progressBar.setVisibility(View.GONE);
                 if (tabPosition == 0) {
                     forYouAdapter.setCategoryNames(pageViewModel.getGamesCategoryList());
                 } else {

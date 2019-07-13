@@ -1,135 +1,140 @@
 {
-"categories":[
-{
-"name": "Art & Design",
-"id": "ART_AND_DESIGN"},
-{
-"name": "Auto & Vehicles",
-"id": "AUTO_AND_VEHICLES"},
-{
-"name": "Beauty",
-"id": "BEAUTY"},
-{
-"name": "Books & References",
-"id": "BOOKS_AND_REFERENCE"},
-{
-"name": "Business",
-"id": "BUSINESS"
-},
-{
-"name": "Comics",
-"id": "COMICS"
-},
-{
-"name": "Communication",
-"id": "COMMUNICATION"
-},
-{
-"name": "Dating",
-"id": "DATING"
-},
-{
-"name": "Education",
-"id": "EDUCATION"
-},
-{
-"name": "Entertainment",
-"id": "ENTERTAINMENT"
-},
-{
-"name": "Events",
-"id": "EVENTS"
-},
-{
-  "name": "Family",
-  "id": "FAMILY"},
-{
-"name": "Finance",
-"id": "FINANCE"
-},
-{
-"name": "Food & Drinks",
-"id": "FOOD_AND_DRINK"
-},
-{
-"name": "Health & Fitness",
-"id": "HEALTH_AND_FITNESS"
-},
-{
-"name": "House & Home",
-"id": "HOUSE_AND_HOME"
-},
-{
-"name": "Libraries",
-"id": "LIBRARIES_AND_DEMO"
-},
-{
-"name": "Lifestyle",
-"id": "LIFESTYLE"
-},
-{
-"name": "Maps & Navigation",
-"id": "MAPS_AND_NAVIGATION"
-},
-{
-"name": "Medical",
-"id": "MEDICAL"
-},
-{
-"name": "Music & Audio",
-"id": "MUSIC_AND_AUDIO"
-},
-{
-"name": "News & Magazines",
-"id": "NEWS_AND_MAGAZINES"
-},
-{
-"name": "Parenting",
-"id": "PARENTING"
-},
-{
-"name": "Personalization",
-"id": "PERSONALIZATION"
-},
-{
-"name": "Photography",
-"id": "PHOTOGRAPHY"
-},
-{
-"name": "Productivity",
-"id": "PRODUCTIVITY"
-},
-{
-"name": "Shopping",
-"id": "SHOPPING"
-},
-{
-"name": "Social",
-"id": "SOCIAL"
-},
-{
-"name": "Sports",
-"id": "SPORTS"
-},
-{
-"name": "Tools",
-"id": "TOOLS"
-},
-{
-"name": "Travel & Local",
-"id": "TRAVEL_AND_LOCAL"
-},
-{
-"name": "Video Players",
-"id": "VIDEO_PLAYERS"
-},
-{
-"name": "Android Wear",
-"id": "ANDROID_WEAR"
-},
-{
-"name": "Weather",
-"id": "WEATHER"
-}
+  "categories": [
+    {
+      "name": "Art & Design",
+      "id": "ART_AND_DESIGN"
+    },
+    {
+      "name": "Auto & Vehicles",
+      "id": "AUTO_AND_VEHICLES"
+    },
+    {
+      "name": "Beauty",
+      "id": "BEAUTY"
+    },
+    {
+      "name": "Books & References",
+      "id": "BOOKS_AND_REFERENCE"
+    },
+    {
+      "name": "Business",
+      "id": "BUSINESS"
+    },
+    {
+      "name": "Comics",
+      "id": "COMICS"
+    },
+    {
+      "name": "Communication",
+      "id": "COMMUNICATION"
+    },
+    {
+      "name": "Dating",
+      "id": "DATING"
+    },
+    {
+      "name": "Education",
+      "id": "EDUCATION"
+    },
+    {
+      "name": "Entertainment",
+      "id": "ENTERTAINMENT"
+    },
+    {
+      "name": "Events",
+      "id": "EVENTS"
+    },
+    {
+      "name": "Family",
+      "id": "FAMILY"
+    },
+    {
+      "name": "Finance",
+      "id": "FINANCE"
+    },
+    {
+      "name": "Food & Drinks",
+      "id": "FOOD_AND_DRINK"
+    },
+    {
+      "name": "Health & Fitness",
+      "id": "HEALTH_AND_FITNESS"
+    },
+    {
+      "name": "House & Home",
+      "id": "HOUSE_AND_HOME"
+    },
+    {
+      "name": "Libraries",
+      "id": "LIBRARIES_AND_DEMO"
+    },
+    {
+      "name": "Lifestyle",
+      "id": "LIFESTYLE"
+    },
+    {
+      "name": "Maps & Navigation",
+      "id": "MAPS_AND_NAVIGATION"
+    },
+    {
+      "name": "Medical",
+      "id": "MEDICAL"
+    },
+    {
+      "name": "Music & Audio",
+      "id": "MUSIC_AND_AUDIO"
+    },
+    {
+      "name": "News & Magazines",
+      "id": "NEWS_AND_MAGAZINES"
+    },
+    {
+      "name": "Parenting",
+      "id": "PARENTING"
+    },
+    {
+      "name": "Personalization",
+      "id": "PERSONALIZATION"
+    },
+    {
+      "name": "Photography",
+      "id": "PHOTOGRAPHY"
+    },
+    {
+      "name": "Productivity",
+      "id": "PRODUCTIVITY"
+    },
+    {
+      "name": "Shopping",
+      "id": "SHOPPING"
+    },
+    {
+      "name": "Social",
+      "id": "SOCIAL"
+    },
+    {
+      "name": "Sports",
+      "id": "SPORTS"
+    },
+    {
+      "name": "Tools",
+      "id": "TOOLS"
+    },
+    {
+      "name": "Travel & Local",
+      "id": "TRAVEL_AND_LOCAL"
+    },
+    {
+      "name": "Video Players",
+      "id": "VIDEO_PLAYERS"
+    },
+    {
+      "name": "Android Wear",
+      "id": "ANDROID_WEAR"
+    },
+    {
+      "name": "Weather",
+      "id": "WEATHER"
+    }
   ]
 }

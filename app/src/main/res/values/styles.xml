@@ -1,34 +1,19 @@
 <!--<resources xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-<!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
-<!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--<item name="colorPrimaryDark">@color/colorWhite</item>-->
-<!--<item name="colorPrimary">@color/colorPrimary</item>-->
-<!--<item name="android:navigationBarColor">@color/colorWhite</item>-->
-<!--</style>-->
+<!--<style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">--><!--&lt;!&ndash; Customize your theme here. &ndash;&gt;--><!--<item name="colorPrimaryDark">@color/colorWhite</item>--><!--<item name="colorPrimary">@color/colorPrimary</item>--><!--<item name="android:navigationBarColor">@color/colorWhite</item>--><!--</style>-->
 
-<!--<style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">-->
-<!--<item name="windowActionBar">false</item>-->
-<!--<item name="windowNoTitle">true</item>-->
-<!--</style>-->
+<!--<style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">--><!--<item name="windowActionBar">false</item>--><!--<item name="windowNoTitle">true</item>--><!--</style>-->
 
 <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />-->
 
 <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />-->
 
 
-<!--<style name="style_stats_linear_layout">-->
-<!--<item name="android:layout_gravity">center</item>-->
-<!--<item name="android:paddingTop">4dp</item>-->
-<!--<item name="android:paddingEnd">20dp</item>-->
-<!--<item name="android:paddingStart">20dp</item>-->
-<!--<item name="android:paddingBottom">8dp</item>-->
-<!--<item name="android:orientation">vertical</item>-->
-<!--</style>-->
+<!--<style name="style_stats_linear_layout">--><!--<item name="android:layout_gravity">center</item>--><!--<item name="android:paddingTop">4dp</item>--><!--<item name="android:paddingEnd">20dp</item>--><!--<item name="android:paddingStart">20dp</item>--><!--<item name="android:paddingBottom">8dp</item>--><!--<item name="android:orientation">vertical</item>--><!--</style>-->
 
 <!--</resources>-->
 
-<resources >
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -61,7 +46,11 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="AppPage.NoActionBar" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppPageTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/whiteColor</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -23,11 +23,11 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:floatingSearch_searchHint="Google Play"
+            app:floatingSearch_dimBackground="false"
             app:floatingSearch_suggestionsListAnimDuration="250"
             app:floatingSearch_showSearchKey="false"
             app:floatingSearch_leftActionMode="showHamburger"
-            app:floatingSearch_dimBackground="false"
+            app:floatingSearch_searchHint="Google Play"
             app:floatingSearch_close_search_on_keyboard_dismiss="true"
             app:floatingSearch_menu="@menu/menu_main"/>
 

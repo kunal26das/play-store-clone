@@ -20,7 +20,6 @@ import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -66,7 +65,7 @@ public class TopChartsFragment extends Fragment {
                 pageViewModel.makeCollectionApiCall(category, new ApiResponseCallback() {
                     @Override
                     public void onSuccess(List<App> popularApp) {
-                        Log.d("Success",popularApp.size()+"");
+                        Log.d("Success", popularApp.size() + "");
                         topChartsAdapter.setmList(popularApp);
                     }
 

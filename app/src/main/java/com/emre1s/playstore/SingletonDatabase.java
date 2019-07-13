@@ -69,7 +69,7 @@ public abstract class SingletonDatabase extends RoomDatabase {
 
                 @Override
                 public void onFailure(@NonNull Call<AppDetails> call, @NonNull Throwable t) {
-                    Log.e("Runtime Error", t.toString());
+                    Log.e("Network Error", t.toString());
                 }
             });
             return null;

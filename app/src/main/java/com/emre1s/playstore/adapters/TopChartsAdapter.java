@@ -1,5 +1,6 @@
 package com.emre1s.playstore.adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.ui.AppPageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,16 +42,14 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
 
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull TopChartsAdapter.TopChartsViewHolder holder, int position) {
-        Log.d("TopCharts", mList.get(position).getTitle());
-        String iconPath="https:";
-        holder.sNo.setText(position+1+"");
-        Picasso.get().load(iconPath+ mList.get(position).getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
-        holder.appName.setText(mList.get(position).getTitle());
-        holder.appDeveloper.setText(mList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange(1,50) + " MB"+" ●");
-        holder.appRating.setText(String.format("%s", mList.get(position).getScore()+" ★"));
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 
     @Override
@@ -76,13 +76,21 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         }
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+    @Override
+    public void onBindViewHolder(@NonNull TopChartsAdapter.TopChartsViewHolder holder, int position) {
+        Log.d("TopCharts", mList.get(position).getTitle());
+        String iconPath = "https:";
+        holder.sNo.setText(position + 1 + "");
+        Picasso.get().load(iconPath + mList.get(position).getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
+        holder.appName.setText(mList.get(position).getTitle());
+        holder.appDeveloper.setText(mList.get(position).getDeveloper());
+        holder.appSize.setText(getRandomNumberInRange(1, 50) + " MB");
+        holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), AppPageActivity.class);
+            intent.putExtra("APP_ID", mList.get(position).getAppId());
+            v.getContext().startActivity(intent);
+        });
+        holder.itemView.setOnLongClickListener(v -> false);
     }
 }

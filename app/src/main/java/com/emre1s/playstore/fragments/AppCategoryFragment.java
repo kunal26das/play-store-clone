@@ -17,14 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AllCategoriesAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
-import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class AppCategoryFragment extends Fragment {
 
@@ -58,7 +51,7 @@ public class AppCategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_categories, container, false);
 
-        int[] categoryIcons = new int[]{R.drawable.camera,R.drawable.star,R.drawable.music,
+        int[] categoryIcons = new int[]{R.drawable.camera, R.drawable.star, R.drawable.music,
                 R.drawable.domain, R.drawable.access_point_network, R.drawable.brush,
                 R.drawable.book_open, R.drawable.forum};
         RecyclerView topCategories = view.findViewById(R.id.rv_top_categories);
@@ -71,7 +64,6 @@ public class AppCategoryFragment extends Fragment {
         pagerSnapHelper.attachToRecyclerView(topCategories);
 
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-
 
 
         AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter();

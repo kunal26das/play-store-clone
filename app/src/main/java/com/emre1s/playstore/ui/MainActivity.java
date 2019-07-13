@@ -4,36 +4,30 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.emre1s.playstore.R;
-import com.emre1s.playstore.api.RetrofitApiFactory;
-import com.emre1s.playstore.listeners.OnShowAllClickedListener;
-import com.emre1s.playstore.models.CategoryList;
-import com.facebook.stetho.Stetho;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-
-import android.view.MenuItem;
-
 import android.speech.RecognizerIntent;
 import android.util.Log;
-
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.listeners.OnShowAllClickedListener;
+import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
+import com.facebook.stetho.Stetho;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -56,10 +50,10 @@ public class MainActivity extends AppCompatActivity
         Stetho.initializeWithDefaults(this);
 
         String myJson = inputStreamToString(getResources().openRawResource(R.raw.apps));
-        Log.d(TAG,  myJson);
+        Log.d(TAG, myJson);
 
         String familyJson = inputStreamToString(getResources().openRawResource(R.raw.family));
-        Log.d(TAG,  familyJson);
+        Log.d(TAG, familyJson);
 
         String gamesJson = inputStreamToString(getResources().openRawResource(R.raw.games));
         Log.d(TAG, gamesJson);
@@ -72,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         RetrofitApiFactory.setGameCategories(gamesCategory);
 
         for (CategoryList.Category category : appsCategory.getCategoryList()) {
-            Log.d(TAG, " App Category Name: "  + category.getName() + " ID: " + category.getId());
+            Log.d(TAG, " App Category Name: " + category.getName() + " ID: " + category.getId());
         }
 
         for (CategoryList.Category category : familyCategory.getCategoryList()) {
@@ -201,7 +195,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onShowAllClicked() {
-        Intent intent=new Intent(this,TopCharts.class);
+        Intent intent = new Intent(this, TopCharts.class);
         startActivity(intent);
     }
 }

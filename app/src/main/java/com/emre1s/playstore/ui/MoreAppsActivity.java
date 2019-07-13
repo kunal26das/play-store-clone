@@ -1,19 +1,18 @@
 package com.emre1s.playstore.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AppCardAdapter;
@@ -22,7 +21,6 @@ import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MoreAppsActivity extends AppCompatActivity {
@@ -56,7 +54,7 @@ public class MoreAppsActivity extends AppCompatActivity {
         pageViewModel.makeCategoryApiCall(category.getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(List<App> popularApp) {
-                appCardAdapter.setAppByCategoryApiRespons(popularApp);
+                appCardAdapter.setAppByCategoryApiResponse(popularApp);
             }
 
             @Override
@@ -75,6 +73,7 @@ public class MoreAppsActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);

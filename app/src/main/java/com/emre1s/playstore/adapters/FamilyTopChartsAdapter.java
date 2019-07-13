@@ -10,40 +10,38 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.fragments.FamilyTopChartsFragment;
-import com.emre1s.playstore.fragments.TopChartsFragment;
 
 public class FamilyTopChartsAdapter extends FragmentPagerAdapter {
     private static int ITEM_NUMBER = 3;
     String category;
     Context mContext;
+    @StringRes
+    private static final int[] topChartsTabItemNames = new int[]{R.string.topFree, R.string.trending, R.string.topPaid};
     int limit;
 
-    @StringRes
-    private static final int[] topChartsTabItemNames =new int[] {R.string.topFree,R.string.trending,R.string.topPaid};
-
-    public FamilyTopChartsAdapter(Context context, FragmentManager fragmentManager, int limit){
+    public FamilyTopChartsAdapter(Context context, FragmentManager fragmentManager, int limit) {
         super(fragmentManager);
-        mContext=context;
-        this.limit=limit;
+        mContext = context;
+        this.limit = limit;
     }
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-                category="topselling_free";
-                return FamilyTopChartsFragment.getInstance(category,limit);
+                category = "topselling_free";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
             case 1: {
-                category="movers_shakers";
-                return FamilyTopChartsFragment.getInstance(category,limit);
+                category = "movers_shakers";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
             case 2: {
-                category="topselling_paid";
-                return FamilyTopChartsFragment.getInstance(category,limit);
+                category = "topselling_paid";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
-            default:{
-                category="topselling_free";
-                return FamilyTopChartsFragment.getInstance(category,limit);
+            default: {
+                category = "topselling_free";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
         }
     }

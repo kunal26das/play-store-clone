@@ -20,7 +20,6 @@ import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class FamilyTopChartsFragment extends Fragment {
@@ -28,13 +27,13 @@ public class FamilyTopChartsFragment extends Fragment {
     private PageViewModel pageViewModel;
     private int limit;
 
-    public FamilyTopChartsFragment(){
+    public FamilyTopChartsFragment() {
     }
 
-    public static Fragment getInstance(String category,int limit) {
+    public static Fragment getInstance(String category, int limit) {
         FamilyTopChartsFragment topChartsFragment = new FamilyTopChartsFragment();
         Bundle bundle = new Bundle();
-        topChartsFragment.limit=limit;
+        topChartsFragment.limit = limit;
         bundle.putString("category", category);
         topChartsFragment.setArguments(bundle);
         return topChartsFragment;
@@ -69,8 +68,8 @@ public class FamilyTopChartsFragment extends Fragment {
                 pageViewModel.makeCategoryCollectionApiCall(collection, "FAMILY", new ApiResponseCallback() {
                     @Override
                     public void onSuccess(List<App> popularApp) {
-                        Log.d("Success",popularApp.size()+"");
-                        if (limit!=3){
+                        Log.d("Success", popularApp.size() + "");
+                        if (limit != 3) {
                             topChartsAdapter.setmList(popularApp);
                         } else {
                             topChartsAdapter.setmList(popularApp.subList(0, 3));

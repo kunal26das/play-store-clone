@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 4;
@@ -15,7 +14,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     public SubCategoryPagerAdapter(FragmentManager fragmentManager, int tabPosition) {
         super(fragmentManager);
         this.tabPosition = tabPosition;
-       // Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "Tab position: " + tabPosition);
+        // Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "Tab position: " + tabPosition);
     }
 
     @Override

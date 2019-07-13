@@ -12,38 +12,29 @@ import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
     private MutableLiveData<String> familyTopChartsCategory = new MutableLiveData<>();
-
-    public CategoryList getAppCategoryList() {
-        return appCategoryList;
-    }
-
-    public CategoryList getFamilyCategoryList() {
-        return familyCategoryList;
-    }
-
-    public CategoryList getGamesCategoryList() {
-        return gamesCategoryList;
-    }
-
-    private CategoryList appCategoryList = RetrofitApiFactory.getAppCategories();
-    private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
-    private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
-
-    private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
             return "Hello world from section: " + input;
         }
     });
+    private MutableLiveData<Integer> tabPosition = new MutableLiveData<>();
+    private MutableLiveData<String> appTopChartsCategory = new MutableLiveData<>();
+
+    private CategoryList appCategoryList = RetrofitApiFactory.getAppCategories();
+    private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
+    private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
+
+    private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
+
+    public CategoryList getAppCategoryList() {
+        return appCategoryList;
+    }
 
     private String[] tabItemNames = {"For You", "Top Charts", "Categories",
             "Family"};
@@ -54,13 +45,17 @@ public class PageViewModel extends ViewModel {
         return tabPosition;
     }
 
-    private MutableLiveData<Integer> tabPosition = new MutableLiveData<>();
+    public CategoryList getFamilyCategoryList() {
+        return familyCategoryList;
+    }
+
+    public CategoryList getGamesCategoryList() {
+        return gamesCategoryList;
+    }
 
     public MutableLiveData<String> getAppTopChartsCategory() {
         return appTopChartsCategory;
     }
-
-    private MutableLiveData<String> appTopChartsCategory = new MutableLiveData<>();
 
 //    String[] gameCategories = new String[] {
 //            "GAME",
