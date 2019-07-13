@@ -1,5 +1,6 @@
 package com.emre1s.playstore.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,12 +24,14 @@ import com.emre1s.playstore.adapters.FamilyTopChartsAdapter;
 import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
+import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class FamilyAppFragment extends Fragment {
+    OnShowAllClickedListener showAllClickedListener;
     private PageViewModel pageViewModel;
     public FamilyAppFragment() {
 
@@ -73,7 +76,7 @@ public class FamilyAppFragment extends Fragment {
         seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
+                showAllClickedListener.onShowAllClicked();
             }
         });
 
@@ -94,5 +97,16 @@ public class FamilyAppFragment extends Fragment {
         familyAdapter.setCategoryNames(pageViewModel.getFamilyCategoryList());
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            showAllClickedListener=(OnShowAllClickedListener)context;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+
     }
 }
