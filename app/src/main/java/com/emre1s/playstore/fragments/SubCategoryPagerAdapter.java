@@ -28,7 +28,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
                 return new TopChartsTabFragment();
             }
             case 2: {
-                return AppCategoryFragment.newInstance();
+                return AppCategoryFragment.newInstance(tabPosition);
             }
             case 3: {
                 return FamilyAppFragment.newInstance();

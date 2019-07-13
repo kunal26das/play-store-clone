@@ -15,28 +15,33 @@ public class FamilyTopChartsAdapter extends FragmentPagerAdapter {
     private static int ITEM_NUMBER = 3;
     String category;
     Context mContext;
-
     @StringRes
     private static final int[] topChartsTabItemNames = new int[]{R.string.topFree, R.string.trending, R.string.topPaid};
+    int limit;
 
-    public FamilyTopChartsAdapter(Context context, FragmentManager fragmentManager) {
+    public FamilyTopChartsAdapter(Context context, FragmentManager fragmentManager, int limit) {
         super(fragmentManager);
         mContext = context;
+        this.limit = limit;
     }
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-                return FamilyTopChartsFragment.getInstance("topselling_free");
+                category = "topselling_free";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
             case 1: {
-                return FamilyTopChartsFragment.getInstance("movers_shakers");
+                category = "movers_shakers";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
             case 2: {
-                return FamilyTopChartsFragment.getInstance("topselling_paid");
+                category = "topselling_paid";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
             default: {
-                return FamilyTopChartsFragment.getInstance("topselling_free");
+                category = "topselling_free";
+                return FamilyTopChartsFragment.getInstance(category, limit);
             }
         }
     }
