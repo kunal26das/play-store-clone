@@ -22,6 +22,7 @@ import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
 import com.facebook.stetho.Stetho;
@@ -36,7 +37,7 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnShowAllClickedListener {
 
     private FloatingSearchView searchView;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -190,5 +191,11 @@ public class MainActivity extends AppCompatActivity
         } catch (IOException e) {
             return null;
         }
+    }
+
+    @Override
+    public void onShowAllClicked() {
+        Intent intent = new Intent(this, TopCharts.class);
+        startActivity(intent);
     }
 }

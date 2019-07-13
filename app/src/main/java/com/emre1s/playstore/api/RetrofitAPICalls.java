@@ -2,29 +2,31 @@ package com.emre1s.playstore.api;
 
 import com.emre1s.playstore.models.App;
 
-import retrofit2.Call;
+import java.util.List;
+
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 interface RetrofitAPICalls {
 
     @GET(" ")
-    Call<App[]> getAppsByCategoryResponse(
+    Single<List<App>> getAppsByCategoryResponse(
             @Query("category") String category);
 
     @GET(" ")
-    Call<App[]> getAppsByCollectionResponse(
+    Single<List<App>> getAppsByCollectionResponse(
             @Query("collection") String collection);
 
     @GET("apps/similar/")
-    Call<App[]> getSimilarApps(
+    Single<List<App>> getSimilarApps(
             @Query("id") String packageName);
 
 //    @GET("suggestions/")
 //    Call<>
 
     @GET(" ")
-    Call<App[]> getAppsByCollectionCategory(
+    Single<List<App>> getAppsByCollectionCategory(
             @Query("collection") String collection,
             @Query("category") String category
     );

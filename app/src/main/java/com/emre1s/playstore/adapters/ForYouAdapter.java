@@ -16,25 +16,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder> {
 
-    private List<CategoryList.Category> categoryList;
+    private Context context;
 
-    public ForYouAdapter(Context context, PageViewModel pageViewModel) {
+    private List<CategoryList.Category> categoryList;
+    private PageViewModel pageViewModel;
+    private OnCategoryChanged onCategoryChanged;
+
+    public ForYouAdapter(Context context, PageViewModel pageViewModel, OnCategoryChanged onCategoryChanged) {
         this.context = context;
         this.pageViewModel = pageViewModel;
         categoryList = new ArrayList<>();
+        this.onCategoryChanged = onCategoryChanged;
     }
-    private Context context;
-    private PageViewModel pageViewModel;
 
     public void setCategoryNames(CategoryList categoryList) {
         this.categoryList = categoryList.getCategoryList();
@@ -50,17 +53,17 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.categoryName.setText(categoryList.get(position).getName());
         holder.categoryDetailsContainer.setOnClickListener(v -> {
             Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
-            pageViewModel.getSelectedCategory().postValue(categoryList.get(position));
+            onCategoryChanged.changeCategory(categoryList.get(position));
         });
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
-            public void onSuccess(App[] popularApp) {
+            public void onSuccess(List<App> popularApp) {
                 holder.container.setVisibility(View.VISIBLE);
-                holder.appCardAdapter.setAppByCategoryApiResponse(Arrays.asList(popularApp));
+                holder.appCardAdapter.setAppByCategoryApiResponse(popularApp);
             }
 
             @Override

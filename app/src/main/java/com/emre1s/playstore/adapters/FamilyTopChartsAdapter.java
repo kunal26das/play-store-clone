@@ -12,35 +12,31 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.fragments.FamilyTopChartsFragment;
 
 public class FamilyTopChartsAdapter extends FragmentPagerAdapter {
-    @StringRes
-    private static final int[] topChartsTabItemNames = new int[]{R.string.topFree, R.string.trending, R.string.topPaid};
     private static int ITEM_NUMBER = 3;
     String category;
     Context mContext;
+
+    @StringRes
+    private static final int[] topChartsTabItemNames = new int[]{R.string.topFree, R.string.trending, R.string.topPaid};
 
     public FamilyTopChartsAdapter(Context context, FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
     }
-
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-                category = "topselling_free";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("topselling_free");
             }
             case 1: {
-                category = "movers_shakers";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("movers_shakers");
             }
             case 2: {
-                category = "topselling_paid";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("topselling_paid");
             }
             default: {
-                category = "topselling_free";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("topselling_free");
             }
         }
     }

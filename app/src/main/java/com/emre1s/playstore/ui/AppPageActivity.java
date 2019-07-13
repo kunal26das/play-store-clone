@@ -7,7 +7,10 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,24 +33,12 @@ public class AppPageActivity extends AppCompatActivity {
 
     private static final String EMPTY_STRING = "";
     private String mAppId;
-    private boolean mAppInstalled;
+    private boolean mAppIsInstalled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_page);
-
-        PackageManager packageManager = getPackageManager();
-        try {
-            packageManager.getPackageInfo(mAppId, 0);
-            mAppInstalled = true;
-        } catch (PackageManager.NameNotFoundException e) {
-            mAppInstalled = false;
-        }
-
-        Intent intent = getIntent();
-        mAppId = intent.getStringExtra("packageName");
-        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + mAppId);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
@@ -56,11 +47,37 @@ public class AppPageActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        Intent intent = getIntent();
+        mAppId = intent.getStringExtra("APP_ID");
+        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + mAppId);
+
+        if (mAppId == null) {
+            finish();
+        }
+
+        PackageManager packageManager = getPackageManager();
+        try {
+            packageManager.getPackageInfo(mAppId, 0);
+            mAppIsInstalled = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            mAppIsInstalled = false;
+        }
+
         final ImageView appIcon = findViewById(R.id.iv_app_icon);
         final TextView appTitle = findViewById(R.id.tv_app_title);
         final TextView appDeveloper = findViewById(R.id.tv_app_developer);
         final TextView appGenre = findViewById(R.id.tv_app_genre);
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
+        final Button appInstallButton = findViewById(R.id.btn_install);
+        final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
+
+        if (mAppIsInstalled) {
+            appInstallButton.setVisibility(View.GONE);
+            appInstalledLayout.setVisibility(View.VISIBLE);
+        } else {
+            appInstallButton.setVisibility(View.VISIBLE);
+            appInstalledLayout.setVisibility(View.GONE);
+        }
 
         final TextView appScore = findViewById(R.id.tv_app_score);
         final TextView appReviews = findViewById(R.id.tv_app_reviews);
@@ -122,7 +139,7 @@ public class AppPageActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.homeAsUp:
-                this.finish();
+                onBackPressed();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

@@ -16,27 +16,33 @@ public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
-    private CategoryList appCategoryList = RetrofitApiFactory.getAppCategories();
-    private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
-    private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
-    private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
-    private MutableLiveData<Integer> tabPosition = new MutableLiveData<>();
-    private MutableLiveData<String> appTopChartsCategory = new MutableLiveData<>();
-    private String collection = "topselling_free";
+    private MutableLiveData<String> familyTopChartsCategory = new MutableLiveData<>();
     private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
         @Override
         public String apply(Integer input) {
-            return  "Hello world from section: " + input;
+            return "Hello world from section: " + input;
         }
     });
+    private MutableLiveData<Integer> tabPosition = new MutableLiveData<>();
+    private MutableLiveData<String> appTopChartsCategory = new MutableLiveData<>();
+
+    private CategoryList appCategoryList = RetrofitApiFactory.getAppCategories();
+    private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
+    private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
+
+    private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
+
+    public CategoryList getAppCategoryList() {
+        return appCategoryList;
+    }
 
     private String[] tabItemNames = {"For You", "Top Charts", "Categories",
             "Family"};
 
     private MutableLiveData<App> receivedAppLiveData;
 
-    public CategoryList getAppCategoryList() {
-        return appCategoryList;
+    public MutableLiveData<Integer> getTabPosition() {
+        return tabPosition;
     }
 
     public CategoryList getFamilyCategoryList() {
@@ -47,8 +53,8 @@ public class PageViewModel extends ViewModel {
         return gamesCategoryList;
     }
 
-    public MutableLiveData<Integer> getTabPosition() {
-        return tabPosition;
+    public MutableLiveData<String> getAppTopChartsCategory() {
+        return appTopChartsCategory;
     }
 
 //    String[] gameCategories = new String[] {
@@ -139,10 +145,6 @@ public class PageViewModel extends ViewModel {
             R.drawable.ic_category,
             R.drawable.icons8_starfish_24};
 
-    public MutableLiveData<String> getAppTopChartsCategory() {
-        return appTopChartsCategory;
-    }
-
     public PageViewModel() {
         receivedAppLiveData = new MutableLiveData<>();
 
@@ -191,6 +193,7 @@ public class PageViewModel extends ViewModel {
         RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
         retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
     }
+
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
@@ -201,6 +204,10 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<CategoryList.Category> getSelectedCategory() {
         return selectedCategory;
+    }
+
+    public MutableLiveData<String> getFamilyTopChartsCategory() {
+        return familyTopChartsCategory;
     }
 
 }
