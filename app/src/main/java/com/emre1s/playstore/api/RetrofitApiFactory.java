@@ -1,5 +1,6 @@
 package com.emre1s.playstore.api;
 
+import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 
@@ -61,7 +62,6 @@ public class RetrofitApiFactory {
                     }
                 });
 
-
 //        retrofitAPICalls.getAppsByCategoryResponse(category).enqueue(new Callback<App[]>() {
 //            @Override
 //            public void onResponse(Call<App[]> call, Response<App[]> response) {
@@ -91,6 +91,29 @@ public class RetrofitApiFactory {
 //                Log.d("Emre1s", "Entire failure. Oops.");
 //            }
 //        });
+    }
+
+    public void getAppDetails(DatabaseCallback databaseCallback, String appID) {
+        retrofitAPICalls.getAppDetails(appID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<AppDetails>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(AppDetails appDetails) {
+                        databaseCallback.onSuccess(appDetails);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
     }
 
     public void appsByCollectionApiCall(final ApiResponseCallback apiResponseCallback,
