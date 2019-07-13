@@ -1,11 +1,5 @@
 {
-"categories":[ {
-  "name": "Games",
-  "id": "GAME"
-},
-{
-"name": "Family",
-"id": "FAMILY"},
+"categories":[
 {
 "name": "Art & Design",
 "id": "ART_AND_DESIGN"},
@@ -46,6 +40,9 @@
 "name": "Events",
 "id": "EVENTS"
 },
+{
+  "name": "Family",
+  "id": "FAMILY"},
 {
 "name": "Finance",
 "id": "FINANCE"

@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/tv_category_name"
         tools:text="Android Wear"
-        android:fontFamily="sans-serif-black"
+        android:textColor="@color/black"
         android:layout_marginStart="8dp"
         android:layout_gravity="start|center"
         android:layout_width="wrap_content"

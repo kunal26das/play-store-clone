@@ -4,71 +4,71 @@
   "id": "GAME"
 },
 {
-"name": "Games - Action",
+"name": "Action",
 "id": "GAME_ACTION"
 },
 {
-"name": "Games - Adventure",
+"name": "Adventure",
 "id": "GAME_ADVENTURE"
 },
 {
-"name": "Games - Arcade",
+"name": "Arcade",
 "id": "GAME_ARCADE"
 },
 {
-"name": "Games - Board",
+"name": "Board",
 "id":"GAME_BOARD"
 },
 {
-"name": "Games - Card",
+"name": "Card",
 "id": "GAME_CARD"
 },
 {
-"name": "Games - Casino",
+"name": "Casino",
 "id": "GAME_CASINO"
 },
 {
-"name": "Games - Casual",
+"name": "Casual",
 "id": "GAME_CASUAL"
 },
 {
-"name":"Games - Educational",
+"name":"Educational",
 "id": "GAME_EDUCATIONAL"
 },
 {
-"name": "Games - Music",
+"name": "Music",
 "id": "GAME_MUSIC"
 },
 {
-"name": "Games - Puzzle",
+"name": "Puzzle",
 "id": "GAME_PUZZLE"
 },
 {
-"name": "Games - Racing",
+"name": "Racing",
 "id": "GAME_RACING"
 },
 {
-"name": "Games - Role Playing",
+"name": "Role Playing",
 "id": "GAME_ROLE_PLAYING"
 },
 {
-"name": "Games - Simulation",
+"name": "Simulation",
 "id": "GAME_SIMULATION"
 },
 {
-"name": "Games - Sports",
+"name": "Sports",
 "id":"GAME_SPORTS"
 },
 {
-"name": "Games - Strategy",
+"name": "Strategy",
 "id": "GAME_STRATEGY"
 },
 {
-"name": "Games - Trivia",
+"name": "Trivia",
 "id": "GAME_TRIVIA"
 },
 {
-"name": "Games - Wordplay",
+"name": "Wordplay",
 "id": "GAME_WORD"
 }]
 }
