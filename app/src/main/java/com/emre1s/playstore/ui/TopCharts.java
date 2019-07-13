@@ -13,7 +13,7 @@ import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 
 import java.util.Objects;
 
-public class TopCharts extends AppCompatActivity{
+public class TopCharts extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +28,21 @@ public class TopCharts extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search,menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{
+        switch (item.getItemId()) {
+            case android.R.id.home: {
                 onBackPressed();
                 break;
             }
-            case R.id.action_search:{
-                Toast.makeText(this,"Search",Toast.LENGTH_SHORT).show();
+            case R.id.action_search: {
+                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
             }
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
