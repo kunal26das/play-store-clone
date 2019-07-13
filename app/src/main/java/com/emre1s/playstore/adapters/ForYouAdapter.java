@@ -91,6 +91,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel);
         LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.category_name);
