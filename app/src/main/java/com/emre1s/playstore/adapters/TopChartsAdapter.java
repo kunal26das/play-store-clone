@@ -48,8 +48,8 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         Picasso.get().load(iconPath+ mList.get(position).getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
-        holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
+        holder.appSize.setText(getRandomNumberInRange(1,50) + " MB"+" ●");
+        holder.appRating.setText(String.format("%s", mList.get(position).getScore()+" ★"));
     }
 
     @Override
