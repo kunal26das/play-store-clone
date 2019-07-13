@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,15 +21,22 @@ import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MoreAppsActivity extends AppCompatActivity {
 
     public static final String CATEGORY_KEY = "categoryKey";
     private CategoryList.Category category;
+    private int spanCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_apps);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            spanCount = 5;
+        } else {
+            spanCount = 3;
+        }
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -38,14 +47,14 @@ public class MoreAppsActivity extends AppCompatActivity {
 
         RecyclerView moreApps = findViewById(R.id.rv_more_apps);
         AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, spanCount);
         moreApps.setLayoutManager(gridLayoutManager);
         moreApps.setAdapter(appCardAdapter);
 
         pageViewModel.makeCategoryApiCall(category.getId(), new ApiResponseCallback() {
             @Override
-            public void onSuccess(App[] popularApp) {
-                appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
+            public void onSuccess(List<App> popularApp) {
+                appCardAdapter.setAppByCategoryApiRespons(popularApp);
             }
 
             @Override

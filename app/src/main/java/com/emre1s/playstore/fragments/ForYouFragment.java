@@ -1,11 +1,13 @@
 package com.emre1s.playstore.fragments;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
+import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
@@ -54,7 +57,20 @@ public class ForYouFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_for_you, container, false);
 
         RecyclerView forYouRecycler = view.findViewById(R.id.rv_for_you);
-        final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(), pageViewModel);
+//        ProgressBar progressBar = view.findViewById(R.id.pb_for_you);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setIndeterminateTintList(ColorStateList
+//                .valueOf(getResources().getColor(R.color.colorDarkGreen)));
+//        progressBar.setVisibility(View.VISIBLE);
+        final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(), pageViewModel, new OnCategoryChanged() {
+            @Override
+            public void changeCategory(CategoryList.Category category) {
+                Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+                Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                startActivity(intent);
+            }
+        });
 
         forYouRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         forYouRecycler.setAdapter(forYouAdapter);
@@ -70,19 +86,10 @@ public class ForYouFragment extends Fragment {
             }
         });
 
-        pageViewModel.getSelectedCategory().observe(this, new Observer<CategoryList.Category>() {
-            @Override
-            public void onChanged(CategoryList.Category category) {
-                Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
-                Intent intent = new Intent(getContext(), MoreAppsActivity.class);
-                intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
-                startActivity(intent);
-            }
-        });
-
         pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer tabPosition) {
+               // progressBar.setVisibility(View.GONE);
                 if (tabPosition == 0) {
                     forYouAdapter.setCategoryNames(pageViewModel.getGamesCategoryList());
                 } else {
@@ -91,31 +98,6 @@ public class ForYouFragment extends Fragment {
             }
         });
         return view;
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(ForYouFragment.class.getSimpleName(), "onPause called "+ hashCode());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(ForYouFragment.class.getSimpleName(), "onStop called "+ hashCode());
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(ForYouFragment.class.getSimpleName(), "onDestroy called "+ hashCode());
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(ForYouFragment.class.getSimpleName(), "onDestroyView called "+ hashCode());
     }
 
 }

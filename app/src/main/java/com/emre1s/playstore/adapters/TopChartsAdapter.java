@@ -45,7 +45,7 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         Log.d("TopCharts", mList.get(position).getTitle());
         String iconPath="https:";
         holder.sNo.setText(position+1+"");
-        Picasso.get().load(iconPath+ mList.get(position).getIcon()).into(holder.appIcon);
+        Picasso.get().load(iconPath+ mList.get(position).getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
         holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
