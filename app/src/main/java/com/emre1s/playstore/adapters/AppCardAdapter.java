@@ -22,6 +22,7 @@ import java.util.Random;
 public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHolder> {
 
     private List<App> appByCategoryApiRespons;
+    private List<Integer> fileSizes;
     private PageViewModel pageViewModel;
 
     public AppCardAdapter(PageViewModel pageViewModel) {
@@ -42,9 +43,9 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d("Emre1s", "Image icon: " + appByCategoryApiRespons.get(position).getIcon());
         Picasso.get().load("https:" + appByCategoryApiRespons.get(position)
-                .getIcon()).into(holder.appIcon);
+                .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(appByCategoryApiRespons.get(position).getTitle());
-        holder.appSize.setText(getRandomNumberInRange(1,50) + " MB");
+        holder.appSize.setText(fileSizes.get(position) + " MB");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,11 +74,14 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     public void setAppByCategoryApiRespons(List<App> appByCategoryApiRespons) {
         this.appByCategoryApiRespons = appByCategoryApiRespons;
+        fileSizes = new ArrayList<>();
+        for (int i = 0; i < appByCategoryApiRespons.size(); i++) {
+            fileSizes.add(getRandomNumberInRange(1,50));
+        }
         notifyDataSetChanged();
     }
 
     private static int getRandomNumberInRange(int min, int max) {
-
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }

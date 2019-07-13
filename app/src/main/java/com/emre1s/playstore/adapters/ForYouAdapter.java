@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.fragments.ForYouFragment;
+import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
@@ -35,11 +36,13 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
     private List<CategoryList.Category> categoryList;
     private Context context;
     private PageViewModel pageViewModel;
+    private OnCategoryChanged onCategoryChanged;
 
-    public ForYouAdapter(Context context,PageViewModel pageViewModel) {
+    public ForYouAdapter(Context context, PageViewModel pageViewModel, OnCategoryChanged onCategoryChanged) {
         this.context = context;
         this.pageViewModel = pageViewModel;
         categoryList = new ArrayList<>();
+        this.onCategoryChanged = onCategoryChanged;
     }
 
     @NonNull
@@ -57,14 +60,14 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
-                pageViewModel.getSelectedCategory().postValue(categoryList.get(position));
+                onCategoryChanged.changeCategory(categoryList.get(position));
             }
         });
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
-            public void onSuccess(App[] popularApp) {
+            public void onSuccess(List<App> popularApp) {
                 holder.container.setVisibility(View.VISIBLE);
-                holder.appCardAdapter.setAppByCategoryApiRespons(Arrays.asList(popularApp));
+                holder.appCardAdapter.setAppByCategoryApiRespons(popularApp);
             }
 
             @Override

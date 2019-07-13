@@ -28,20 +28,16 @@ public class FamilyTopChartsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-                category = "topselling_free";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("topselling_free");
             }
             case 1: {
-                category = "movers_shakers";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("movers_shakers");
             }
             case 2: {
-                category="topselling_paid";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("topselling_paid");
             }
             default:{
-                category="topselling_free";
-                return new FamilyTopChartsFragment(category);
+                return FamilyTopChartsFragment.getInstance("topselling_free");
             }
         }
     }
