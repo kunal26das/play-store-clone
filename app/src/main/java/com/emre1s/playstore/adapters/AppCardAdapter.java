@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
+//import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
@@ -48,7 +49,7 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
         holder.appSize.setText(fileSizes.get(position) + " MB");
-        //holder.itemView.setOnClickListener(v -> pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position)));
+        holder.itemView.setOnClickListener(v -> pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position)));
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AppPageActivity.class);
             intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());

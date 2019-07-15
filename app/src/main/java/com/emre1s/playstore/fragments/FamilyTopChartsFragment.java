@@ -24,6 +24,7 @@ import java.util.List;
 
 public class FamilyTopChartsFragment extends Fragment {
 
+
     private PageViewModel pageViewModel;
     private int limit;
 
@@ -42,7 +43,7 @@ public class FamilyTopChartsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         String category = "topselling_free";
         if (getArguments() != null) {
             category = getArguments().getString("category");
@@ -59,7 +60,7 @@ public class FamilyTopChartsFragment extends Fragment {
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         appList.setAdapter(topChartsAdapter);
         appList.setHasFixedSize(true);
-        PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        PageViewModel pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
 
         pageViewModel.getFamilyTopChartsCategory().observe(this, new Observer<String>() {
             @Override

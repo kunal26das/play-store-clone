@@ -25,6 +25,8 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 
 public class ForYouFragment extends Fragment {
 
+
+
     private PageViewModel pageViewModel;
 
     public ForYouFragment() {
@@ -41,7 +43,7 @@ public class ForYouFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int position = 1;
         if (getArguments() != null) {
             position = getArguments().getInt("position");

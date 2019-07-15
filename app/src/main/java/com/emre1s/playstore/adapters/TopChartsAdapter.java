@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
+//import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.squareup.picasso.Picasso;
 
