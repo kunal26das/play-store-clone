@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="4dp"
         android:src="@drawable/ic_explorer"/>
 
     <TextView
@@ -19,7 +20,7 @@
         android:layout_width="wrap_content"
         android:maxWidth="78dp"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:maxLines="1"
         android:ellipsize="end"
         tools:text="For You"/>

@@ -40,6 +40,9 @@
             android:layout_width="match_parent"
             app:search_hint="Google Play"
             app:search_shadow="false"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             android:layout_height="match_parent"
             app:layout_behavior="@string/search_behavior"/>
@@ -47,7 +50,8 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways|snap"/>
 

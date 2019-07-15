@@ -1,5 +1,6 @@
 package com.emre1s.playstore.api;
 
+import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.MovieGenreList;
@@ -70,6 +71,89 @@ public class RetrofitApiFactory {
                         apiResponseCallback.onFailure();
                     }
                 });
+
+//        retrofitAPICalls.getAppsByCategoryResponse(category).enqueue(new Callback<App[]>() {
+//            @Override
+//            public void onResponse(Call<App[]> call, Response<App[]> response) {
+//
+//                if (response.isSuccessful()) {
+//                    Log.d("Emre1s", "Successful response");
+//                    App[] appByCategoryApiResponse = response.body();
+//                    if (appByCategoryApiResponse != null) {
+//                        apiResponseCallback.onSuccess(appByCategoryApiResponse);
+//                    } else {
+//                        apiResponseCallback.onFailure();
+//                        Log.d("Emre1s", "it's empty");
+//                    }
+//                } else {
+//
+//                    try {
+//                        Log.d("Emre1s", "Response not successful"
+//                                + response.message() + response.errorBody().string());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<App[]> call, Throwable t) {
+//                Log.d("Emre1s", "Entire failure. Oops.");
+//            }
+//        });
+
+//        retrofitAPICalls.getAppsByCategoryResponse(category).enqueue(new Callback<App[]>() {
+//            @Override
+//            public void onResponse(Call<App[]> call, Response<App[]> response) {
+//
+//                if (response.isSuccessful()) {
+//                    Log.d("Emre1s", "Successful response");
+//                    App[] appByCategoryApiResponse = response.body();
+//                    if (appByCategoryApiResponse != null) {
+//                        apiResponseCallback.onSuccess(appByCategoryApiResponse);
+//                    } else {
+//                        apiResponseCallback.onFailure();
+//                        Log.d("Emre1s", "it's empty");
+//                    }
+//                } else {
+//
+//                    try {
+//                        Log.d("Emre1s", "Response not successful"
+//                                + response.message() + response.errorBody().string());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<App[]> call, Throwable t) {
+//                Log.d("Emre1s", "Entire failure. Oops.");
+//            }
+//        });
+    }
+
+    public void getAppDetails(DatabaseCallback databaseCallback, String appID) {
+        retrofitAPICalls.getAppDetails(appID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<AppDetails>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(AppDetails appDetails) {
+                        databaseCallback.onSuccess(appDetails);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
     }
 
     public void appsByCollectionApiCall(final ApiResponseCallback apiResponseCallback,

@@ -61,7 +61,8 @@
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/top_charts_family_tab"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
