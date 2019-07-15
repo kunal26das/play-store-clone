@@ -30,13 +30,18 @@ public interface RetrofitAPICalls {
     Single<List<App>> getSimilarApps(
             @Query("id") String packageName);
 
-//    @GET("suggestions/")
-//    Call<>
+    @GET("suggestions/")
+    Single<List<String>> getSearchSuggestions(
+            @Query("q") String keyword);
 
     @GET(" ")
     Single<List<App>> getAppsByCollectionCategory(
             @Query("collection") String collection,
             @Query("category") String category
     );
+
+    @GET("search/")
+    Single<List<App>> getSearchResults(
+            @Query("q") String query);
 
 }

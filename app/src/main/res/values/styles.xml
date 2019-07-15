@@ -26,6 +26,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -46,7 +47,7 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="AppPageTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="WhiteTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/whiteColor</item>
         <item name="colorAccent">@color/colorAccent</item>

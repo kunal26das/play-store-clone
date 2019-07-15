@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
+import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
@@ -31,12 +32,14 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
     private List<CategoryList.Category> categoryList;
     private PageViewModel pageViewModel;
     private OnCategoryChanged onCategoryChanged;
+    private OnDialogOpenListener onDialogOpenListener;
 
-    public ForYouAdapter(Context context, PageViewModel pageViewModel, OnCategoryChanged onCategoryChanged) {
+    public ForYouAdapter(Context context, PageViewModel pageViewModel, OnCategoryChanged onCategoryChanged, OnDialogOpenListener onDialogOpenListener) {
         this.context = context;
         this.pageViewModel = pageViewModel;
         categoryList = new ArrayList<>();
         this.onCategoryChanged = onCategoryChanged;
+        this.onDialogOpenListener = onDialogOpenListener;
     }
 
     public void setCategoryNames(CategoryList categoryList) {
@@ -59,6 +62,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
             onCategoryChanged.changeCategory(categoryList.get(position));
         });
+
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(List<App> popularApp) {
@@ -84,7 +88,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         ConstraintLayout categoryDetailsContainer;
         TextView categoryName;
         RecyclerView categoryApps;
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel);
+        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, onDialogOpenListener);
         LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
 
 

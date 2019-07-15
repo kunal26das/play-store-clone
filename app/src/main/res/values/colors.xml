@@ -14,6 +14,11 @@
     <color name="colorGreyDark">#616161</color>
     <color name="colorLightGrey">#EDEDED</color>
     <color name="colorWhite">#FFF</color>
+    <color name="colorMovies">#E10057</color>
+    <color name="colorBooks">#006ECA</color>
+    <color name="colorMusic">#FF0000</color>
+
+
 
     <!-- Kunal colors -->
     <color name="primaryColor">#01875f</color>

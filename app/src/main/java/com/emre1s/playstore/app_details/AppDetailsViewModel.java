@@ -37,5 +37,9 @@ public class AppDetailsViewModel extends AndroidViewModel {
             return mDao.getAppDetails(appId);
         }
 
+        void insertAppDetails(AppDetails appDetails) {
+            mDao.insertAppDetails(new AppDetailsEntity(appDetails));
+        }
+
     }
 }

@@ -1,14 +1,56 @@
 package com.emre1s.playstore.models;
 
-public class SearchSuggestion {
+import android.os.Parcel;
 
-    String suggestion;
+public class SearchSuggestion implements com.arlib.floatingsearchview.suggestions.model.SearchSuggestion {
 
-    public String getSuggestion() {
+    private String suggestion;
+    private boolean mIsHistory = false;
+
+    public SearchSuggestion(String suggestion) {
+        this.suggestion = suggestion;
+    }
+
+    public boolean ismIsHistory() {
+        return mIsHistory;
+    }
+
+    public void setmIsHistory(boolean mIsHistory) {
+        this.mIsHistory = mIsHistory;
+    }
+
+
+    @Override
+    public String getBody() {
         return suggestion;
     }
 
-    public void setSuggestion(String suggestion) {
-        this.suggestion = suggestion;
+    @Override
+    public int describeContents() {
+        return 0;
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.suggestion);
+        dest.writeByte(this.mIsHistory ? (byte) 1 : (byte) 0);
+    }
+
+
+    protected SearchSuggestion(Parcel in) {
+        this.suggestion = in.readString();
+        this.mIsHistory = in.readByte() != 0;
+    }
+
+    public static final Creator<SearchSuggestion> CREATOR = new Creator<SearchSuggestion>() {
+        @Override
+        public SearchSuggestion createFromParcel(Parcel source) {
+            return new SearchSuggestion(source);
+        }
+
+        @Override
+        public SearchSuggestion[] newArray(int size) {
+            return new SearchSuggestion[size];
+        }
+    };
 }

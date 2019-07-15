@@ -23,6 +23,9 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
 public class MoreAppsActivity extends AppCompatActivity {
 
     public static final String CATEGORY_KEY = "categoryKey";
@@ -46,7 +49,11 @@ public class MoreAppsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView moreApps = findViewById(R.id.rv_more_apps);
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel);
+
+        moreApps.setItemAnimator(new SlideInUpAnimator());
+
+        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, null);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, spanCount);
         moreApps.setLayoutManager(gridLayoutManager);
         moreApps.setAdapter(appCardAdapter);
