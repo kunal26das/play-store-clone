@@ -47,4 +47,5 @@
     <string name="show_all">SHOW ALL</string>
     <string name="family_categories">Family categories</string>
     <string name="action_search">Search</string>
+    <string name="title_activity_installed_app_list">InstalledAppListActivity</string>
 </resources>

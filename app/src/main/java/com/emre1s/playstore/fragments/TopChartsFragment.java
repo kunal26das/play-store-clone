@@ -25,6 +25,7 @@ import java.util.List;
 
 public class TopChartsFragment extends Fragment {
 
+
     private PageViewModel pageViewModel;
 
     public TopChartsFragment() {
@@ -42,7 +43,7 @@ public class TopChartsFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         super.onCreate(savedInstanceState);
         String category = "topselling_free";
         int tabPosition = 0;

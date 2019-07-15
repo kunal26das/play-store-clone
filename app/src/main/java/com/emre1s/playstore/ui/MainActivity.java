@@ -55,13 +55,17 @@ import io.reactivex.disposables.Disposable;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnShowAllClickedListener {
 
+
     private FloatingSearchView searchView;
     private static final String TAG = MainActivity.class.getSimpleName();
     private PageViewModel pageViewModel;
 
+    //private BottomSheetBehavior bottomSheetBehavior;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Stetho.initializeWithDefaults(this);
@@ -72,6 +76,34 @@ public class MainActivity extends AppCompatActivity
                 inputStreamToString(getResources().openRawResource(R.raw.family)),
                 inputStreamToString(getResources().openRawResource(R.raw.games)));
 
+
+        String myJson = inputStreamToString(getResources().openRawResource(R.raw.apps));
+        Log.d(TAG, myJson);
+
+        String familyJson = inputStreamToString(getResources().openRawResource(R.raw.family));
+        Log.d(TAG, familyJson);
+
+        String gamesJson = inputStreamToString(getResources().openRawResource(R.raw.games));
+        Log.d(TAG, gamesJson);
+
+        CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
+        CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
+        CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
+        RetrofitApiFactory.setAppCategories(appsCategory);
+        RetrofitApiFactory.setFamilyCategories(familyCategory);
+        RetrofitApiFactory.setGameCategories(gamesCategory);
+
+        for (CategoryList.Category category : appsCategory.getCategoryList()) {
+            Log.d(TAG, " App Category Name: " + category.getName() + " ID: " + category.getId());
+        }
+
+        for (CategoryList.Category category : familyCategory.getCategoryList()) {
+            Log.d(TAG, "Family Category name: " + category.getName() + category.getId());
+        }
+
+        for (CategoryList.Category category : gamesCategory.getCategoryList()) {
+            Log.d(TAG, "Game Category name: " + category.getName() + category.getId());
+        }
 
         SectionsPagerAdapter sectionsPagerAdapter = new 
         SectionsPagerAdapter(this, getSupportFragmentManager());

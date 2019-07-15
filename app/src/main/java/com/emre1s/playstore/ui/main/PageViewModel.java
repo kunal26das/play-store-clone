@@ -1,8 +1,17 @@
 package com.emre1s.playstore.ui.main;
 
+
 import android.graphics.Color;
 
 import androidx.fragment.app.FragmentManager;
+
+import androidx.arch.core.util.Function;
+import androidx.lifecycle.LiveData;
+import android.app.Application;
+
+import androidx.arch.core.util.Function;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
@@ -22,7 +31,9 @@ import com.emre1s.playstore.pageradapters.MoviePagerAdapter;
 
 import java.util.List;
 
-public class PageViewModel extends ViewModel {
+import javax.inject.Inject;
+
+public class PageViewModel extends AndroidViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
@@ -62,10 +73,12 @@ public class PageViewModel extends ViewModel {
     public MutableLiveData<String> getAppTopChartsCategory() {
         return appTopChartsCategory;
     }
+    private Application mApplication;
 
-    public PageViewModel() {
+    public PageViewModel(Application application) {
+        super(application);
+        mApplication=application;
         receivedAppLiveData = new MutableLiveData<>();
-
     }
 
     public void setIndex(int index) {
@@ -73,41 +86,40 @@ public class PageViewModel extends ViewModel {
     }
 
     public void makeCategoryApiCall(String category, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.appsByCategoryApiCall(apiResponseCallback, category);
     }
 
     public void makeCollectionApiCall(String collection, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory =new RetrofitApiFactory(mApplication);
         retrofitApiFactory.appsByCollectionApiCall(apiResponseCallback, collection);
     }
 
     public void makeSimilarAppsApiCall(String packageName, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
     }
 
-    public void makeCategoryCollectionApiCall(String collection, String category,
-                                              ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
-        retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category,
-                apiResponseCallback);
+    public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory =new RetrofitApiFactory(mApplication);
+        retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
     }
 
     public void makeSearchSuggestionApiCall(String keyword,
                                             SearchResponseCallback searchResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.getSearchSuggestions(keyword, searchResponseCallback);
     }
 
     public void makeAppDetailsApiCall(String packageName, DatabaseCallback databaseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.getAppDetails(databaseCallback, packageName);
     }
 
     public void makeSearchResultsApiCall(String query, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.searchAppsApiCall(apiResponseCallback, query);
+
     }
 
     public MutableLiveData<App> getReceivedAppLiveData() {

@@ -49,8 +49,11 @@ public class MoreAppsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView moreApps = findViewById(R.id.rv_more_apps);
+
         moreApps.setItemAnimator(new SlideInUpAnimator());
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel);
+
+        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, null);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, spanCount);
         moreApps.setLayoutManager(gridLayoutManager);
         moreApps.setAdapter(appCardAdapter);

@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
+import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
+import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
@@ -29,6 +31,8 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class ForYouFragment extends Fragment {
+
+
 
     private PageViewModel pageViewModel;
 
@@ -46,7 +50,7 @@ public class ForYouFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int position = 1;
         if (getArguments() != null) {
             position = getArguments().getInt("position");
@@ -74,6 +78,18 @@ public class ForYouFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MoreAppsActivity.class);
                 intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
                 startActivity(intent);
+            }
+        }, new OnDialogOpenListener() {
+            @Override
+            public void onLongClickListener(AppDetails appDetails) {
+                /*Intent intent = new Intent(v.getContext(), AppPageActivity.class);
+                intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
+                v.getContext().startActivity(intent);*/
+
+                AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails);
+                if (getFragmentManager() != null) {
+                    bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
+                }
             }
         });
 
