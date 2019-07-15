@@ -17,15 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AllCategoriesAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
-import com.emre1s.playstore.dagger.PageViewModelFactory;
 import com.emre1s.playstore.ui.main.PageViewModel;
-
-import javax.inject.Inject;
 
 public class AppCategoryFragment extends Fragment {
 
-    @Inject
-    PageViewModelFactory pageViewModelFactory;
 
     private PageViewModel pageViewModel;
 
@@ -44,7 +39,7 @@ public class AppCategoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int position = 1;
         if (getArguments() != null) {
             position = getArguments().getInt("position");
@@ -69,7 +64,7 @@ public class AppCategoryFragment extends Fragment {
         LinearSnapHelper pagerSnapHelper = new LinearSnapHelper();
         pagerSnapHelper.attachToRecyclerView(topCategories);
 
-        PageViewModel pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
+        PageViewModel pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
 
 
         AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter();

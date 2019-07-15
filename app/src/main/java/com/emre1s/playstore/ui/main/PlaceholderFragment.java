@@ -16,16 +16,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.dagger.PageViewModelFactory;
 import com.emre1s.playstore.fragments.SubCategoryPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-import javax.inject.Inject;
-
 public class PlaceholderFragment extends Fragment {
 
-    @Inject
-    PageViewModelFactory pageViewModelFactory;
+
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -42,7 +38,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this,pageViewModelFactory).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);

@@ -22,7 +22,6 @@ import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
-import com.emre1s.playstore.dagger.PageViewModelFactory;
 import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
@@ -36,16 +35,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
-
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnShowAllClickedListener {
 
-    @Inject
-    PageViewModelFactory pageViewModelFactory;
 
     private FloatingSearchView searchView;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -53,7 +46,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
