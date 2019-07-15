@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     private FloatingSearchView searchView;
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    //private BottomSheetBehavior bottomSheetBehavior;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +80,6 @@ public class MainActivity extends AppCompatActivity
         for (CategoryList.Category category : gamesCategory.getCategoryList()) {
             Log.d(TAG, "Game Category name: " + category.getName() + category.getId());
         }
-
-
 
         SectionsPagerAdapter sectionsPagerAdapter = new 
         SectionsPagerAdapter(this, getSupportFragmentManager());
