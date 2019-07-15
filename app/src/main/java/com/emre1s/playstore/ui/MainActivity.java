@@ -44,8 +44,6 @@ import dagger.android.AndroidInjection;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnShowAllClickedListener {
 
-    @Inject
-    PageViewModelFactory pageViewModelFactory;
 
     private FloatingSearchView searchView;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

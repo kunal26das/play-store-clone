@@ -2,17 +2,17 @@ package com.emre1s.playstore.dagger;
 
 import android.app.Application;
 
+import com.emre1s.playstore.api.RetrofitApiFactory;
+
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
+import retrofit2.Retrofit;
 
 @Component(modules = {
-        ApiModule.class,
-        ViewModelModule.class,
-        ActivityModule.class,
-        AndroidSupportInjectionModule.class})
+        ApiModule.class})
 @Singleton
 public interface AppComponent {
 
@@ -36,5 +36,5 @@ public interface AppComponent {
     /*
      * This is our custom Application class
      * */
-    void inject(AppController appController);
+    void inject(RetrofitApiFactory retrofitApiFactory);
 }

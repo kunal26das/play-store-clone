@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
-import com.emre1s.playstore.ui.AppPageActivity;
+//import com.emre1s.playstore.ui.AppPageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -86,11 +86,11 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
         holder.appSize.setText(getRandomNumberInRange(1, 50) + " MB");
         holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), AppPageActivity.class);
-            intent.putExtra("APP_ID", mList.get(position).getAppId());
-            v.getContext().startActivity(intent);
-        });
+//        holder.itemView.setOnClickListener(v -> {
+//            Intent intent = new Intent(v.getContext(), AppPageActivity.class);
+//            intent.putExtra("APP_ID", mList.get(position).getAppId());
+//            v.getContext().startActivity(intent);
+//        });
         holder.itemView.setOnLongClickListener(v -> false);
     }
 }
