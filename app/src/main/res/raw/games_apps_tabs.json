@@ -1,0 +1,20 @@
+{
+  "tabs": [
+    {
+      "name": "For You",
+      "icon": "ic_explorer"
+    },
+    {
+      "name": "Top Charts",
+      "icon": "ic_graphic_eq_black_24dp"
+    },
+    {
+      "name": "Categories",
+      "icon": "ic_category"
+    },
+    {
+      "name": "Family",
+      "icon": "icons8_starfish_24"
+    }
+  ]
+}

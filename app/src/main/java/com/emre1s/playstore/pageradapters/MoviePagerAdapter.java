@@ -1,4 +1,4 @@
-package com.emre1s.playstore.fragments;
+package com.emre1s.playstore.pageradapters;
 
 import android.util.Log;
 
@@ -7,19 +7,24 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
+import com.emre1s.playstore.fragments.AppCategoryFragment;
+import com.emre1s.playstore.fragments.FamilyAppFragment;
+import com.emre1s.playstore.fragments.ForYouFragment;
+import com.emre1s.playstore.fragments.TopChartsTabFragment;
+
+public class MoviePagerAdapter extends FragmentPagerAdapter {
+
     private static int NUM_ITEMS = 4;
     private int tabPosition;
 
-    public SubCategoryPagerAdapter(FragmentManager fragmentManager, int tabPosition) {
+    public MoviePagerAdapter (FragmentManager fragmentManager, int tabPosition) {
         super(fragmentManager);
         this.tabPosition = tabPosition;
-        // Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "TabList position: " + tabPosition);
     }
 
     @Override
     public Fragment getItem(int position) {
-        Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "POSITION: " + tabPosition);
+        Log.d(MoviePagerAdapter.class.getSimpleName(), "POSITION: " + tabPosition);
         switch (position) {
             case 0: {
                 return ForYouFragment.newInstance(tabPosition);
@@ -41,7 +46,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(@NonNull Object object) {
-        Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "I was called");
+        Log.d(MoviePagerAdapter.class.getSimpleName(), "I was called");
         return super.getItemPosition(object);
     }
 
@@ -49,7 +54,5 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return NUM_ITEMS;
     }
-
-
 
 }

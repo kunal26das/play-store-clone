@@ -29,11 +29,11 @@ public class AppCategoryFragment extends Fragment {
     }
 
     public static AppCategoryFragment newInstance(int position) {
-        AppCategoryFragment forYouFragment = new AppCategoryFragment();
+        AppCategoryFragment appCategoryFragment = new AppCategoryFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("position", position);
-        forYouFragment.setArguments(bundle);
-        return forYouFragment;
+        appCategoryFragment.setArguments(bundle);
+        return appCategoryFragment;
     }
 
     @Override

@@ -15,7 +15,7 @@
         tools:context=".MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBar"
+            android:id="@+id/searchAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -27,31 +27,34 @@
                 android:background="@color/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"/>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:layout_scrollFlags="scroll|enterAlways"/>
-
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.emre1s.playstore.viewpagers.NonSwipeViewPager
-            android:visibility="visible"
-            android:id="@+id/view_pager"
+        <androidx.cardview.widget.CardView
+            app:layout_anchor="@id/searchAppBar"
+            app:layout_anchorGravity="bottom"
+            android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="4dp"
+            android:elevation="4dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_results"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.arlib.floatingsearchview.FloatingSearchView
-        android:id="@+id/floating_search_view"
+        android:id="@+id/sv_search_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:floatingSearch_close_search_on_keyboard_dismiss="false"
         app:floatingSearch_dimBackground="false"
         app:floatingSearch_dismissOnOutsideTouch="true"
-        app:floatingSearch_leftActionMode="showHamburger"
+        app:floatingSearch_leftActionMode="showHome"
         app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
         app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
         app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
