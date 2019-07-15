@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
@@ -208,6 +209,11 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<String> getFamilyTopChartsCategory() {
         return familyTopChartsCategory;
+    }
+
+    public void makeAppDetailsApiCall(String packageName, DatabaseCallback databaseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.getAppDetails(databaseCallback, packageName);
     }
 
 }

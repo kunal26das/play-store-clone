@@ -86,7 +86,7 @@ public class FamilyAppFragment extends Fragment {
                 intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
                 startActivity(intent);
             }
-        });
+        }, null);
 
         familyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         familyRecycler.setAdapter(familyAdapter);

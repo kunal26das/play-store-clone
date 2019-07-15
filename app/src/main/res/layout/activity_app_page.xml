@@ -26,4 +26,6 @@
 
     <include layout="@layout/content_app_page" />
 
+    <!--<include layout="@layout/app_details_fragment"/>-->
+
 </LinearLayout>

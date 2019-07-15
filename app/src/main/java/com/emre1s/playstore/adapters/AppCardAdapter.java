@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.DatabaseCallback;
+import com.emre1s.playstore.app_details.AppDetails;
+import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
@@ -26,10 +29,12 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
     private List<App> appByCategoryApiResponse;
     private List<Integer> fileSizes;
     private PageViewModel pageViewModel;
+    private OnDialogOpenListener onDialogOpenListener;
 
-    public AppCardAdapter(PageViewModel pageViewModel) {
+    public AppCardAdapter(PageViewModel pageViewModel, OnDialogOpenListener onDialogOpenListener) {
         appByCategoryApiResponse = new ArrayList<>();
         this.pageViewModel = pageViewModel;
+        this.onDialogOpenListener = onDialogOpenListener;
     }
 
     @NonNull
@@ -43,18 +48,40 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        pageViewModel.makeAppDetailsApiCall(appByCategoryApiResponse.get(position).getAppId(),
+                new DatabaseCallback() {
+                    @Override
+                    public void onSuccess(AppDetails appDetails) {
+                        if (appDetails.getmSize().equals("Varies with device")) {
+                            holder.appSize.setText("");
+                        } else {
+                            int len = appDetails.getmSize().length();
+                            String str = appDetails.getmSize().substring(0, len - 1) + " MB";
+                            holder.appSize.setText(str);
+                        }
+                        holder.itemView.setOnLongClickListener(v -> {
+                            onDialogOpenListener.onLongClickListener(appDetails);
+
+                            return true;
+                        });
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
         Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
         Picasso.get().load("https:" + appByCategoryApiResponse.get(position)
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
-        holder.appSize.setText(fileSizes.get(position) + " MB");
+        //holder.appSize.setText(fileSizes.get(position) + " MB");
         //holder.itemView.setOnClickListener(v -> pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position)));
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AppPageActivity.class);
             intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
             v.getContext().startActivity(intent);
         });
-        holder.itemView.setOnLongClickListener(v -> false);
     }
 
     @Override
