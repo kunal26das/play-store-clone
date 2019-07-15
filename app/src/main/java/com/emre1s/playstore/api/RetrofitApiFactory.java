@@ -39,21 +39,6 @@ public class RetrofitApiFactory {
         retrofitAPICalls = retrofit.create(RetrofitAPICalls.class);
     }
 
-//    public static RetrofitApiFactory getInstance() {
-//        if (retrofitApiFactory == null) {
-//            Retrofit retrofit = new Retrofit.Builder()
-//                    .baseUrl("http://13.234.73.3/")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                    .build();
-//
-//
-//
-//            retrofitApiFactory = new RetrofitApiFactory(retrofit.create(RetrofitAPICalls.class));
-//        }
-//        return retrofitApiFactory;
-//    }
-
     public void appsByCategoryApiCall(final ApiResponseCallback apiResponseCallback, String category) {
 
         retrofitAPICalls.getAppsByCategoryResponse(category)
