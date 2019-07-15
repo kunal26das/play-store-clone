@@ -12,17 +12,17 @@ import dagger.android.HasActivityInjector;
 
 public class AppController extends Application {
 
+    private AppComponent appComponent;
+
     public AppComponent getAppComponent() {
         return appComponent;
     }
-
-    private AppComponent appComponent;
-
 
     @Override
     public void onCreate() {
         super.onCreate();
         appComponent= DaggerAppComponent.builder()
+                .application(this)
                 .apiModule(new ApiModule())
                 .build();
     }

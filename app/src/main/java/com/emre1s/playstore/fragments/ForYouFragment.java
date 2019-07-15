@@ -32,8 +32,6 @@ import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class ForYouFragment extends Fragment {
 
-
-
     private PageViewModel pageViewModel;
 
     public ForYouFragment() {
@@ -50,6 +48,7 @@ public class ForYouFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRetainInstance(true);
         pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int position = 1;
         if (getArguments() != null) {
