@@ -1,11 +1,15 @@
 package com.emre1s.playstore.ui.main;
 
+import android.graphics.Color;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.api.SearchResponseCallback;
 import com.emre1s.playstore.fragments.SubCategoryPagerAdapter;
@@ -96,6 +100,16 @@ public class PageViewModel extends ViewModel {
         retrofitApiFactory.getSearchSuggestions(keyword, searchResponseCallback);
     }
 
+    public void makeAppDetailsApiCall(String packageName, DatabaseCallback databaseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.getAppDetails(databaseCallback, packageName);
+    }
+
+    public void makeSearchResultsApiCall(String query, ApiResponseCallback apiResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.searchAppsApiCall(apiResponseCallback, query);
+    }
+
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
@@ -157,6 +171,29 @@ public class PageViewModel extends ViewModel {
         return movieGenreList;
     }
 
+    public int getTabColor(Integer position) {
+        switch (position) {
+            case 0: {
+                return R.color.colorPrimaryDark;
+            }
+            case 1: {
+                return R.color.colorPrimaryDark;
+            }
+            case 2: {
+                return R.color.colorMovies;
+            }
+            case 3: {
+                return R.color.colorBooks;
+            }
+            case 4: {
+                return R.color.colorMusic;
+            }
+            default: {
+                return R.color.colorPrimaryDark;
+            }
+
+        }
+    }
 }
 
 

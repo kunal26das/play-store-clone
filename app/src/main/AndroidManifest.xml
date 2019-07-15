@@ -15,10 +15,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".ui.MoreAppsActivity"></activity>
-
-        <activity android:name=".ui.TopCharts"></activity>
+        <activity android:name=".ui.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.MoreAppsActivity" />
+        <activity android:name=".ui.TopCharts" />
         <activity
             android:name=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -30,8 +30,7 @@
         </activity>
         <activity
             android:name=".ui.AppPageActivity"
-            android:theme="@style/AppPageTheme"></activity>
-
+            android:theme="@style/AppPageTheme" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.emre1s.playstore.ui.main;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -69,17 +70,18 @@ public class PlaceholderFragment extends Fragment {
                 subViewPager.setOffscreenPageLimit(4); //Todo: Might want to remove this
 
                 List<Tab> tabs = pageViewModel.getTabList(position);
+                int colorId = pageViewModel.getTabColor(position);
                 setupTabViews(tabLayout, tabs);
 
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
-                                .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
+                                .setColorFilter(getResources().getColor(colorId),
                                         android.graphics.PorterDuff.Mode.SRC_IN);
 
                         ((TextView)tab.getCustomView().findViewById(R.id.tabText))
-                                .setTextColor(getResources().getColor(R.color.colorDarkGreen));
+                                .setTextColor(getResources().getColor(colorId));
                     }
 
                     @Override
@@ -99,11 +101,11 @@ public class PlaceholderFragment extends Fragment {
                 });
 
                 ((ImageView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
-                        .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
+                        .setColorFilter(getResources().getColor(colorId),
                                 android.graphics.PorterDuff.Mode.SRC_IN);
 
                 ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
-                        .setTextColor(getResources().getColor(R.color.colorDarkGreen));
+                        .setTextColor(getResources().getColor(colorId));
             }
         });
 

@@ -9,9 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.DatabaseCallback;
+import com.emre1s.playstore.app_details.AppDetails;
+import com.emre1s.playstore.app_details.AppDetailsViewModel;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
@@ -43,12 +48,26 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        pageViewModel.makeAppDetailsApiCall(appByCategoryApiResponse.get(position).getAppId(),
+                new DatabaseCallback() {
+            @Override
+            public void onSuccess(AppDetails appDetails) {
+                if (appDetails.getmSize().equals("Varies with device")) {
+                    holder.appSize.setText("");
+                } else {
+                    holder.appSize.setText(appDetails.getmSize());
+                }
+            }
 
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
         Picasso.get().load("https:" + appByCategoryApiResponse.get(position)
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
-        holder.appSize.setText(fileSizes.get(position) + " MB");
         //holder.itemView.setOnClickListener(v -> pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position)));
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AppPageActivity.class);

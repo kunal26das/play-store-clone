@@ -40,4 +40,8 @@ interface RetrofitAPICalls {
             @Query("category") String category
     );
 
+    @GET("search/")
+    Single<List<App>> getSearchResults(
+            @Query("q") String query);
+
 }
