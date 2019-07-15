@@ -31,10 +31,11 @@ public class TopChartsFragment extends Fragment {
 
     }
 
-    public static Fragment getInstance(String category) {
+    public static Fragment getInstance(String category, Integer tabPosition) {
         TopChartsFragment topChartsFragment = new TopChartsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("category", category);
+        bundle.putInt("tabPosition", tabPosition);
         topChartsFragment.setArguments(bundle);
         return topChartsFragment;
     }
@@ -44,38 +45,74 @@ public class TopChartsFragment extends Fragment {
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         super.onCreate(savedInstanceState);
         String category = "topselling_free";
+        int tabPosition = 0;
         if (getArguments() != null) {
             category = getArguments().getString("category");
+            tabPosition = getArguments().getInt("tabPosition");
+            Log.d(TopChartsFragment.class.getSimpleName(), tabPosition + " TAB POS");
         }
         pageViewModel.getAppTopChartsCategory().setValue(category);
+        pageViewModel.getTabPosition().setValue(tabPosition);
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_top_charts, container, false);
         RecyclerView appList = root.findViewById(R.id.app_list);
         final TopChartsAdapter topChartsAdapter = new TopChartsAdapter();
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         appList.setAdapter(topChartsAdapter);
 
-        pageViewModel.getAppTopChartsCategory().observe(this, new Observer<String>() {
+        pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(String category) {
-                pageViewModel.makeCollectionApiCall(category, new ApiResponseCallback() {
-                    @Override
-                    public void onSuccess(List<App> popularApp) {
-                        Log.d("Success", popularApp.size() + "");
-                        topChartsAdapter.setmList(popularApp);
-                    }
+            public void onChanged(Integer tabPosition) {
+                String category;
+                if (tabPosition == 0) {
+                    category = "GAME";
+                } else {
+                    category = "APPLICATION";
+                }
 
+                pageViewModel.getAppTopChartsCategory().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
-                    public void onFailure() {
-                        Log.d("onEmptyResponse", "Returned empty response");
+                    public void onChanged(String collection) {
+                        Log.d(TopChartsFragment.class.getSimpleName(),"Category and collection : " + category + collection);
+                        pageViewModel.makeCategoryCollectionApiCall(collection, category, new ApiResponseCallback() {
+                            @Override
+                            public void onSuccess(List<App> popularApp) {
+                                topChartsAdapter.setmList(popularApp);
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                Log.d("onEmptyResponse",
+                                "Returned empty response");
+                            }
+                        });
                     }
                 });
             }
         });
+//        pageViewModel.getAppTopChartsCategory().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String category) {
+//                pageViewModel.makeCategoryCollectionApiCall(category, new ApiResponseCallback() {
+//                    @Override
+//                    public void onSuccess(List<App> popularApp) {
+//                        Log.d("Success", popularApp.size() + "");
+//                        topChartsAdapter.setmList(popularApp);
+//                    }
+//
+//                    @Override
+//                    public void onFailure() {
+//                        Log.d("onEmptyResponse",
+//                                "Returned empty response");
+//                    }
+//                });
+//            }
+//        });
 
         return root;
     }

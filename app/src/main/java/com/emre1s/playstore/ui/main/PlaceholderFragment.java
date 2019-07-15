@@ -9,15 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.fragments.SubCategoryPagerAdapter;
+import com.emre1s.playstore.models.Tab;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 public class PlaceholderFragment extends Fragment {
 
@@ -50,74 +53,74 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         Log.d("Emre1s", "Pleaceholderfragment created");
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
+
         TabLayout tabLayout = root.findViewById(R.id.subTabLayout);
 
         ViewPager subViewPager = root.findViewById(R.id.subViewPager);
         tabLayout.setupWithViewPager(subViewPager,false);
 
-        SubCategoryPagerAdapter subCategoryPagerAdapter =
-                new SubCategoryPagerAdapter(getChildFragmentManager(), pageViewModel.getmIndex().getValue());
-        subViewPager.setAdapter(subCategoryPagerAdapter);
-        subViewPager.setOffscreenPageLimit(4); //Todo: Might want to remove this
-
-        setupTabViews(tabLayout, pageViewModel.getTabItemNames(), pageViewModel.getTabItemIcons());
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        pageViewModel.getmIndex().observe(this, new Observer<Integer>() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
+            public void onChanged(Integer position) {
+                PagerAdapter subCategoryPagerAdapter =
+                        new SubCategoryPagerAdapter(getChildFragmentManager(), position);
+
+                subViewPager.setAdapter(subCategoryPagerAdapter);
+                subViewPager.setOffscreenPageLimit(4); //Todo: Might want to remove this
+
+                List<Tab> tabs = pageViewModel.getTabList(position);
+                setupTabViews(tabLayout, tabs);
+
+                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
+                                .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
+                                        android.graphics.PorterDuff.Mode.SRC_IN);
+
+                        ((TextView)tab.getCustomView().findViewById(R.id.tabText))
+                                .setTextColor(getResources().getColor(R.color.colorDarkGreen));
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+                        ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
+                                .setColorFilter(getResources().getColor(R.color.colorGrey),
+                                        android.graphics.PorterDuff.Mode.SRC_IN);
+
+                        ((TextView)tab.getCustomView().findViewById(R.id.tabText))
+                                .setTextColor(getResources().getColor(R.color.colorGrey));
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
+
+                ((ImageView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
                         .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
                                 android.graphics.PorterDuff.Mode.SRC_IN);
 
-                ((TextView)tab.getCustomView().findViewById(R.id.tabText))
+                ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
                         .setTextColor(getResources().getColor(R.color.colorDarkGreen));
-
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
-                        .setColorFilter(getResources().getColor(R.color.colorGrey),
-                                android.graphics.PorterDuff.Mode.SRC_IN);
-
-                ((TextView)tab.getCustomView().findViewById(R.id.tabText))
-                        .setTextColor(getResources().getColor(R.color.colorGrey));
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
-        ((ImageView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
-                .setColorFilter(getResources().getColor(R.color.colorDarkGreen),
-                        android.graphics.PorterDuff.Mode.SRC_IN);
-
-        ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
-                .setTextColor(getResources().getColor(R.color.colorDarkGreen));
-
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 
-    private void setupTabViews(TabLayout tabLayout, String[] tabItemsText, int[] tabItemsIcon) {
+    private void setupTabViews(TabLayout tabLayout, List<Tab> tabList) {
         ImageView tabIcon;
         TextView tabText;
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+        for (int i = 0; i < tabList.size(); i++) {
             tabLayout.getTabAt(i).setCustomView(R.layout.custom_tab);
             tabIcon = tabLayout.getTabAt(i).getCustomView().findViewById(R.id.tabIcon);
-            tabIcon.setImageResource(tabItemsIcon[i]);
+            int iconId = getResources().getIdentifier(tabList.get(i).getIcon(), "drawable", getContext().getPackageName());
+            tabIcon.setImageDrawable(getResources().getDrawable(iconId));
 
             tabText = tabLayout.getTabAt(i).getCustomView().findViewById(R.id.tabText);
-            tabText.setText(tabItemsText[i]);
+            tabText.setText(tabList.get(i).getName());
         }
     }
 }

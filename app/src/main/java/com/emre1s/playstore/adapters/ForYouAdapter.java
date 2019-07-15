@@ -59,6 +59,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             Log.d(ForYouAdapter.class.getSimpleName(), "clicked: " + categoryList.get(position).getId());
             onCategoryChanged.changeCategory(categoryList.get(position));
         });
+
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(List<App> popularApp) {

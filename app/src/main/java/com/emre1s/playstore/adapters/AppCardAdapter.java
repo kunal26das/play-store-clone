@@ -43,7 +43,8 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
+        pageViewModel.getA
+
         Picasso.get().load("https:" + appByCategoryApiResponse.get(position)
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
@@ -81,7 +82,7 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
         for (int i = 0; i < appByCategoryApiResponse.size(); i++) {
             fileSizes.add(getRandomNumberInRange(1, 50));
         }
-        notifyDataSetChanged();
+        notifyItemChanged(0);
     }
 
     private static int getRandomNumberInRange(int min, int max) {

@@ -1,11 +1,14 @@
 package com.emre1s.playstore.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +25,8 @@ import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
+
+import jp.wasabeef.recyclerview.animators.FadeInUpAnimator;
 
 public class ForYouFragment extends Fragment {
 
@@ -99,5 +104,4 @@ public class ForYouFragment extends Fragment {
         });
         return view;
     }
-
 }

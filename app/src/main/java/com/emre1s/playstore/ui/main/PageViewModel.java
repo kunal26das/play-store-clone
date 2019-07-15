@@ -1,28 +1,28 @@
 package com.emre1s.playstore.ui.main;
 
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
+import androidx.viewpager.widget.PagerAdapter;
 
-import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.api.SearchResponseCallback;
+import com.emre1s.playstore.fragments.SubCategoryPagerAdapter;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
+import com.emre1s.playstore.models.MovieGenreList;
+import com.emre1s.playstore.models.Tab;
+import com.emre1s.playstore.models.TabList;
+import com.emre1s.playstore.pageradapters.MoviePagerAdapter;
+
+import java.util.List;
 
 public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
     private MutableLiveData<String> familyTopChartsCategory = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
-        @Override
-        public String apply(Integer input) {
-            return "Hello world from section: " + input;
-        }
-    });
     private MutableLiveData<Integer> tabPosition = new MutableLiveData<>();
     private MutableLiveData<String> appTopChartsCategory = new MutableLiveData<>();
 
@@ -30,14 +30,16 @@ public class PageViewModel extends ViewModel {
     private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
     private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
 
-    private MutableLiveData<CategoryList.Category> selectedCategory = new MutableLiveData<>();
+    private TabList gamesAndAppsTabList = RetrofitApiFactory.getGamesAndAppsTabList();
+    private TabList movieTabList = RetrofitApiFactory.getMovieTabList();
+    private TabList bookTabList = RetrofitApiFactory.getBookTabList();
+    private TabList musicTabList = RetrofitApiFactory.getMusicTabList();
+
+    private MovieGenreList movieGenreList = RetrofitApiFactory.getMovieGenreList();
 
     public CategoryList getAppCategoryList() {
         return appCategoryList;
     }
-
-    private String[] tabItemNames = {"For You", "Top Charts", "Categories",
-            "Family"};
 
     private MutableLiveData<App> receivedAppLiveData;
 
@@ -57,94 +59,6 @@ public class PageViewModel extends ViewModel {
         return appTopChartsCategory;
     }
 
-//    String[] gameCategories = new String[] {
-//            "GAME",
-//            "GAME_ACTION",
-//            "GAME_ADVENTURE",
-//            "GAME_ARCADE",
-//            "GAME_BOARD",
-//            "GAME_CARD",
-//            "GAME_CASINO",
-//            "GAME_CASUAL",
-//            "GAME_EDUCATIONAL",
-//            "GAME_MUSIC",
-//            "GAME_PUZZLE",
-//            "GAME_RACING",
-//            "GAME_ROLE_PLAYING",
-//            "GAME_SIMULATION",
-//            "GAME_SPORTS",
-//            "GAME_STRATEGY",
-//            "GAME_TRIVIA",
-//            "GAME_WORD"
-//    };
-
-    String[] allCategories = new String[]{
-            "GAME",
-            "FAMILY",
-            "ART_AND_DESIGN",
-            "AUTO_AND_VEHICLES",
-            "BEAUTY",
-            "BOOKS_AND_REFERENCE",
-            "BUSINESS",
-            "COMICS",
-            "COMMUNICATION",
-            "DATING",
-            "EDUCATION",
-            "ENTERTAINMENT",
-            "EVENTS",
-            "FINANCE",
-            "FOOD_AND_DRINK",
-            "HEALTH_AND_FITNESS",
-            "HOUSE_AND_HOME",
-            "LIBRARIES_AND_DEMO",
-            "LIFESTYLE",
-            "MAPS_AND_NAVIGATION",
-            "MEDICAL",
-            "MUSIC_AND_AUDIO",
-            "NEWS_AND_MAGAZINES",
-            "PARENTING",
-            "PERSONALIZATION",
-            "PHOTOGRAPHY",
-            "PRODUCTIVITY",
-            "SHOPPING",
-            "SOCIAL",
-            "SPORTS",
-            "TOOLS",
-            "TRAVEL_AND_LOCAL",
-            "VIDEO_PLAYERS",
-            "ANDROID_WEAR",
-            "WEATHER",
-            "GAME",
-            "GAME_ACTION",
-            "GAME_ADVENTURE",
-            "GAME_ARCADE",
-            "GAME_BOARD",
-            "GAME_CARD",
-            "GAME_CASINO",
-            "GAME_CASUAL",
-            "GAME_EDUCATIONAL",
-            "GAME_MUSIC",
-            "GAME_PUZZLE",
-            "GAME_RACING",
-            "GAME_ROLE_PLAYING",
-            "GAME_SIMULATION",
-            "GAME_SPORTS",
-            "GAME_STRATEGY",
-            "GAME_TRIVIA",
-            "GAME_WORD",
-            "FAMILY",
-            "FAMILY_ACTION",
-            "FAMILY_BRAINGAMES",
-            "FAMILY_CREATE",
-            "FAMILY_EDUCATION",
-            "FAMILY_MUSICVIDEO",
-            "FAMILY_PRETEND",
-            "APPLICATION"
-    };
-    private int[] tabItemIcons = {R.drawable.ic_explorer, R.drawable.ic_graphic_eq_black_24dp,
-            R.drawable.ic_category,
-            R.drawable.icons8_starfish_24};
-
     public PageViewModel() {
         receivedAppLiveData = new MutableLiveData<>();
 
@@ -153,26 +67,6 @@ public class PageViewModel extends ViewModel {
     public void setIndex(int index) {
         mIndex.setValue(index);
     }
-
-    public LiveData<String> getText() {
-        return mText;
-    }
-
-    public String[] getTabItemNames() {
-        return tabItemNames;
-    }
-
-    public int[] getTabItemIcons() {
-        return tabItemIcons;
-    }
-
-    public String[] getAllCategories() {
-        return allCategories;
-    }
-
-//    public String[] getGameCategories() {
-//        return gameCategories;
-//    }
 
     public void makeCategoryApiCall(String category, ApiResponseCallback apiResponseCallback) {
         RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
@@ -189,9 +83,17 @@ public class PageViewModel extends ViewModel {
         retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
     }
 
-    public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback) {
+    public void makeCategoryCollectionApiCall(String collection, String category,
+                                              ApiResponseCallback apiResponseCallback) {
         RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
-        retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
+        retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category,
+                apiResponseCallback);
+    }
+
+    public void makeSearchSuggestionApiCall(String keyword,
+                                            SearchResponseCallback searchResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        retrofitApiFactory.getSearchSuggestions(keyword, searchResponseCallback);
     }
 
     public MutableLiveData<App> getReceivedAppLiveData() {
@@ -202,12 +104,57 @@ public class PageViewModel extends ViewModel {
         return mIndex;
     }
 
-    public MutableLiveData<CategoryList.Category> getSelectedCategory() {
-        return selectedCategory;
-    }
-
     public MutableLiveData<String> getFamilyTopChartsCategory() {
         return familyTopChartsCategory;
+    }
+
+    public List<Tab> getTabList(int position) {
+        switch (position) {
+            case 0:
+            case 1:
+            {
+                return gamesAndAppsTabList.getTabs();
+            }
+            case 2: {
+                return movieTabList.getTabs();
+            }
+            case 3: {
+                return bookTabList.getTabs();
+            }
+            case 4: {
+                return musicTabList.getTabs();
+            }
+            default:{
+                return null;
+            }
+        }
+    }
+
+    public PagerAdapter getPagerAdapter(FragmentManager fragmentManager, int position) {
+        switch (position) {
+            case 0:
+            case 1:
+            {
+                return new SubCategoryPagerAdapter(fragmentManager, position);
+            }
+            case 2: {
+                return new MoviePagerAdapter(fragmentManager, position);
+            }
+            case 3: {
+                return new SubCategoryPagerAdapter(fragmentManager, position);
+            }
+            case 4: {
+                return new SubCategoryPagerAdapter(fragmentManager, position);
+            }
+            default:{
+                return null;
+            }
+        }
+
+    }
+
+    public MovieGenreList getMovieGenreList() {
+        return movieGenreList;
     }
 
 }
