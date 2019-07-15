@@ -9,7 +9,7 @@ import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-interface RetrofitAPICalls {
+public interface RetrofitAPICalls {
 
     String QUERY_APP_PACKAGE_ID = "id";
 

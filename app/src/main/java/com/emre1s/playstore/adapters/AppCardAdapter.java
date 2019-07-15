@@ -16,6 +16,7 @@ import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
+//import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;

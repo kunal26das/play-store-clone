@@ -1,6 +1,9 @@
 package com.emre1s.playstore.ui.main;
 
+import android.app.Application;
+
 import androidx.arch.core.util.Function;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -13,7 +16,9 @@ import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 
-public class PageViewModel extends ViewModel {
+import javax.inject.Inject;
+
+public class PageViewModel extends AndroidViewModel {
 
     private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
 
@@ -145,10 +150,12 @@ public class PageViewModel extends ViewModel {
     private int[] tabItemIcons = {R.drawable.ic_explorer, R.drawable.ic_graphic_eq_black_24dp,
             R.drawable.ic_category,
             R.drawable.icons8_starfish_24};
+    private Application mApplication;
 
-    public PageViewModel() {
+    public PageViewModel(Application application) {
+        super(application);
+        mApplication=application;
         receivedAppLiveData = new MutableLiveData<>();
-
     }
 
     public void setIndex(int index) {
@@ -176,22 +183,22 @@ public class PageViewModel extends ViewModel {
 //    }
 
     public void makeCategoryApiCall(String category, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.appsByCategoryApiCall(apiResponseCallback, category);
     }
 
     public void makeCollectionApiCall(String collection, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory =new RetrofitApiFactory(mApplication);
         retrofitApiFactory.appsByCollectionApiCall(apiResponseCallback, collection);
     }
 
     public void makeSimilarAppsApiCall(String packageName, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
     }
 
     public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback) {
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory =new RetrofitApiFactory(mApplication);
         retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
     }
 

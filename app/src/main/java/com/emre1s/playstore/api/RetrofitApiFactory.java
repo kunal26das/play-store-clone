@@ -1,11 +1,18 @@
 package com.emre1s.playstore.api;
 
+import android.app.Application;
+
 import com.emre1s.playstore.app_details.AppDetails;
+import com.emre1s.playstore.dagger.AppController;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -14,6 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@Singleton
 public class RetrofitApiFactory {
 
     private static RetrofitApiFactory retrofitApiFactory;
@@ -23,21 +31,12 @@ public class RetrofitApiFactory {
     private static CategoryList familyCategories;
     private static CategoryList appCategories;
 
-    public RetrofitApiFactory(RetrofitAPICalls retrofitAPICalls) {
-        this.retrofitAPICalls = retrofitAPICalls;
-    }
+    @Inject
+    Retrofit retrofit;
 
-    public static RetrofitApiFactory getInstance() {
-        if (retrofitApiFactory == null) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://13.234.73.3/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-
-            retrofitApiFactory = new RetrofitApiFactory(retrofit.create(RetrofitAPICalls.class));
-        }
-        return retrofitApiFactory;
+    public RetrofitApiFactory(Application application) {
+        ((AppController)application).getAppComponent().inject(this);
+        retrofitAPICalls = retrofit.create(RetrofitAPICalls.class);
     }
 
     public void appsByCategoryApiCall(final ApiResponseCallback apiResponseCallback, String category) {

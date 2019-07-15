@@ -21,6 +21,7 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 
 public class AppCategoryFragment extends Fragment {
 
+
     private PageViewModel pageViewModel;
 
     public AppCategoryFragment() {
@@ -38,7 +39,7 @@ public class AppCategoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int position = 1;
         if (getArguments() != null) {
             position = getArguments().getInt("position");
@@ -63,7 +64,7 @@ public class AppCategoryFragment extends Fragment {
         LinearSnapHelper pagerSnapHelper = new LinearSnapHelper();
         pagerSnapHelper.attachToRecyclerView(topCategories);
 
-        PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        PageViewModel pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
 
 
         AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter();
