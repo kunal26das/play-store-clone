@@ -20,6 +20,7 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.api.ReviewResponseCallback;
 import com.emre1s.playstore.api.SearchResponseCallback;
 import com.emre1s.playstore.fragments.SubCategoryPagerAdapter;
 import com.emre1s.playstore.models.App;
@@ -122,6 +123,11 @@ public class PageViewModel extends AndroidViewModel {
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.searchAppsApiCall(apiResponseCallback, query);
 
+    }
+
+    public void makeReviewsApiCall(String id, ReviewResponseCallback reviewResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
+        retrofitApiFactory.getReviews(id,reviewResponseCallback);
     }
 
     public MutableLiveData<App> getReceivedAppLiveData() {

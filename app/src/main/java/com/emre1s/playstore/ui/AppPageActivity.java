@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.app_details.AppDetailsViewModel;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
 import com.squareup.picasso.Picasso;
@@ -132,6 +133,16 @@ public class AppPageActivity extends AppCompatActivity {
                         screenshotsAdapter.setScreenshots(appScreenshots1);
                     }
                 });
+
+        Button button= findViewById(R.id.show_reviews);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReview= new Intent(AppPageActivity.this,ReviewPageActivity.class);
+                intentReview.putExtra("id",mAppId);
+                startActivity(intentReview);
+            }
+        });
     }
 
     private void switchButtons(boolean appIsInstalled) {
