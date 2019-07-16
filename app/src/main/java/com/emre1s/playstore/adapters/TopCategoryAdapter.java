@@ -1,7 +1,5 @@
 package com.emre1s.playstore.adapters;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.models.CategoryList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.ViewHolder> {
 
-    private String[] categoryNames;
+    private List<CategoryList.Category> categoryList = new ArrayList<>();
     private int[] categoryIcons;
 
-    public TopCategoryAdapter(String[] categoryNames, int[] categoryIcons) {
-        this.categoryNames = categoryNames;
+    public TopCategoryAdapter(List<CategoryList.Category> categoryList, int[] categoryIcons) {
+        this.categoryList = categoryList;
         this.categoryIcons = categoryIcons;
 
     }
@@ -34,12 +36,12 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.categoryIcon.setImageResource(categoryIcons[position]);
-        holder.categoryName.setText(categoryNames[position]);
+        holder.categoryName.setText(categoryList.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return categoryNames.length;
+        return categoryList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

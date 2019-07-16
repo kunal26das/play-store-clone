@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
                 inputStreamToString(getResources().openRawResource(R.raw.family)),
-                inputStreamToString(getResources().openRawResource(R.raw.games)));
+                inputStreamToString(getResources().openRawResource(R.raw.games)),
+                inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)));
 
 
         String myJson = inputStreamToString(getResources().openRawResource(R.raw.apps));
@@ -291,10 +292,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initializeCategories(String myJson, String familyJson, String gamesJson) {
+    private void initializeCategories(String myJson, String familyJson, String gamesJson, String topAppsJson) {
         CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
         CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
         CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
+        CategoryList topAppCategories = new Gson().fromJson(topAppsJson, CategoryList.class);
 
         TabList gamesAndAppsTab = new Gson().fromJson(inputStreamToString(getResources().openRawResource(R.raw.games_apps_tabs)), TabList.class);
         TabList movieTabs = new Gson().fromJson(inputStreamToString(getResources().openRawResource(R.raw.movie_tabs)), TabList.class);
@@ -309,6 +311,7 @@ public class MainActivity extends AppCompatActivity
         RetrofitApiFactory.setAppCategories(appsCategory);
         RetrofitApiFactory.setFamilyCategories(familyCategory);
         RetrofitApiFactory.setGameCategories(gamesCategory);
+        RetrofitApiFactory.setAppsTopCategoryList(topAppCategories);
 
     }
 
