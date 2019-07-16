@@ -33,7 +33,6 @@ import java.util.Random;
 public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHolder> {
 
     private List<App> appByCategoryApiResponse;
-    private List<Integer> fileSizes;
     private PageViewModel pageViewModel;
     private OnDialogOpenListener onDialogOpenListener;
 
@@ -54,23 +53,6 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        pageViewModel.makeAppDetailsApiCall(appByCategoryApiResponse.get(position).getAppId(),
-                new DatabaseCallback() {
-            @Override
-            public void onSuccess(AppDetails appDetails) {
-                if (appDetails.getmSize().equals("Varies with device")) {
-                    holder.appSize.setText("");
-                } else {
-                    holder.appSize.setText(appDetails.getmSize());
-                }
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
-
         Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
 
         pageViewModel.makeAppDetailsApiCall(appByCategoryApiResponse.get(position).getAppId(),
@@ -101,9 +83,6 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
 
-        holder.appSize.setText(fileSizes.get(position) + " MB");
-
-        //holder.appSize.setText(fileSizes.get(position) + " MB");
 
         //holder.itemView.setOnClickListener(v -> pageViewModel.getReceivedAppLiveData().setValue(appByCategoryApiResponse.get(position)));
         holder.itemView.setOnClickListener(v -> {
@@ -133,10 +112,6 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     public void setAppByCategoryApiResponse(List<App> appByCategoryApiResponse) {
         this.appByCategoryApiResponse = appByCategoryApiResponse;
-        fileSizes = new ArrayList<>();
-        for (int i = 0; i < appByCategoryApiResponse.size(); i++) {
-            fileSizes.add(getRandomNumberInRange(1, 50));
-        }
         notifyItemChanged(0);
     }
 

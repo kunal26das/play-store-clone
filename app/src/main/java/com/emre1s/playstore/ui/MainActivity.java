@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setOffscreenPageLimit(5);
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
@@ -274,7 +275,9 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("query", searchSuggestion.getBody());
+                startActivity(intent);
             }
 
             @Override
