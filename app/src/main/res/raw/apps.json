@@ -2,139 +2,178 @@
   "categories": [
     {
       "name": "Art & Design",
-      "id": "ART_AND_DESIGN"
+      "id": "ART_AND_DESIGN",
+      "logo": "icons8_paint_palette_100"
     },
     {
       "name": "Auto & Vehicles",
-      "id": "AUTO_AND_VEHICLES"
+      "id": "AUTO_AND_VEHICLES",
+      "logo": "icons8_car_100"
     },
     {
       "name": "Beauty",
-      "id": "BEAUTY"
+      "id": "BEAUTY",
+      "logo": "icons8_hair_dryer_100"
     },
     {
       "name": "Books & References",
-      "id": "BOOKS_AND_REFERENCE"
+      "id": "BOOKS_AND_REFERENCE",
+      "logo": "icons8_book_100"
     },
     {
       "name": "Business",
-      "id": "BUSINESS"
+      "id": "BUSINESS",
+      "logo": "icons8_bar_chart_100"
     },
     {
       "name": "Comics",
-      "id": "COMICS"
+      "id": "COMICS",
+      "logo": "icons8_speech_bubble_100"
     },
     {
       "name": "Communication",
-      "id": "COMMUNICATION"
+      "id": "COMMUNICATION",
+      "logo": "icons8_chat_100"
     },
     {
       "name": "Dating",
-      "id": "DATING"
+      "id": "DATING",
+      "logo": "icons8_heart_100"
     },
     {
       "name": "Education",
-      "id": "EDUCATION"
+      "id": "EDUCATION",
+      "logo": "icons8_graduation_cap_100"
     },
     {
       "name": "Entertainment",
-      "id": "ENTERTAINMENT"
+      "id": "ENTERTAINMENT",
+      "logo": "icons8_movie_ticket_100"
     },
     {
       "name": "Events",
-      "id": "EVENTS"
+      "id": "EVENTS",
+      "logo": "icons8_android_os_100"
     },
     {
       "name": "Family",
-      "id": "FAMILY"
+      "id": "FAMILY",
+      "logo": "icons8_star_100"
     },
     {
       "name": "Finance",
-      "id": "FINANCE"
+      "id": "FINANCE",
+      "logo": "icons8_bank_building_64"
+    },
+    {
+      "name": "Games",
+      "id": "GAMES",
+      "logo": "icons8_game_controller_100"
     },
     {
       "name": "Food & Drinks",
-      "id": "FOOD_AND_DRINK"
+      "id": "FOOD_AND_DRINK",
+      "logo": "icons8_food_100"
     },
     {
       "name": "Health & Fitness",
-      "id": "HEALTH_AND_FITNESS"
+      "id": "HEALTH_AND_FITNESS",
+      "logo": "icons8_heart_health_100"
     },
     {
       "name": "House & Home",
-      "id": "HOUSE_AND_HOME"
+      "id": "HOUSE_AND_HOME",
+      "logo": "icons8_home_64"
     },
     {
       "name": "Libraries",
-      "id": "LIBRARIES_AND_DEMO"
+      "id": "LIBRARIES_AND_DEMO",
+      "logo": "icons8_folder_64"
     },
     {
       "name": "Lifestyle",
-      "id": "LIFESTYLE"
+      "id": "LIFESTYLE",
+      "logo": "icons8_person_a_home_64"
     },
     {
       "name": "Maps & Navigation",
-      "id": "MAPS_AND_NAVIGATION"
+      "id": "MAPS_AND_NAVIGATION",
+      "logo": "icons8_adventure_100"
     },
     {
       "name": "Medical",
-      "id": "MEDICAL"
+      "id": "MEDICAL",
+      "logo": "icons8_doctors_bag_64"
     },
     {
       "name": "Music & Audio",
-      "id": "MUSIC_AND_AUDIO"
+      "id": "MUSIC_AND_AUDIO",
+      "logo": "icons8_music_100"
     },
     {
       "name": "News & Magazines",
-      "id": "NEWS_AND_MAGAZINES"
+      "id": "NEWS_AND_MAGAZINES",
+      "logo": "icons8_news_64"
     },
     {
       "name": "Parenting",
-      "id": "PARENTING"
+      "id": "PARENTING",
+      "logo": "icons8_family_64"
     },
     {
       "name": "Personalization",
-      "id": "PERSONALIZATION"
+      "id": "PERSONALIZATION",
+      "logo": "icons8_admin_settings_male_64"
     },
     {
       "name": "Photography",
-      "id": "PHOTOGRAPHY"
+      "id": "PHOTOGRAPHY",
+      "logo": "camera"
     },
     {
       "name": "Productivity",
-      "id": "PRODUCTIVITY"
+      "id": "PRODUCTIVITY",
+      "logo": "icons8_account_64"
     },
     {
       "name": "Shopping",
-      "id": "SHOPPING"
+      "id": "SHOPPING",
+      "logo": "domain"
     },
     {
       "name": "Social",
-      "id": "SOCIAL"
+      "id": "SOCIAL",
+      "logo": "icons8_team_64"
     },
     {
       "name": "Sports",
-      "id": "SPORTS"
+      "id": "SPORTS",
+      "logo": "icons8_tennis_ball_100"
     },
     {
       "name": "Tools",
-      "id": "TOOLS"
+      "id": "TOOLS",
+      "logo": "icons8_wrench_64"
     },
     {
       "name": "Travel & Local",
-      "id": "TRAVEL_AND_LOCAL"
+      "id": "TRAVEL_AND_LOCAL",
+      "logo": "icons8_airport_64"
     },
     {
       "name": "Video Players",
-      "id": "VIDEO_PLAYERS"
+      "id": "VIDEO_PLAYERS",
+      "logo": "icons8_video_playlist_64"
     },
     {
       "name": "Android Wear",
-      "id": "ANDROID_WEAR"
+      "id": "ANDROID_WEAR",
+      "logo": "icons8_smart_watch_64"
     },
     {
       "name": "Weather",
-      "id": "WEATHER"
+      "id": "WEATHER",
+      "logo": "icons8_partly_cloudy_day_64"
     }
   ]
 }

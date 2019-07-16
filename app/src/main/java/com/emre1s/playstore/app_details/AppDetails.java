@@ -1,5 +1,8 @@
 package com.emre1s.playstore.app_details;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class AppDetails {
+public class AppDetails implements Parcelable {
 
     public static final String KEY_TITLE = "title";
     public static final String KEY_DESCRIPTION = "description";
@@ -439,4 +442,110 @@ public class AppDetails {
     public String getmUrl() {
         return mUrl;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mTitle);
+        dest.writeString(this.mDescription);
+        dest.writeString(this.mDescriptionHtml);
+        dest.writeString(this.mSummary);
+        dest.writeString(this.mInstalls);
+        dest.writeValue(this.mMinInstalls);
+        dest.writeValue(this.mScore);
+        dest.writeString(this.mScoreText);
+        dest.writeValue(this.mRatings);
+        dest.writeValue(this.mReviews);
+        dest.writeValue(this.mPrice);
+        dest.writeValue(this.mFree);
+        dest.writeString(this.mCurrency);
+        dest.writeString(this.mPriceText);
+        dest.writeValue(this.mOffersIap);
+        dest.writeString(this.mSize);
+        dest.writeString(this.mAndroidVersion);
+        dest.writeString(this.mAndroidVersionText);
+        dest.writeString(this.mDeveloper);
+        dest.writeString(this.mDeveloperId);
+        dest.writeString(this.mDeveloperEmail);
+        dest.writeString(this.mDeveloperWebsite);
+        dest.writeString(this.mDeveloperAddress);
+        dest.writeString(this.mPrivacyPolicy);
+        dest.writeString(this.mDeveloperInternalId);
+        dest.writeString(this.mGenre);
+        dest.writeString(this.mGenreId);
+        dest.writeString(this.mIcon);
+        dest.writeString(this.mHeaderImage);
+        dest.writeStringList(this.mScreenshots);
+        dest.writeString(this.mVideo);
+        dest.writeString(this.mVideoImage);
+        dest.writeString(this.mContentRating);
+        dest.writeValue(this.mAdSupported);
+        dest.writeString(this.mReleased);
+        dest.writeValue(this.mUpdated);
+        dest.writeString(this.mVersion);
+        dest.writeString(this.mRecentChanges);
+        dest.writeStringList(this.mComments);
+        dest.writeString(this.mAppId);
+        dest.writeString(this.mUrl);
+    }
+
+    protected AppDetails(Parcel in) {
+        this.mTitle = in.readString();
+        this.mDescription = in.readString();
+        this.mDescriptionHtml = in.readString();
+        this.mSummary = in.readString();
+        this.mInstalls = in.readString();
+        this.mMinInstalls = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mScore = (Float) in.readValue(Float.class.getClassLoader());
+        this.mScoreText = in.readString();
+        this.mRatings = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mReviews = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mPrice = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mFree = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mCurrency = in.readString();
+        this.mPriceText = in.readString();
+        this.mOffersIap = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mSize = in.readString();
+        this.mAndroidVersion = in.readString();
+        this.mAndroidVersionText = in.readString();
+        this.mDeveloper = in.readString();
+        this.mDeveloperId = in.readString();
+        this.mDeveloperEmail = in.readString();
+        this.mDeveloperWebsite = in.readString();
+        this.mDeveloperAddress = in.readString();
+        this.mPrivacyPolicy = in.readString();
+        this.mDeveloperInternalId = in.readString();
+        this.mGenre = in.readString();
+        this.mGenreId = in.readString();
+        this.mIcon = in.readString();
+        this.mHeaderImage = in.readString();
+        this.mScreenshots = in.createStringArrayList();
+        this.mVideo = in.readString();
+        this.mVideoImage = in.readString();
+        this.mContentRating = in.readString();
+        this.mAdSupported = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mReleased = in.readString();
+        this.mUpdated = (Long) in.readValue(Long.class.getClassLoader());
+        this.mVersion = in.readString();
+        this.mRecentChanges = in.readString();
+        this.mComments = in.createStringArrayList();
+        this.mAppId = in.readString();
+        this.mUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<AppDetails> CREATOR = new Parcelable.Creator<AppDetails>() {
+        @Override
+        public AppDetails createFromParcel(Parcel source) {
+            return new AppDetails(source);
+        }
+
+        @Override
+        public AppDetails[] newArray(int size) {
+            return new AppDetails[size];
+        }
+    };
 }

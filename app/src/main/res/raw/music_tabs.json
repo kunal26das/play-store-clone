@@ -2,19 +2,19 @@
   "tabs": [
     {
       "name": "For You",
-      "icon": "ic_explorer"
+      "logo": "ic_explorer"
     },
     {
       "name": "Top Songs",
-      "icon": "ic_graphic_eq_black_24dp"
+      "logo": "ic_graphic_eq_black_24dp"
     },
     {
       "name": "Top Albums",
-      "icon": "ic_category"
+      "logo": "ic_category"
     },
     {
       "name": "Genres",
-      "icon": "icons8_starfish_24"
+      "logo": "icons8_starfish_24"
     }
   ]
 }

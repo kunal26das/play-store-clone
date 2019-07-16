@@ -19,13 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AllCategoriesAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
+import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AppCategoryFragment extends Fragment {
 
+    public static final int CATEGORY_APPS = 1;
+    private int position;
 
     private PageViewModel pageViewModel;
 
@@ -45,7 +51,7 @@ public class AppCategoryFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
-        int position = 1;
+        position = CATEGORY_APPS;
         if (getArguments() != null) {
             position = getArguments().getInt("position");
         }
@@ -54,29 +60,33 @@ public class AppCategoryFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_categories, container, false);
 
         PageViewModel pageViewModel = ViewModelProviders.of(this, null)
                 .get(PageViewModel.class);
-
-        int[] categoryIcons = new int[]{R.drawable.camera, R.drawable.star, R.drawable.music,
-                R.drawable.domain, R.drawable.access_point_network, R.drawable.brush,
-                R.drawable.book_open, R.drawable.forum};
         RecyclerView topCategories = view.findViewById(R.id.rv_top_categories);
 
+        List<CategoryList.Category> categoryList;
+        if (position == CATEGORY_APPS) {
+            categoryList = pageViewModel.getAppsTopCategoryList().getCategoryList();
+        } else {
+            categoryList = pageViewModel.getGamesTopCategoryList().getCategoryList();
+        }
         TopCategoryAdapter topCategoryAdapter =
-                new TopCategoryAdapter(pageViewModel.getAppsTopCategoryList().getCategoryList(),
-                        categoryIcons, new OnCategoryChanged() {
+                new TopCategoryAdapter(getContext(), new OnCategoryChanged() {
                     @Override
                     public void changeCategory(CategoryList.Category category) {
-                        Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+                        Log.d(ForYouFragment.class.getSimpleName(), "Category received: "
+                                + category.getName());
                         Intent intent = new Intent(getContext(), MoreAppsActivity.class);
                         intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
                         startActivity(intent);
                     }
                 });
 
+        topCategoryAdapter.setCategoryList(categoryList);
         topCategories.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         topCategories.setAdapter(topCategoryAdapter);
@@ -84,7 +94,10 @@ public class AppCategoryFragment extends Fragment {
         LinearSnapHelper pagerSnapHelper = new LinearSnapHelper();
         pagerSnapHelper.attachToRecyclerView(topCategories);
 
-        AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter(new OnCategoryChanged() {
+
+
+
+        AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter(getContext(),new OnCategoryChanged() {
             @Override
             public void changeCategory(CategoryList.Category category) {
                 Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
@@ -93,22 +106,16 @@ public class AppCategoryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         RecyclerView allCategoriesRecyclerView = view.findViewById(R.id.rv_all_categories);
         allCategoriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         allCategoriesRecyclerView.setAdapter(allCategoriesAdapter);
 
-        pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer tabPosition) {
-                if (tabPosition == 0) {
-                    allCategoriesAdapter.setCategories(pageViewModel.getGamesCategoryList().getCategoryList());
-                } else {
-                    allCategoriesAdapter.setCategories(pageViewModel.getAppCategoryList().getCategoryList());
-                }
-            }
-        });
-
-
+        if (position == CATEGORY_APPS) {
+            allCategoriesAdapter.setCategories(pageViewModel.getAppCategoryList().getCategoryList());
+        } else {
+            allCategoriesAdapter.setCategories(pageViewModel.getGamesCategoryList().getCategoryList());
+        }
 
         return view;
     }

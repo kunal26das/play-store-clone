@@ -16,6 +16,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.AppDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".app_details.ScreenshotActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -39,6 +44,8 @@
         <activity
             android:name=".ui.AppPageActivity"
             android:theme="@style/WhiteTheme" />
+        <activity android:name=".ui.ReviewPageActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

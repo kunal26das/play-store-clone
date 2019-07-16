@@ -35,6 +35,9 @@ public class CategoryList {
         @SerializedName("id")
         @Expose
         private String id;
+        @SerializedName("logo")
+        @Expose
+        private String icon;
 
         public Category() {
         }
@@ -42,6 +45,7 @@ public class CategoryList {
         protected Category(Parcel in) {
             this.name = in.readString();
             this.id = in.readString();
+            this.icon = in.readString();
         }
 
         public String getName() {
@@ -60,6 +64,14 @@ public class CategoryList {
             this.id = id;
         }
 
+        public String getIcon() {
+            return icon;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -69,6 +81,7 @@ public class CategoryList {
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(this.name);
             dest.writeString(this.id);
+            dest.writeString(this.icon);
         }
     }
 

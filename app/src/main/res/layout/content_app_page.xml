@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:text="@string/show_all"
-            android:textColor="@color/colorPrimary"
-            android:background="@color/colorWhite" />
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

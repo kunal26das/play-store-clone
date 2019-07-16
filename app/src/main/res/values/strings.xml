@@ -53,5 +53,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
-    <string name="all_reviews">ALL REVIEWS</string>
+
+    <string name="all_reviews">All Reviews</string>
+    <string name="five">5</string>
 </resources>

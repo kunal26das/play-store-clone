@@ -10,9 +10,10 @@
     android:paddingBottom="4dp">
 
     <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/iv_all_category_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/car" />
+        tools:src="@drawable/car" />
 
     <TextView
         android:id="@+id/tv_category_name"

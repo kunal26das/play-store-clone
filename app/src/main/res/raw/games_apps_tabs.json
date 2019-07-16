@@ -2,19 +2,19 @@
   "tabs": [
     {
       "name": "For You",
-      "icon": "ic_explorer"
+      "logo": "ic_explorer"
     },
     {
       "name": "Top Charts",
-      "icon": "ic_graphic_eq_black_24dp"
+      "logo": "ic_graphic_eq_black_24dp"
     },
     {
       "name": "Categories",
-      "icon": "ic_category"
+      "logo": "ic_category"
     },
     {
       "name": "Family",
-      "icon": "icons8_starfish_24"
+      "logo": "icons8_starfish_24"
     }
   ]
 }

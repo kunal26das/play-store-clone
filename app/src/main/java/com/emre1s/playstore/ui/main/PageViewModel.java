@@ -2,6 +2,7 @@ package com.emre1s.playstore.ui.main;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,6 +12,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.DatabaseCallback;
+import com.emre1s.playstore.api.PermissionResponseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.api.ReviewResponseCallback;
 import com.emre1s.playstore.api.SearchResponseCallback;
@@ -37,6 +39,7 @@ public class PageViewModel extends AndroidViewModel {
     private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
 
     private CategoryList appsTopCategoryList = RetrofitApiFactory.getAppsTopCategoryList();
+    private CategoryList gamesTopCategoryList = RetrofitApiFactory.getGamesTopCategoryList();
 
     private TabList gamesAndAppsTabList = RetrofitApiFactory.getGamesAndAppsTabList();
     private TabList movieTabList = RetrofitApiFactory.getMovieTabList();
@@ -93,7 +96,8 @@ public class PageViewModel extends AndroidViewModel {
         retrofitApiFactory.similarAppsApiCall(apiResponseCallback, packageName);
     }
 
-    public void makeCategoryCollectionApiCall(String collection, String category, ApiResponseCallback apiResponseCallback) {
+    public void makeCategoryCollectionApiCall(String collection, String category,
+                                              ApiResponseCallback apiResponseCallback) {
         RetrofitApiFactory retrofitApiFactory =new RetrofitApiFactory(mApplication);
         retrofitApiFactory.appsByCollectionCategoryApiCall(collection, category, apiResponseCallback);
     }
@@ -115,6 +119,12 @@ public class PageViewModel extends AndroidViewModel {
 
     }
 
+    public void makePermissionResultsApiCall(String packageName,
+                                             PermissionResponseCallback permissionResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
+        retrofitApiFactory.getAppPermissions(packageName, permissionResponseCallback);
+    }
+
     public void makeReviewsApiCall(String id, ReviewResponseCallback reviewResponseCallback) {
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
         retrofitApiFactory.getReviews(id, reviewResponseCallback);
@@ -133,6 +143,7 @@ public class PageViewModel extends AndroidViewModel {
     }
 
     public List<Tab> getTabList(int position) {
+        Log.d("Emre1s", "TAB POSITION: " + position);
         switch (position) {
             case 0:
             case 1: {
@@ -205,6 +216,10 @@ public class PageViewModel extends AndroidViewModel {
 
     public CategoryList getAppsTopCategoryList() {
         return appsTopCategoryList;
+    }
+
+    public CategoryList getGamesTopCategoryList() {
+        return gamesTopCategoryList;
     }
 }
 
