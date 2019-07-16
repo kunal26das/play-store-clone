@@ -22,6 +22,7 @@ import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.apps_installed_list.InstalledAppsActivity;
 import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
@@ -139,13 +140,13 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        /*if (id == R.id.nav_home) {
-        } else if (id == R.id.nav_gallery) {
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_tools) {
-        } else if (id == R.id.nav_share) {
-        } else if (id == R.id.nav_send) {
-        }*/
+        switch (id) {
+            case R.id.nav_my_apps_and_games: {
+                Intent intent = new Intent(this, InstalledAppsActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

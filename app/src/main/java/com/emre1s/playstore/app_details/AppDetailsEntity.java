@@ -54,6 +54,26 @@ public class AppDetailsEntity {
     @ColumnInfo(name = KEY_REVIEWS)
     private Integer mReviews;
 
+    /*@NonNull
+    @ColumnInfo(name = KEY_REVIEWS_ONE_STAR)
+    private Integer mReviewsOneStar;
+
+    @NonNull
+    @ColumnInfo(name = KEY_REVIEWS_TWO_STARS)
+    private Integer mReviewsTwoStars;
+
+    @NonNull
+    @ColumnInfo(name = KEY_REVIEWS_THREE_STARS)
+    private Integer mReviewsThreeStars;
+
+    @NonNull
+    @ColumnInfo(name = KEY_REVIEWS_FOUR_STARS)
+    private Integer mReviewsFourStars;
+
+    @NonNull
+    @ColumnInfo(name = KEY_REVIEWS_FIVE_STARS)
+    private Integer mReviewsFiveStars;*/
+
     @NonNull
     @ColumnInfo(name = KEY_OFFERS_IAP)
     private Boolean mOffersIap;
@@ -100,6 +120,11 @@ public class AppDetailsEntity {
                             @NonNull String mInstalls,
                             @NonNull String mScoreText,
                             @NonNull Integer mReviews,
+                            /*@NonNull Integer mReviewsOneStar,
+                            @NonNull Integer mReviewsTwoStars,
+                            @NonNull Integer mReviewsThreeStars,
+                            @NonNull Integer mReviewsFourStars,
+                            @NonNull Integer mReviewsFiveStars,*/
                             @NonNull Boolean mOffersIap,
                             @NonNull String mSize,
                             @NonNull String mDeveloper,
@@ -116,6 +141,11 @@ public class AppDetailsEntity {
         this.mInstalls = mInstalls;
         this.mScoreText = mScoreText;
         this.mReviews = mReviews;
+        /*this.mReviewsOneStar = mReviewsOneStar;
+        this.mReviewsTwoStar = mReviewsTwoStars;
+        this.mReviewsThreeStar = mReviewsThreeStars;
+        this.mReviewsFourStar = mReviewsFourStars;
+        this.mReviewsFiveStar = mReviewsFiveStars;*/
         this.mOffersIap = mOffersIap;
         this.mSize = mSize;
         this.mDeveloper = mDeveloper;
@@ -135,6 +165,11 @@ public class AppDetailsEntity {
         this.mInstalls = appDetails.getmInstalls();
         this.mScoreText = appDetails.getmScoreText();
         this.mReviews = appDetails.getmReviews();
+        //this.mReviewsOneStar = appDetails.getmHistograms().getmOneStar();
+        //this.mReviewsTwoStars = appDetails.getmHistograms().getmTwoStars();
+        //this.mReviewsThreeStars = appDetails.getmHistograms().getmThreeStars();
+        //this.mReviewsFourStars = appDetails.getmHistograms().getmFour();
+        //this.mReviewsFiveStars = appDetails.getmHistograms().getmFive();
         this.mOffersIap = appDetails.hasInAppPurchases();
         this.mSize = appDetails.getmSize();
         this.mDeveloper = appDetails.getmDeveloper();

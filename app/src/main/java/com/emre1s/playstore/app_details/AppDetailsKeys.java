@@ -13,6 +13,11 @@ public class AppDetailsKeys {
     public static final String KEY_RATINGS = "ratings";
     public static final String KEY_REVIEWS = "reviews";
     public static final String KEY_HISTOGRAM = "histogram";
+    public static final String KEY_REVIEWS_ONE_STAR = "reviewsOneStar";
+    public static final String KEY_REVIEWS_TWO_STARS = "reviewsTwoStars";
+    public static final String KEY_REVIEWS_THREE_STARS = "reviewsThreeStars";
+    public static final String KEY_REVIEWS_FOUR_STARS = "reviewsFourStars";
+    public static final String KEY_REVIEWS_FICE_STARS = "reviewsFiveStart";
     public static final String KEY_PRICE = "price";
     public static final String KEY_FREE = "free";
     public static final String KEY_CURRENCY = "currency";

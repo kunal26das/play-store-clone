@@ -16,11 +16,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".app_installed_list.InstalledAppListActivity"
+            android:name=".app_details.ScreenshotActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_screenshot"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".apps_installed_list.InstalledAppsActivity"
             android:label="@string/title_activity_installed_app_list"
-            android:theme="@style/WhiteTheme">
-
-        </activity>
+            android:theme="@style/WhiteTheme"></activity>
         <activity android:name=".ui.MoreAppsActivity" />
         <activity android:name=".ui.TopCharts" />
         <activity
