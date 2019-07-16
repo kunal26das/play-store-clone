@@ -31,6 +31,6 @@
             android:id="@+id/show_reviews"
             android:text="@string/show_all"
             android:textColor="@color/colorPrimary"
-            android:background="@color/colorWhite"/>
+            android:background="@color/colorWhite" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

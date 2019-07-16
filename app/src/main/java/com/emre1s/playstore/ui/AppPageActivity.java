@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,6 +67,10 @@ public class AppPageActivity extends AppCompatActivity {
         final Button appOpenButton = findViewById(R.id.btn_open_app);
         final Button appUninstallButton = findViewById(R.id.btn_uninstall_app);
 
+        final TextView averageRating = findViewById(R.id.score_review);
+        final RatingBar ratingBarTotal= findViewById(R.id.rating_review);
+        final TextView totalRating=findViewById(R.id.total_reviews);
+
         PackageManager packageManager = getPackageManager();
         try {
             packageManager.getPackageInfo(mAppId, 0);
@@ -92,12 +97,23 @@ public class AppPageActivity extends AppCompatActivity {
         final TextView appRating = findViewById(R.id.tv_app_content_rating);
         final TextView appInstalls = findViewById(R.id.tv_app_installs);
 
+        final RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
+        final RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
+        final RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
+        final RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
+        final RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
+
         final TextView appSummary = findViewById(R.id.tv_app_summary);
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
         final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
+        progressBarFive.setProgressBackgroundColor(R.color.colorLightGrey);
+        progressBarFour.setProgressBackgroundColor(R.color.colorLightGrey);
+        progressBarThree.setProgressBackgroundColor(R.color.colorLightGrey);
+        progressBarTwo.setProgressBackgroundColor(R.color.colorLightGrey);
+        progressBarOne.setProgressBackgroundColor(R.color.colorLightGrey);
 
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
@@ -105,19 +121,18 @@ public class AppPageActivity extends AppCompatActivity {
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
 
-                    RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
+
                     float progressFive = (float)appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
                     progressBarFive.setProgress(progressFive * 100);
-                    RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
                     float progressFour = (float) appDetails.getmHistograms().getmFour() / appDetails.getmRatings();
                     progressBarFour.setProgress(progressFour * 100);
-                    RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
+
                     float progressThree = (float) appDetails.getmHistograms().getmThree() / appDetails.getmRatings();
                     progressBarThree.setProgress(progressThree * 100);
-                    RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
+
                     float progressTwo = (float) appDetails.getmHistograms().getmTwo() / appDetails.getmRatings();
                     progressBarTwo.setProgress(progressTwo * 100);
-                    RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
+
                     float progressOne = (float) appDetails.getmHistograms().getmOne() / appDetails.getmRatings();
                     progressBarOne.setProgress(progressOne * 100);
 
@@ -125,6 +140,9 @@ public class AppPageActivity extends AppCompatActivity {
                     appTitle.setText(appDetails.getmTitle());
                     appDeveloper.setText(appDetails.getmDeveloper());
                     appGenre.setText(appDetails.getmGenre());
+                    averageRating.setText(appDetails.getmScoreText());
+                    ratingBarTotal.setRating(appDetails.getmScore());
+                    totalRating.setText(appDetails.getmRatings()+"");
                     if (appDetails.hasAdSupport() && appDetails.hasInAppPurchases()) {
                         appMonetize.setText("Contains ads • In-app purchases");
                     } else if (appDetails.hasAdSupport()) {
@@ -157,6 +175,16 @@ public class AppPageActivity extends AppCompatActivity {
 
             }
         }, mAppId);
+
+        LinearLayout histogramLayout= findViewById(R.id.histogram);
+        histogramLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent reviewIntent= new Intent(AppPageActivity.this,ReviewPageActivity.class);
+                reviewIntent.putExtra("id",mAppId);
+                startActivity(reviewIntent);
+            }
+        });
 
         Button seeAll= findViewById(R.id.show_reviews);
         seeAll.setOnClickListener(new View.OnClickListener() {
