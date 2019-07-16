@@ -98,7 +98,7 @@ public class AppPageActivity extends AppCompatActivity {
         appScreenshots.setAdapter(screenshotsAdapter);
 
 
-        RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
             @Override
             public void onSuccess(AppDetails appDetails) {
@@ -139,6 +139,16 @@ public class AppPageActivity extends AppCompatActivity {
 
             }
         }, mAppId);
+
+        Button button = findViewById(R.id.show_reviews);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentReview = new Intent(AppPageActivity.this, ReviewPageActivity.class);
+                intentReview.putExtra("id", mAppId);
+                startActivity(intentReview);
+            }
+        });
     }
 
     private void switchButtons(boolean appIsInstalled) {

@@ -1,5 +1,6 @@
 package com.emre1s.playstore.apps_installed_list;
 
+import android.app.Application;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,11 @@ import java.util.List;
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.InstalledAppsViewHolder> {
 
     private LayoutInflater mLayoutInflater;
-    //private List<InstalledApp> mList = Collections.emptyList();
+    RetrofitApiFactory mRetrofitApiFactory;
     private List<String> mInstalledApps = Collections.emptyList();
 
-    InstalledAppsAdapter(Context context) {
+    InstalledAppsAdapter(Application application, Context context) {
+        mRetrofitApiFactory = new RetrofitApiFactory(application);
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -67,11 +69,9 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         }
 
         void updateAppInfo(String packageName) {
-            RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
-            retrofitApiFactory.getAppDetails(new DatabaseCallback() {
+            mRetrofitApiFactory.getAppDetails(new DatabaseCallback() {
                 @Override
                 public void onSuccess(AppDetails appDetails) {
-                    //Log.i("Check", packageName);
                     mAppTitle.setText(appDetails.getmTitle());
                     mAppStatus.setText(appDetails.getmSize());
                     Picasso.get().load(appDetails.getmIcon()).into(mAppIcon);

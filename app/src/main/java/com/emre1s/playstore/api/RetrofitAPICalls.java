@@ -2,6 +2,7 @@ package com.emre1s.playstore.api;
 
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.models.Review;
 
 import java.util.List;
 
@@ -30,13 +31,23 @@ public interface RetrofitAPICalls {
     Single<List<App>> getSimilarApps(
             @Query("id") String packageName);
 
-//    @GET("suggestions/")
-//    Call<>
+    @GET("suggestions/")
+    Single<List<String>> getSearchSuggestions(
+            @Query("q") String keyword);
 
     @GET(" ")
     Single<List<App>> getAppsByCollectionCategory(
             @Query("collection") String collection,
             @Query("category") String category
+    );
+
+    @GET("search/")
+    Single<List<App>> getSearchResults(
+            @Query("q") String query);
+
+    @GET("apps/reviews/")
+    Single<List<Review>> getReviews(
+            @Query("id") String id
     );
 
 }

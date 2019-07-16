@@ -8,8 +8,6 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
-import retrofit2.Retrofit;
 
 @Component(modules = {
         ApiModule.class})
@@ -24,8 +22,13 @@ public interface AppComponent {
 
         AppComponent build();
 
+
         @BindsInstance
         Builder apiModule(ApiModule apiModule);
+
+        @BindsInstance
+        Builder application(Application application);
+
     }
 
 

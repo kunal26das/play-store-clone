@@ -23,5 +23,13 @@
         <include layout="@layout/layout_app_intro" />
 
         <include layout="@layout/divider" />
+
+        <Button
+            android:id="@+id/show_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:text="@string/show_all"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -72,8 +72,14 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
+
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 
 }
 apply plugin: 'com.google.gms.google-services'

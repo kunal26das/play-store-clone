@@ -14,7 +14,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     public SubCategoryPagerAdapter(FragmentManager fragmentManager, int tabPosition) {
         super(fragmentManager);
         this.tabPosition = tabPosition;
-        // Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "Tab position: " + tabPosition);
+        // Log.d(SubCategoryPagerAdapter.class.getSimpleName(), "TabList position: " + tabPosition);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
                 return ForYouFragment.newInstance(tabPosition);
             }
             case 1: {
-                return new TopChartsTabFragment();
+                return TopChartsTabFragment.newInstance(tabPosition);
             }
             case 2: {
                 return AppCategoryFragment.newInstance(tabPosition);
@@ -49,5 +49,6 @@ public class SubCategoryPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return NUM_ITEMS;
     }
+
 
 }

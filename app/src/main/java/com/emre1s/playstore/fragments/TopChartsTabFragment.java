@@ -1,6 +1,7 @@
 package com.emre1s.playstore.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +9,41 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.TopChartsTabAdapter;
+import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class TopChartsTabFragment extends Fragment {
 
+    private PageViewModel pageViewModel;
+
     public TopChartsTabFragment() {
+    }
+
+    public static TopChartsTabFragment newInstance(int position) {
+        TopChartsTabFragment topChartsTabFragment = new TopChartsTabFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("position", position);
+        topChartsTabFragment.setArguments(bundle);
+        return topChartsTabFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        int position = 1;
+        if (getArguments() != null) {
+            position = getArguments().getInt("position");
+            Log.d(TopChartsTabFragment.class.getSimpleName(), "TabList position at tabsfragment: " + position);
+        }
+        pageViewModel.getTabPosition().setValue(position);
     }
 
     @Nullable
@@ -30,8 +56,15 @@ public class TopChartsTabFragment extends Fragment {
         topChartsTab.setupWithViewPager(topChartsViewPager);
         topChartsTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorPrimary));
 
-        TopChartsTabAdapter topChartsTabAdapter = new TopChartsTabAdapter(getContext(), getChildFragmentManager());
-        topChartsViewPager.setAdapter(topChartsTabAdapter);
+        pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer tabPosition) {
+                TopChartsTabAdapter topChartsTabAdapter = new TopChartsTabAdapter(getContext(),
+                        getChildFragmentManager(), tabPosition);
+                topChartsViewPager.setAdapter(topChartsTabAdapter);
+            }
+        });
+
 
         return root;
     }

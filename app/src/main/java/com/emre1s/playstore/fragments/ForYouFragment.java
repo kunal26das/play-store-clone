@@ -27,8 +27,6 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 
 public class ForYouFragment extends Fragment {
 
-
-
     private PageViewModel pageViewModel;
 
     public ForYouFragment() {
@@ -45,6 +43,7 @@ public class ForYouFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRetainInstance(true);
         pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
         int position = 1;
         if (getArguments() != null) {
@@ -115,5 +114,4 @@ public class ForYouFragment extends Fragment {
         });
         return view;
     }
-
 }

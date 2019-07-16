@@ -1,25 +1,26 @@
 package com.emre1s.playstore.api;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.dagger.AppController;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
+import com.emre1s.playstore.models.MovieGenreList;
+import com.emre1s.playstore.models.Review;
+import com.emre1s.playstore.models.TabList;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Singleton
 public class RetrofitApiFactory {
@@ -31,65 +32,30 @@ public class RetrofitApiFactory {
     private static CategoryList familyCategories;
     private static CategoryList appCategories;
 
+    private static CategoryList appsTopCategoryList;
+
+
+    private static TabList gamesAndAppsTabList;
+    private static TabList movieTabList;
+    private static TabList bookTabList;
+    private static TabList musicTabList;
+
+    private static MovieGenreList movieGenreList;
+
+    private Application application;
+
     @Inject
     Retrofit retrofit;
 
     public RetrofitApiFactory(Application application) {
         ((AppController)application).getAppComponent().inject(this);
+
         retrofitAPICalls = retrofit.create(RetrofitAPICalls.class);
+        this.application = application;
     }
 
-    public void appsByCategoryApiCall(final ApiResponseCallback apiResponseCallback, String category) {
-
-        retrofitAPICalls.getAppsByCategoryResponse(category)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<App>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(List<App> apps) {
-                        apiResponseCallback.onSuccess(apps);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        apiResponseCallback.onFailure();
-                    }
-                });
-
-//        retrofitAPICalls.getAppsByCategoryResponse(category).enqueue(new Callback<App[]>() {
-//            @Override
-//            public void onResponse(Call<App[]> call, Response<App[]> response) {
-//
-//                if (response.isSuccessful()) {
-//                    Log.d("Emre1s", "Successful response");
-//                    App[] appByCategoryApiResponse = response.body();
-//                    if (appByCategoryApiResponse != null) {
-//                        apiResponseCallback.onSuccess(appByCategoryApiResponse);
-//                    } else {
-//                        apiResponseCallback.onFailure();
-//                        Log.d("Emre1s", "it's empty");
-//                    }
-//                } else {
-//
-//                    try {
-//                        Log.d("Emre1s", "Response not successful"
-//                                + response.message() + response.errorBody().string());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<App[]> call, Throwable t) {
-//                Log.d("Emre1s", "Entire failure. Oops.");
-//            }
-//        });
+    public static TabList getGamesAndAppsTabList() {
+        return gamesAndAppsTabList;
     }
 
     public void getAppDetails(DatabaseCallback databaseCallback, String appID) {
@@ -139,79 +105,14 @@ public class RetrofitApiFactory {
                     }
                 });
 
-
-//        retrofitAPICalls.getAppsByCollectionResponse(collection).enqueue(new Callback<App[]>() {
-//            @Override
-//            public void onResponse(Call<App[]> call, Response<App[]> response) {
-//
-//                if (response.isSuccessful()) {
-//                    Log.d("Emre1s", "Successful collection response");
-//                    App[] appsByCollectionApiResponse = response.body();
-//                    if (appsByCollectionApiResponse != null) {
-//                        apiResponseCallback.onSuccess(appsByCollectionApiResponse);
-//                    } else {
-//                        apiResponseCallback.onFailure();
-//                        Log.d("Emre1s", "Collection response is empty");
-//                    }
-//                } else {
-//                    Log.d("Emre1s", "Response not successful collection API");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<App[]> call, Throwable t) {
-//                Log.d("Emre1s", "Collection response entire failure. Damn");
-//            }
-//        });
     }
 
-    public void similarAppsApiCall(final ApiResponseCallback apiResponseCallback,
-                                        String packageName) {
+    public static void setGamesAndAppsTabList(TabList gamesAndAppsTabList) {
+        RetrofitApiFactory.gamesAndAppsTabList = gamesAndAppsTabList;
+    }
 
-
-        retrofitAPICalls.getSimilarApps(packageName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<App>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(List<App> apps) {
-                        apiResponseCallback.onSuccess(apps);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        apiResponseCallback.onFailure();
-                    }
-                });
-
-//        retrofitAPICalls.getSimilarApps(packageName).enqueue(new Callback<App[]>() {
-//            @Override
-//            public void onResponse(Call<App[]> call, Response<App[]> response) {
-//
-//                if (response.isSuccessful()) {
-//                    Log.d("Emre1s", "Successful similar apps response");
-//                    App[] appsByCollectionApiResponse = response.body();
-//                    if (appsByCollectionApiResponse != null) {
-//                        apiResponseCallback.onSuccess(appsByCollectionApiResponse);
-//                    } else {
-//                        apiResponseCallback.onFailure();
-//                        Log.d("Emre1s", "similar apps response is empty");
-//                    }
-//                } else {
-//                    Log.d("Emre1s", "Response not successful similar apps API");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<App[]> call, Throwable t) {
-//                Log.d("Emre1s", "similar apps response entire failure. Damn");
-//            }
-//        });
+    public static TabList getMovieTabList() {
+        return movieTabList;
     }
 
     public static CategoryList getGameCategories() {
@@ -238,6 +139,117 @@ public class RetrofitApiFactory {
         RetrofitApiFactory.appCategories = appCategories;
     }
 
+    public static void setMovieTabList(TabList movieTabList) {
+        RetrofitApiFactory.movieTabList = movieTabList;
+    }
+
+    public static TabList getBookTabList() {
+        return bookTabList;
+    }
+
+    public static void setBookTabList(TabList bookTabList) {
+        RetrofitApiFactory.bookTabList = bookTabList;
+    }
+
+    public static TabList getMusicTabList() {
+        return musicTabList;
+    }
+
+    public static void setMusicTabList(TabList musicTabList) {
+        RetrofitApiFactory.musicTabList = musicTabList;
+    }
+
+    public static MovieGenreList getMovieGenreList() {
+        return movieGenreList;
+    }
+
+    public static void setMovieGenreList(MovieGenreList movieGenreList) {
+        RetrofitApiFactory.movieGenreList = movieGenreList;
+    }
+
+    public static CategoryList getAppsTopCategoryList() {
+        return appsTopCategoryList;
+    }
+
+    public static void setAppsTopCategoryList(CategoryList appsTopCategoryList) {
+        RetrofitApiFactory.appsTopCategoryList = appsTopCategoryList;
+    }
+
+    public void appsByCategoryApiCall(final ApiResponseCallback apiResponseCallback, String category) {
+
+        retrofitAPICalls.getAppsByCategoryResponse(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<App>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<App> apps) {
+                        apiResponseCallback.onSuccess(apps);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiResponseCallback.onFailure();
+                        Log.d(RetrofitApiFactory.class.getSimpleName(), "Data failure" + e.getMessage() + " " + e.getLocalizedMessage());
+                    }
+                });
+
+    }
+
+    public void similarAppsApiCall(final ApiResponseCallback apiResponseCallback,
+                                   String packageName) {
+
+
+        retrofitAPICalls.getSimilarApps(packageName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<App>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<App> apps) {
+                        apiResponseCallback.onSuccess(apps);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiResponseCallback.onFailure();
+                    }
+                });
+
+    }
+
+    public void searchAppsApiCall(final ApiResponseCallback apiResponseCallback,
+                                  String query) {
+
+        retrofitAPICalls.getSearchResults(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<App>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<App> apps) {
+                        apiResponseCallback.onSuccess(apps);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        apiResponseCallback.onFailure();
+                    }
+                });
+    }
+
     public void appsByCollectionCategoryApiCall(String collection, String category,
                                                 final ApiResponseCallback apiResponseCallback) {
 
@@ -261,31 +273,53 @@ public class RetrofitApiFactory {
                     }
                 });
 
+    }
 
-//        retrofitAPICalls.getAppsByCollectionCategory(collection,category).enqueue(new Callback<App[]>() {
-//            @Override
-//            public void onResponse(Call<App[]> call, Response<App[]> response) {
-//
-//                if (response.isSuccessful()) {
-//                    Log.d("Ruchika", "Successful collection response");
-//                    App[] appsByCollectionCategoryApiResponse = response.body();
-//                    if (appsByCollectionCategoryApiResponse != null) {
-//                        apiResponseCallback.onSuccess(appsByCollectionCategoryApiResponse);
-//                    } else {
-//                        apiResponseCallback.onFailure();
-//                        Log.d("Ruchika", "Collection response is empty");
-//                    }
-//                } else {
-//                    Log.d("Ruchika", "Response not successful collection API");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<App[]> call, Throwable t) {
-//                Log.d("Ruchika", "Collection response entire failure");
-//            }
-//        });
+    public void getSearchSuggestions(String keyword,
+                                     final SearchResponseCallback searchResponseCallback) {
 
+        retrofitAPICalls.getSearchSuggestions(keyword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> strings) {
+                        searchResponseCallback.onSuccess(strings);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    public void getReviews(String id, final ReviewResponseCallback reviewResponseCallback) {
+        retrofitAPICalls.getReviews(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Review>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<Review> reviews) {
+                        reviewResponseCallback.onSuccess(reviews);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        reviewResponseCallback.onFailure();
+                        Log.d("Reviews failed", e.getLocalizedMessage());
+                    }
+                });
     }
 
 
