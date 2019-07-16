@@ -29,6 +29,7 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.api.SearchResponseCallback;
+import com.emre1s.playstore.apps_installed_list.InstalledAppsActivity;
 import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.TabList;
@@ -67,6 +68,15 @@ public class MainActivity extends AppCompatActivity
     private PageViewModel pageViewModel;
 
     //private BottomSheetBehavior bottomSheetBehavior;
+
+    public static void hideSoftKeyboard(Activity activity) {
+        final InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()) {
+            if (activity.getCurrentFocus() != null) {
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -112,7 +122,7 @@ public class MainActivity extends AppCompatActivity
                 });
 
 
-        SectionsPagerAdapter sectionsPagerAdapter = new 
+        SectionsPagerAdapter sectionsPagerAdapter = new
         SectionsPagerAdapter(this, getSupportFragmentManager());
 
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -430,14 +440,5 @@ public class MainActivity extends AppCompatActivity
         searchView.setVisibility(View.VISIBLE);
         searchView.bringToFront();
         searchView.setSearchFocused(true);
-    }
-
-    public static void hideSoftKeyboard(Activity activity) {
-        final InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager.isActive()) {
-            if (activity.getCurrentFocus() != null) {
-                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-            }
-        }
     }
 }

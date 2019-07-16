@@ -1,20 +1,12 @@
 package com.emre1s.playstore.ui.main;
 
 
-import android.graphics.Color;
-
-import androidx.fragment.app.FragmentManager;
-
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.arch.core.util.Function;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.emre1s.playstore.R;
@@ -22,6 +14,7 @@ import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.api.PermissionResponseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
+import com.emre1s.playstore.api.ReviewResponseCallback;
 import com.emre1s.playstore.api.SearchResponseCallback;
 import com.emre1s.playstore.fragments.SubCategoryPagerAdapter;
 import com.emre1s.playstore.models.App;
@@ -32,8 +25,6 @@ import com.emre1s.playstore.models.TabList;
 import com.emre1s.playstore.pageradapters.MoviePagerAdapter;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class PageViewModel extends AndroidViewModel {
 
@@ -134,6 +125,11 @@ public class PageViewModel extends AndroidViewModel {
         retrofitApiFactory.getAppPermissions(packageName, permissionResponseCallback);
     }
 
+    public void makeReviewsApiCall(String id, ReviewResponseCallback reviewResponseCallback) {
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
+        retrofitApiFactory.getReviews(id, reviewResponseCallback);
+    }
+
     public MutableLiveData<App> getReceivedAppLiveData() {
         return receivedAppLiveData;
     }
@@ -150,8 +146,7 @@ public class PageViewModel extends AndroidViewModel {
         Log.d("Emre1s", "TAB POSITION: " + position);
         switch (position) {
             case 0:
-            case 1:
-            {
+            case 1: {
                 return gamesAndAppsTabList.getTabs();
             }
             case 2: {
@@ -163,7 +158,7 @@ public class PageViewModel extends AndroidViewModel {
             case 4: {
                 return musicTabList.getTabs();
             }
-            default:{
+            default: {
                 return null;
             }
         }
@@ -172,8 +167,7 @@ public class PageViewModel extends AndroidViewModel {
     public PagerAdapter getPagerAdapter(FragmentManager fragmentManager, int position) {
         switch (position) {
             case 0:
-            case 1:
-            {
+            case 1: {
                 return new SubCategoryPagerAdapter(fragmentManager, position);
             }
             case 2: {
@@ -185,7 +179,7 @@ public class PageViewModel extends AndroidViewModel {
             case 4: {
                 return new SubCategoryPagerAdapter(fragmentManager, position);
             }
-            default:{
+            default: {
                 return null;
             }
         }

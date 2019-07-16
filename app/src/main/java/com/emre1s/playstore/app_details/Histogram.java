@@ -13,25 +13,29 @@ public class Histogram {
     public static final String KEY_FIVE = "5";
 
     @SerializedName(KEY_ONE)
-    public String mOne;
+    public int mOne;
 
     @SerializedName(KEY_TWO)
-    public String mTwo;
+    public int mTwo;
 
     @SerializedName(KEY_THREE)
-    public String mThree;
+    public int mThree;
 
     @SerializedName(KEY_FOUR)
-    public String mFour;
+    public int mFour;
 
     @SerializedName(KEY_FIVE)
-    private String mFive;
+    private int mFive;
 
-    public Histogram(@NonNull String mOne,
-                     @NonNull String mTwo,
-                     @NonNull String mThree,
-                     @NonNull String mFour,
-                     @NonNull String mFive) {
+    public Histogram(){
+
+    }
+
+    public Histogram(@NonNull int mOne,
+                     @NonNull int mTwo,
+                     @NonNull int mThree,
+                     @NonNull int mFour,
+                     @NonNull int mFive) {
         this.mOne = mOne;
         this.mTwo = mTwo;
         this.mThree = mThree;
@@ -39,23 +43,23 @@ public class Histogram {
         this.mFive = mFive;
     }
 
-    public String getmOne() {
+    public int getmOne() {
         return mOne;
     }
 
-    public String getmTwo() {
+    public int getmTwo() {
         return mTwo;
     }
 
-    public String getmThree() {
+    public int getmThree() {
         return mThree;
     }
 
-    public String getmFour() {
+    public int getmFour() {
         return mFour;
     }
 
-    public String getmFive() {
+    public int getmFive() {
         return mFive;
     }
 }

@@ -59,9 +59,18 @@ public class FamilyAppFragment extends Fragment {
         RecyclerView familyCategories = view.findViewById(R.id.family_categories_rv);
 
         TopCategoryAdapter topCategoryAdapter =
-                new TopCategoryAdapter(getContext());
+                new TopCategoryAdapter(getContext(),
+                        new OnCategoryChanged() {
+                    @Override
+                    public void changeCategory(CategoryList.Category category) {
+                        Log.d(ForYouFragment.class.getSimpleName(), "Category received: " +
+                                category.getName());
+                        Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                        intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                        startActivity(intent);
+                    }
+                });
         topCategoryAdapter.setCategoryList(pageViewModel.getFamilyCategoryList().getCategoryList());
-
         familyCategories.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         familyCategories.setAdapter(topCategoryAdapter);
@@ -99,7 +108,7 @@ public class FamilyAppFragment extends Fragment {
 
         familyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         familyRecycler.setAdapter(familyAdapter);
-        Log.d("Ruchika-family", pageViewModel.getFamilyCategoryList().getCategoryList().size() + "");
+        //Log.d("Ruchika-family", pageViewModel.getFamilyCategoryList().getCategoryList().size() + "");
         familyAdapter.setCategoryNames(pageViewModel.getFamilyCategoryList());
 
         return view;

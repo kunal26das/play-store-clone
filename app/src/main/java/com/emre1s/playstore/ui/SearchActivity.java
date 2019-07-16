@@ -1,10 +1,5 @@
 package com.emre1s.playstore.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +8,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
-import com.arlib.floatingsearchview.util.view.SearchInputView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.SearchResultAdapter;
 import com.emre1s.playstore.api.ApiResponseCallback;
@@ -147,11 +146,10 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
 
             @Override
             public void onSearchAction(String currentQuery) {
-                pageViewModel.makeSearchResultsApiCall(finalQuery,SearchActivity.this);
+                pageViewModel.makeSearchResultsApiCall(finalQuery, SearchActivity.this);
             }
         });
     }
-
 
 
     private void promptSpeechInput() {

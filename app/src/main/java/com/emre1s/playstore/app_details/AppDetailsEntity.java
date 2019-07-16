@@ -12,22 +12,23 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 import static com.emre1s.playstore.GlobalConstants.TABLE_APP_DETAILS;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_AD_SUPPORTED;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_APP_ID;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_CONTENT_RATING;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_DEVELOPER;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_GENRE;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_ICON;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_INSTALLS;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_OFFERS_IAP;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_REVIEWS;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SCORE_TEXT;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SCREENSHOTS;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SIZE;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_SUMMARY;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_TITLE;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO;
-import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO_IMAGE;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_AD_SUPPORTED;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_APP_ID;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_CONTENT_RATING;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_DEVELOPER;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_GENRE;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_ICON;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_INSTALLS;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_OFFERS_IAP;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_REVIEWS;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_SCORE_TEXT;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_SCREENSHOTS;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_SIZE;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_SUMMARY;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_TITLE;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_VIDEO;
+import static com.emre1s.playstore.app_details.AppDetails.KEY_VIDEO_IMAGE;
+
 
 @Entity(tableName = TABLE_APP_DETAILS)
 public class AppDetailsEntity implements Parcelable {

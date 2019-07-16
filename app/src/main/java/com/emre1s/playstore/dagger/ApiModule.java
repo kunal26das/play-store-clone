@@ -12,7 +12,6 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -91,7 +90,7 @@ public class ApiModule {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null  && networkInfo.isConnected()) {
+        if (networkInfo != null && networkInfo.isConnected()) {
             isConnected = true;
         }
         return isConnected;

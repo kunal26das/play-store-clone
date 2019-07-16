@@ -1,6 +1,5 @@
 package com.emre1s.playstore.ui.main;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,21 +77,21 @@ public class PlaceholderFragment extends Fragment {
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
-                        ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
+                        ((ImageView) tab.getCustomView().findViewById(R.id.tabIcon))
                                 .setColorFilter(getResources().getColor(colorId),
                                         android.graphics.PorterDuff.Mode.SRC_IN);
 
-                        ((TextView)tab.getCustomView().findViewById(R.id.tabText))
+                        ((TextView) tab.getCustomView().findViewById(R.id.tabText))
                                 .setTextColor(getResources().getColor(colorId));
                     }
 
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
-                        ((ImageView)tab.getCustomView().findViewById(R.id.tabIcon))
+                        ((ImageView) tab.getCustomView().findViewById(R.id.tabIcon))
                                 .setColorFilter(getResources().getColor(R.color.colorGrey),
                                         android.graphics.PorterDuff.Mode.SRC_IN);
 
-                        ((TextView)tab.getCustomView().findViewById(R.id.tabText))
+                        ((TextView) tab.getCustomView().findViewById(R.id.tabText))
                                 .setTextColor(getResources().getColor(R.color.colorGrey));
                     }
 

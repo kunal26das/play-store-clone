@@ -24,6 +24,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     private List<App> searchResultList = new ArrayList<>();
 
+    private static int getRandomNumberInRange() {
+
+        Random r = new Random();
+        return r.nextInt((50 - 1) + 1) + 1;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,6 +64,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         return searchResultList.size();
     }
 
+    public void setSearchResultList(List<App> searchResultList) {
+        this.searchResultList = searchResultList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView appIcon;
         TextView appName;
@@ -68,24 +79,13 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            sNo=itemView.findViewById(R.id.s_no);
+            sNo = itemView.findViewById(R.id.s_no);
             sNo.setVisibility(View.GONE);
-            appIcon=itemView.findViewById(R.id.app_icon);
-            appName=itemView.findViewById(R.id.app_name);
-            appDeveloper= itemView.findViewById(R.id.app_developer);
-            appSize=itemView.findViewById(R.id.app_size);
-            appRating=itemView.findViewById(R.id.app_rating);
+            appIcon = itemView.findViewById(R.id.app_icon);
+            appName = itemView.findViewById(R.id.app_name);
+            appDeveloper = itemView.findViewById(R.id.app_developer);
+            appSize = itemView.findViewById(R.id.app_size);
+            appRating = itemView.findViewById(R.id.app_rating);
         }
-    }
-
-    public void setSearchResultList(List<App> searchResultList) {
-        this.searchResultList = searchResultList;
-        notifyDataSetChanged();
-    }
-
-    private static int getRandomNumberInRange() {
-
-        Random r = new Random();
-        return r.nextInt((50 - 1) + 1) + 1;
     }
 }

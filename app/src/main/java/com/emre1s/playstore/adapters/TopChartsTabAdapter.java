@@ -20,7 +20,7 @@ public class TopChartsTabAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] topChartsTabItemNames =new int[] {R.string.topFree,R.string.topGrossing,R.string.trending,R.string.topPaid};
 
-    public TopChartsTabAdapter(Context context, FragmentManager fragmentManager, Integer tabPosition){
+    public TopChartsTabAdapter(Context context, FragmentManager fragmentManager, Integer tabPosition) {
         super(fragmentManager);
         mContext=context;
         Log.d(TopChartsTabAdapter.class.getSimpleName(), "tab position at adapter: " + tabPosition);

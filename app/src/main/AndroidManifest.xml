@@ -21,6 +21,15 @@
         <activity
             android:name=".ui.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".app_details.ScreenshotActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_screenshot"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".apps_installed_list.InstalledAppsActivity"
+            android:label="@string/title_activity_installed_app_list"
+            android:theme="@style/WhiteTheme" />
         <activity android:name=".ui.MoreAppsActivity" />
         <activity android:name=".ui.TopCharts" />
         <activity
@@ -35,6 +44,8 @@
         <activity
             android:name=".ui.AppPageActivity"
             android:theme="@style/WhiteTheme" />
+        <activity android:name=".ui.ReviewPageActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

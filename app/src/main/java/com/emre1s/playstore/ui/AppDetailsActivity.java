@@ -21,7 +21,6 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.PermissionAdapter;
 import com.emre1s.playstore.api.PermissionResponseCallback;
 import com.emre1s.playstore.app_details.AppDetails;
-import com.emre1s.playstore.app_details.AppDetailsEntity;
 import com.emre1s.playstore.models.Permission;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
