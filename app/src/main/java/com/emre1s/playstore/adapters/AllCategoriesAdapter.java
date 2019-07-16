@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.CategoryList;
 
 import java.util.ArrayList;
@@ -17,8 +18,10 @@ import java.util.List;
 public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdapter.ViewHolder> {
 
     private List<CategoryList.Category> categories = new ArrayList<>();
+    private OnCategoryChanged onCategoryChanged;
 
-    public AllCategoriesAdapter() {
+    public AllCategoriesAdapter(OnCategoryChanged onCategoryChanged) {
+        this.onCategoryChanged=onCategoryChanged;
     }
 
     @NonNull
@@ -31,6 +34,12 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.categoryName.setText(categories.get(position).getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCategoryChanged.changeCategory(categories.get(position));
+            }
+        });
     }
 
     @Override

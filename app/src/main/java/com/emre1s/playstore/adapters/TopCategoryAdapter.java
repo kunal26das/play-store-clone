@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.CategoryList;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
 
     private List<CategoryList.Category> categoryList = new ArrayList<>();
     private int[] categoryIcons;
+    private OnCategoryChanged onCategoryChanged;
 
-    public TopCategoryAdapter(List<CategoryList.Category> categoryList, int[] categoryIcons) {
+    public TopCategoryAdapter(List<CategoryList.Category> categoryList, int[] categoryIcons,
+                              OnCategoryChanged onCategoryChanged) {
         this.categoryList = categoryList;
         this.categoryIcons = categoryIcons;
-
+        this.onCategoryChanged=onCategoryChanged;
     }
 
     @NonNull
@@ -37,6 +40,12 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.categoryIcon.setImageResource(categoryIcons[position]);
         holder.categoryName.setText(categoryList.get(position).getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCategoryChanged.changeCategory(categoryList.get(position));
+            }
+        });
     }
 
     @Override

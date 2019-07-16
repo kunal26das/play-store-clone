@@ -60,7 +60,15 @@ public class FamilyAppFragment extends Fragment {
 
         TopCategoryAdapter topCategoryAdapter =
                 new TopCategoryAdapter(pageViewModel.getAppsTopCategoryList()
-                        .getCategoryList(), categoryIcons);
+                        .getCategoryList(), categoryIcons, new OnCategoryChanged() {
+                    @Override
+                    public void changeCategory(CategoryList.Category category) {
+                        Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+                        Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                        intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                        startActivity(intent);
+                    }
+                });
         familyCategories.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         familyCategories.setAdapter(topCategoryAdapter);
