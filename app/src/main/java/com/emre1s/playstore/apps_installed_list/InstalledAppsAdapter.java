@@ -1,7 +1,7 @@
 package com.emre1s.playstore.apps_installed_list;
 
-import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,26 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.api.DatabaseCallback;
-import com.emre1s.playstore.api.RetrofitApiFactory;
-import com.emre1s.playstore.app_details.AppDetails;
-import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
 
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.InstalledAppsViewHolder> {
 
+    private Context mContext;
     private LayoutInflater mLayoutInflater;
-    RetrofitApiFactory mRetrofitApiFactory;
-    private List<String> mInstalledApps = Collections.emptyList();
+    private PackageManager mPackageManager;
+    private List<InstalledApp> mInstalledApps = Collections.emptyList();
 
-    InstalledAppsAdapter(Application application, Context context) {
-        mRetrofitApiFactory = new RetrofitApiFactory(application);
+    InstalledAppsAdapter(Context context) {
+        mContext = context;
+        mPackageManager = context.getPackageManager();
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public void setInstalledApps(List<String> installedApps) {
+    public void setInstalledApps(List<InstalledApp> installedApps) {
         mInstalledApps = installedApps;
     }
 
@@ -56,33 +54,26 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     class InstalledAppsViewHolder extends RecyclerView.ViewHolder {
 
         TextView mAppTitle;
-        TextView mAppStatus;
+        TextView mAppVersion;
         ImageView mAppIcon;
         Button mAppAction;
 
         InstalledAppsViewHolder(@NonNull View itemView) {
             super(itemView);
             mAppTitle = itemView.findViewById(R.id.tv_app_title);
-            mAppStatus = itemView.findViewById(R.id.tv_app_status);
+            mAppVersion = itemView.findViewById(R.id.tv_app_version);
             mAppIcon = itemView.findViewById(R.id.iv_app_icon);
             mAppAction = itemView.findViewById(R.id.btn_open_app);
         }
 
-        void updateAppInfo(String packageName) {
-            mRetrofitApiFactory.getAppDetails(new DatabaseCallback() {
-                @Override
-                public void onSuccess(AppDetails appDetails) {
-                    mAppTitle.setText(appDetails.getmTitle());
-                    mAppStatus.setText(appDetails.getmSize());
-                    Picasso.get().load(appDetails.getmIcon()).into(mAppIcon);
-                    mAppAction.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onFailure() {
-                    mAppTitle.setText(packageName);
-                }
-            }, packageName);
+        void updateAppInfo(InstalledApp app) {
+            mAppTitle.setText(app.getAppTitle());
+            mAppVersion.setText(app.getVersion());
+            mAppIcon.setImageDrawable(app.getAppIcon());
+            final String packageName = app.getPackageName();
+            mAppAction.setOnClickListener(v -> {
+                mContext.startActivity(mPackageManager.getLaunchIntentForPackage(packageName));
+            });
         }
     }
 }

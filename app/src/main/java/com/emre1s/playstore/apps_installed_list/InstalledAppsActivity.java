@@ -27,7 +27,7 @@ public class InstalledAppsActivity extends AppCompatActivity {
         }
 
         RecyclerView installedAppsRecyclerView = findViewById(R.id.rv_installed_app_list);
-        InstalledAppsAdapter installedAppsAdapter = new InstalledAppsAdapter(getApplication(), this);
+        InstalledAppsAdapter installedAppsAdapter = new InstalledAppsAdapter(this);
         installedAppsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         installedAppsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         installedAppsRecyclerView.setAdapter(installedAppsAdapter);
