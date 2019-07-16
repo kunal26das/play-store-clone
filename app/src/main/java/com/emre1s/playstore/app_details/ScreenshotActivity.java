@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.emre1s.playstore.OnSwipeTouchListener;
 import com.emre1s.playstore.R;
 import com.squareup.picasso.Picasso;
 
@@ -110,7 +109,7 @@ public class ScreenshotActivity extends AppCompatActivity {
             final int screenshotsCount = screenshotsUrls.size();
             final int screenshotIndex = intent.getIntExtra("SCREENSHOT_INDEX", 0);
             Picasso.get().load(screenshotsUrls.get(screenshotIndex)).into(screenshotImageView);
-            screenshotImageView.setOnTouchListener(new OnSwipeTouchListener(this) {
+            /*screenshotImageView.setOnTouchListener(new OnSwipeTouchListener(this) {
                 int index = screenshotIndex;
 
                 public void onSwipeRight() {
@@ -124,7 +123,7 @@ public class ScreenshotActivity extends AppCompatActivity {
                         Picasso.get().load(screenshotsUrls.get(index++)).into(screenshotImageView);
                     }
                 }
-            });
+            });*/
         }
 
         // Set up the user interaction to manually show or hide the system UI.
