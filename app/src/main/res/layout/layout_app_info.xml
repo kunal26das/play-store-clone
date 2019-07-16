@@ -90,7 +90,7 @@
             android:layout_marginTop="56dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_uninstall"
+            android:background="@drawable/btn_border"
             android:paddingStart="32dp"
             android:paddingEnd="32dp"
             android:text="UNINSTALL"

@@ -26,9 +26,10 @@
 
         <include layout="@layout/histogram_layout"/>
         <Button
+            android:id="@+id/show_reviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/show_reviews"
+            android:background="@color/colorWhite"
             android:text="@string/show_all"
             android:textColor="@color/colorPrimary"
             android:background="@color/colorWhite" />

@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.App;
-//import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+//import com.emre1s.playstore.ui.AppPageActivity;
 
 public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopChartsViewHolder> {
 
@@ -37,6 +38,12 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     public TopChartsAdapter() {
     }
 
+    private static int getRandomNumberInRange() {
+        Random r = new Random();
+        return r.nextInt((FILE_SIZE_MAX - FILE_SIZE_MIN) + INCREMENT_BY_ONE) +
+                INCREMENT_BY_ONE;
+    }
+
     @NonNull
     @Override
     public TopChartsAdapter.TopChartsViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
@@ -48,34 +55,9 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
 
     }
 
-    private static int getRandomNumberInRange() {
-        Random r = new Random();
-        return r.nextInt((FILE_SIZE_MAX - FILE_SIZE_MIN) + INCREMENT_BY_ONE) +
-                INCREMENT_BY_ONE;
-    }
-
     @Override
     public int getItemCount() {
         return mList.size();
-    }
-
-    public class TopChartsViewHolder extends RecyclerView.ViewHolder {
-        ImageView appIcon;
-        TextView appName;
-        TextView appDeveloper;
-        TextView appSize;
-        TextView appRating;
-        TextView sNo;
-
-        public TopChartsViewHolder(View itemLayoutView) {
-            super(itemLayoutView);
-            sNo=itemLayoutView.findViewById(R.id.s_no);
-            appIcon=itemLayoutView.findViewById(R.id.app_icon);
-            appName=itemLayoutView.findViewById(R.id.app_name);
-            appDeveloper= itemLayoutView.findViewById(R.id.app_developer);
-            appSize=itemLayoutView.findViewById(R.id.app_size);
-            appRating=itemLayoutView.findViewById(R.id.app_rating);
-        }
     }
 
     @Override
@@ -96,5 +78,24 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
             v.getContext().startActivity(intent);
         });
         holder.itemView.setOnLongClickListener(v -> false);
+    }
+
+    public class TopChartsViewHolder extends RecyclerView.ViewHolder {
+        ImageView appIcon;
+        TextView appName;
+        TextView appDeveloper;
+        TextView appSize;
+        TextView appRating;
+        TextView sNo;
+
+        public TopChartsViewHolder(View itemLayoutView) {
+            super(itemLayoutView);
+            sNo = itemLayoutView.findViewById(R.id.s_no);
+            appIcon = itemLayoutView.findViewById(R.id.app_icon);
+            appName = itemLayoutView.findViewById(R.id.app_name);
+            appDeveloper = itemLayoutView.findViewById(R.id.app_developer);
+            appSize = itemLayoutView.findViewById(R.id.app_size);
+            appRating = itemLayoutView.findViewById(R.id.app_rating);
+        }
     }
 }

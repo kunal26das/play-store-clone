@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="12dp"
     android:layout_width="match_parent"
-    app:layout_scrollFlags="scroll|enterAlways|snap"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
     app:cardCornerRadius="4dp"
-    android:layout_height="wrap_content">
+    app:layout_scrollFlags="scroll|enterAlways|snap">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,31 +15,31 @@
             android:id="@+id/hambergo_ib"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dehaze_grey_24dp"
-            android:padding="12dp"
+            android:layout_alignParentStart="true"
             android:background="@android:color/transparent"
-            android:layout_alignParentStart="true" />
+            android:padding="12dp"
+            android:src="@drawable/ic_dehaze_grey_24dp" />
 
         <TextView
             android:id="@+id/play_search_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/hambergo_ib"
             android:layout_toStartOf="@id/ib_mic"
-            android:padding="12sp"
+            android:layout_toEndOf="@id/hambergo_ib"
             android:fontFamily="sans-serif-medium"
+            android:onClick="openSearchView"
+            android:padding="12sp"
             android:text="Google Play"
             android:textColor="@color/colorGrey"
-            android:onClick="openSearchView"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/ib_mic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_mic_black_24dp"
-            android:padding="12dp"
+            android:layout_alignParentEnd="true"
             android:background="@android:color/transparent"
-            android:layout_alignParentEnd="true"/>
+            android:padding="12dp"
+            android:src="@drawable/ic_mic_black_24dp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

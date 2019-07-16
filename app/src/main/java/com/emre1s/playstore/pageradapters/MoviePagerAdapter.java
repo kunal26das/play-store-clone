@@ -17,7 +17,7 @@ public class MoviePagerAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 4;
     private int tabPosition;
 
-    public MoviePagerAdapter (FragmentManager fragmentManager, int tabPosition) {
+    public MoviePagerAdapter(FragmentManager fragmentManager, int tabPosition) {
         super(fragmentManager);
         this.tabPosition = tabPosition;
     }

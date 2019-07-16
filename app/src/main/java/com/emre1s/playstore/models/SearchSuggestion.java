@@ -4,11 +4,27 @@ import android.os.Parcel;
 
 public class SearchSuggestion implements com.arlib.floatingsearchview.suggestions.model.SearchSuggestion {
 
+    public static final Creator<SearchSuggestion> CREATOR = new Creator<SearchSuggestion>() {
+        @Override
+        public SearchSuggestion createFromParcel(Parcel source) {
+            return new SearchSuggestion(source);
+        }
+
+        @Override
+        public SearchSuggestion[] newArray(int size) {
+            return new SearchSuggestion[size];
+        }
+    };
     private String suggestion;
     private boolean mIsHistory = false;
 
     public SearchSuggestion(String suggestion) {
         this.suggestion = suggestion;
+    }
+
+    protected SearchSuggestion(Parcel in) {
+        this.suggestion = in.readString();
+        this.mIsHistory = in.readByte() != 0;
     }
 
     public boolean ismIsHistory() {
@@ -18,7 +34,6 @@ public class SearchSuggestion implements com.arlib.floatingsearchview.suggestion
     public void setmIsHistory(boolean mIsHistory) {
         this.mIsHistory = mIsHistory;
     }
-
 
     @Override
     public String getBody() {
@@ -35,22 +50,4 @@ public class SearchSuggestion implements com.arlib.floatingsearchview.suggestion
         dest.writeString(this.suggestion);
         dest.writeByte(this.mIsHistory ? (byte) 1 : (byte) 0);
     }
-
-
-    protected SearchSuggestion(Parcel in) {
-        this.suggestion = in.readString();
-        this.mIsHistory = in.readByte() != 0;
-    }
-
-    public static final Creator<SearchSuggestion> CREATOR = new Creator<SearchSuggestion>() {
-        @Override
-        public SearchSuggestion createFromParcel(Parcel source) {
-            return new SearchSuggestion(source);
-        }
-
-        @Override
-        public SearchSuggestion[] newArray(int size) {
-            return new SearchSuggestion[size];
-        }
-    };
 }

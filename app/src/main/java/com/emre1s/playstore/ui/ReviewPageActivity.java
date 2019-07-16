@@ -1,13 +1,13 @@
 package com.emre1s.playstore.ui;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ReviewAdapter;
@@ -24,10 +24,10 @@ public class ReviewPageActivity extends AppCompatActivity implements ReviewRespo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_page);
-        PageViewModel pageViewModel= ViewModelProviders.of(this).get(PageViewModel.class);
+        PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
         RecyclerView reviewRecyclerView = findViewById(R.id.review_rv);
-        reviewAdapter=new ReviewAdapter();
+        reviewAdapter = new ReviewAdapter();
 
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         reviewRecyclerView.setAdapter(reviewAdapter);
@@ -36,7 +36,7 @@ public class ReviewPageActivity extends AppCompatActivity implements ReviewRespo
         String id = "";
         if (intent.getExtras() != null) {
             id = intent.getStringExtra("id");
-            Log.d("Reviews",id);
+            Log.d("Reviews", id);
             pageViewModel.makeReviewsApiCall(id, this);
         }
 
@@ -44,12 +44,12 @@ public class ReviewPageActivity extends AppCompatActivity implements ReviewRespo
 
     @Override
     public void onSuccess(List<Review> reviews) {
-        Log.d("Reviews",reviews.size()+"");
+        Log.d("Reviews", reviews.size() + "");
         reviewAdapter.setReviewList(reviews);
     }
 
     @Override
     public void onFailure() {
-        Log.d("Reviews Failed","------");
+        Log.d("Reviews Failed", "------");
     }
 }

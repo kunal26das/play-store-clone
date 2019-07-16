@@ -106,7 +106,7 @@ public class FamilyAppFragment extends Fragment {
 
         familyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         familyRecycler.setAdapter(familyAdapter);
-        Log.d("Ruchika-family", pageViewModel.getFamilyCategoryList().getCategoryList().size() + "");
+        //Log.d("Ruchika-family", pageViewModel.getFamilyCategoryList().getCategoryList().size() + "");
         familyAdapter.setCategoryNames(pageViewModel.getFamilyCategoryList());
 
         return view;

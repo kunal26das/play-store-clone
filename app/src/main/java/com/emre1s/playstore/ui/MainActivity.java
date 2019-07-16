@@ -29,6 +29,7 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.api.SearchResponseCallback;
+import com.emre1s.playstore.apps_installed_list.InstalledAppsActivity;
 import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.TabList;
@@ -61,6 +62,15 @@ public class MainActivity extends AppCompatActivity
     private PageViewModel pageViewModel;
 
     //private BottomSheetBehavior bottomSheetBehavior;
+
+    public static void hideSoftKeyboard(Activity activity) {
+        final InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager.isActive()) {
+            if (activity.getCurrentFocus() != null) {
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -106,7 +116,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Game Category name: " + category.getName() + category.getId());
         }
 
-        SectionsPagerAdapter sectionsPagerAdapter = new 
+        SectionsPagerAdapter sectionsPagerAdapter = new
         SectionsPagerAdapter(this, getSupportFragmentManager());
 
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -292,6 +302,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void initializeCategories(String myJson, String familyJson, String gamesJson, String topAppsJson) {
         CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
         CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
@@ -313,34 +333,6 @@ public class MainActivity extends AppCompatActivity
         RetrofitApiFactory.setGameCategories(gamesCategory);
         RetrofitApiFactory.setAppsTopCategoryList(topAppCategories);
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        /*if (id == R.id.nav_home) {
-        } else if (id == R.id.nav_gallery) {
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_tools) {
-        } else if (id == R.id.nav_share) {
-        } else if (id == R.id.nav_send) {
-        }*/
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void promptSpeechInput() {
@@ -390,19 +382,33 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_my_apps_and_games) {
+            Intent intent = new Intent(this, InstalledAppsActivity.class);
+            startActivity(intent);
+        }
+
+        /*if (id == R.id.nav_home) {
+        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_send) {
+        }*/
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     public void openSearchView(View view) {
         searchView.setZ(15);
         searchView.setVisibility(View.VISIBLE);
         searchView.bringToFront();
         searchView.setSearchFocused(true);
-    }
-
-    public static void hideSoftKeyboard(Activity activity) {
-        final InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (inputMethodManager.isActive()) {
-            if (activity.getCurrentFocus() != null) {
-                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-            }
-        }
     }
 }

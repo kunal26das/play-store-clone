@@ -79,7 +79,7 @@ public class TopChartsFragment extends Fragment {
                 pageViewModel.getAppTopChartsCategory().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
                     public void onChanged(String collection) {
-                        Log.d(TopChartsFragment.class.getSimpleName(),"Category and collection : " + category + collection);
+                        Log.d(TopChartsFragment.class.getSimpleName(), "Category and collection : " + category + collection);
                         pageViewModel.makeCategoryCollectionApiCall(collection, category, new ApiResponseCallback() {
                             @Override
                             public void onSuccess(List<App> popularApp) {
@@ -89,7 +89,7 @@ public class TopChartsFragment extends Fragment {
                             @Override
                             public void onFailure() {
                                 Log.d("onEmptyResponse",
-                                "Returned empty response");
+                                        "Returned empty response");
                             }
                         });
                     }

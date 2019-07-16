@@ -16,7 +16,6 @@ import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
-//import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
@@ -24,6 +23,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+//import com.emre1s.playstore.ui.AppPageActivity;
 
 public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHolder> {
 
