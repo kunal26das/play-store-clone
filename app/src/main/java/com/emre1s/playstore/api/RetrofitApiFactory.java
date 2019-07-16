@@ -94,7 +94,6 @@ public class RetrofitApiFactory {
 
                     }
                 });
-
     }
 
     public void appsByCollectionApiCall(final ApiResponseCallback apiResponseCallback,
@@ -285,5 +284,4 @@ public class RetrofitApiFactory {
     public static void setMovieGenreList(MovieGenreList movieGenreList) {
         RetrofitApiFactory.movieGenreList = movieGenreList;
     }
-
 }
