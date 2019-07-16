@@ -45,6 +45,8 @@ public class PageViewModel extends AndroidViewModel {
     private CategoryList familyCategoryList = RetrofitApiFactory.getFamilyCategories();
     private CategoryList gamesCategoryList = RetrofitApiFactory.getGameCategories();
 
+    private CategoryList appsTopCategoryList = RetrofitApiFactory.getAppsTopCategoryList();
+
     private TabList gamesAndAppsTabList = RetrofitApiFactory.getGamesAndAppsTabList();
     private TabList movieTabList = RetrofitApiFactory.getMovieTabList();
     private TabList bookTabList = RetrofitApiFactory.getBookTabList();
@@ -205,6 +207,10 @@ public class PageViewModel extends AndroidViewModel {
             }
 
         }
+    }
+
+    public CategoryList getAppsTopCategoryList() {
+        return appsTopCategoryList;
     }
 }
 

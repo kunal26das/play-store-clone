@@ -45,6 +45,8 @@ public class RetrofitApiFactory {
     private static CategoryList familyCategories;
     private static CategoryList appCategories;
 
+    private static CategoryList appsTopCategoryList;
+
 
     private static TabList gamesAndAppsTabList;
     private static TabList movieTabList;
@@ -301,15 +303,13 @@ public class RetrofitApiFactory {
         RetrofitApiFactory.movieGenreList = movieGenreList;
     }
 
-    private boolean isNetworkActive() {
-        boolean isConnected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null  && networkInfo.isConnected()) {
-            isConnected = true;
-        }
-        return isConnected;
-
+    public static CategoryList getAppsTopCategoryList() {
+        return appsTopCategoryList;
     }
+
+    public static void setAppsTopCategoryList(CategoryList appsTopCategoryList) {
+        RetrofitApiFactory.appsTopCategoryList = appsTopCategoryList;
+    }
+
 
 }

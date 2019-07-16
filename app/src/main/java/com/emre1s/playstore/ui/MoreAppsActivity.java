@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AppCardAdapter;
 import com.emre1s.playstore.api.ApiResponseCallback;
+import com.emre1s.playstore.app_details.AppDetails;
+import com.emre1s.playstore.fragments.AppSneakPeakFragment;
+import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
@@ -29,6 +32,8 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 public class MoreAppsActivity extends AppCompatActivity {
 
     public static final String CATEGORY_KEY = "categoryKey";
+    public static final int LANDSCAPE_SPAN_COUNT = 5;
+    public static final int PORTRAIT_SPAN_COUNT = 3;
     private CategoryList.Category category;
     private int spanCount;
     @Override
@@ -36,9 +41,9 @@ public class MoreAppsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_apps);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            spanCount = 5;
+            spanCount = LANDSCAPE_SPAN_COUNT;
         } else {
-            spanCount = 3;
+            spanCount = PORTRAIT_SPAN_COUNT;
         }
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         Intent intent = getIntent();
@@ -52,7 +57,15 @@ public class MoreAppsActivity extends AppCompatActivity {
 
         moreApps.setItemAnimator(new SlideInUpAnimator());
 
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, null);
+        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, new OnDialogOpenListener() {
+            @Override
+            public void onLongClickListener(AppDetails appDetails) {
+                AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails);
+                if (getFragmentManager() != null) {
+                    bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+                }
+            }
+        });
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, spanCount);
         moreApps.setLayoutManager(gridLayoutManager);
