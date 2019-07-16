@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.Random;
 
 public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopChartsViewHolder> {
+
+    public static final int INCREMENT_BY_ONE = 1;
+    public static final int FILE_SIZE_MAX = 50;
+    public static final int FILE_SIZE_MIN = 1;
+
     public void setmList(List<App> mList) {
         this.mList = mList;
         notifyDataSetChanged();
@@ -34,23 +39,19 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
 
     @NonNull
     @Override
-    public TopChartsAdapter.TopChartsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TopChartsAdapter.TopChartsViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                                   int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.app_list_item, parent,false);
-        TopChartsViewHolder itemViewHolder = new TopChartsViewHolder(itemLayoutView);
 
-        return itemViewHolder;
+        return new TopChartsViewHolder(itemLayoutView);
 
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
+    private static int getRandomNumberInRange() {
         Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+        return r.nextInt((FILE_SIZE_MAX - FILE_SIZE_MIN) + INCREMENT_BY_ONE) +
+                INCREMENT_BY_ONE;
     }
 
     @Override
@@ -59,11 +60,11 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     }
 
     public class TopChartsViewHolder extends RecyclerView.ViewHolder {
-        public ImageView appIcon;
-        public TextView appName;
-        public TextView appDeveloper;
-        public TextView appSize;
-        public TextView appRating;
+        ImageView appIcon;
+        TextView appName;
+        TextView appDeveloper;
+        TextView appSize;
+        TextView appRating;
         TextView sNo;
 
         public TopChartsViewHolder(View itemLayoutView) {
@@ -81,13 +82,15 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
     public void onBindViewHolder(@NonNull TopChartsAdapter.TopChartsViewHolder holder, int position) {
         Log.d("TopCharts", mList.get(position).getTitle());
         String iconPath = "https:";
-        holder.sNo.setText(position + 1 + "");
-        Picasso.get().load(iconPath + mList.get(position).getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
+        holder.sNo.setText(position + INCREMENT_BY_ONE + "");
+        Picasso.get().load(iconPath + mList.get(position).getIcon())
+                .placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange(1, 50) + " MB");
+        holder.appSize.setText(getRandomNumberInRange() + " MB");
         holder.appRating.setText(String.format("%s", mList.get(position).getScore()));
-        holder.itemView.setOnClickListener(v -> {
+
+        holder.itemView.setOnClickListener(v -> {        //Todo: Change this to an interface asap
             Intent intent = new Intent(v.getContext(), AppPageActivity.class);
             intent.putExtra("APP_ID", mList.get(position).getAppId());
             v.getContext().startActivity(intent);

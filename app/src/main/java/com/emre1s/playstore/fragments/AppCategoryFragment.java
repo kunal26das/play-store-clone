@@ -57,31 +57,32 @@ public class AppCategoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_categories, container, false);
 
+        PageViewModel pageViewModel = ViewModelProviders.of(this,null)
+                .get(PageViewModel.class);
+
         int[] categoryIcons = new int[]{R.drawable.camera, R.drawable.star, R.drawable.music,
                 R.drawable.domain, R.drawable.access_point_network, R.drawable.brush,
                 R.drawable.book_open, R.drawable.forum};
         RecyclerView topCategories = view.findViewById(R.id.rv_top_categories);
 
-        TopCategoryAdapter topCategoryAdapter = new TopCategoryAdapter(getResources().getStringArray(R.array.top_categories),
-                categoryIcons
-//                , new OnCategoryChanged() {
-//            @Override
-//            public void changeCategory(CategoryList.Category category) {
-//                Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
-//                Intent intent = new Intent(getContext(), MoreAppsActivity.class);
-//                intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
-//                startActivity(intent);
-//            }
-//        }
-        );
-        topCategories.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        TopCategoryAdapter topCategoryAdapter =
+                new TopCategoryAdapter(pageViewModel.getAppsTopCategoryList().getCategoryList(),
+                        categoryIcons, new OnCategoryChanged() {
+                    @Override
+                    public void changeCategory(CategoryList.Category category) {
+                        Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+                        Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                        intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                        startActivity(intent);
+                    }
+                });
+
+        topCategories.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL,false));
         topCategories.setAdapter(topCategoryAdapter);
 
         LinearSnapHelper pagerSnapHelper = new LinearSnapHelper();
         pagerSnapHelper.attachToRecyclerView(topCategories);
-
-        PageViewModel pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
-
 
         AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter(new OnCategoryChanged() {
             @Override

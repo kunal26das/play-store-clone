@@ -25,6 +25,11 @@ import java.util.List;
 public class FamilyTopChartsFragment extends Fragment {
 
 
+    public static final String CATEGORY_KEY = "category";
+    public static final String DEFAULT_COLLECTION = "topselling_free";
+    public static final String CATEGORY_FAMILY = "FAMILY";
+    public static final String ITEM_LIMIT_KEY = "itemLimit";
+    public static final int DEFAULT_ITEM_LIMIT = 1;
     private PageViewModel pageViewModel;
     private int limit;
 
@@ -34,8 +39,8 @@ public class FamilyTopChartsFragment extends Fragment {
     public static Fragment getInstance(String category, int limit) {
         FamilyTopChartsFragment topChartsFragment = new FamilyTopChartsFragment();
         Bundle bundle = new Bundle();
-        topChartsFragment.limit = limit;
-        bundle.putString("category", category);
+        bundle.putInt(ITEM_LIMIT_KEY, limit);
+        bundle.putString(CATEGORY_KEY, category);
         topChartsFragment.setArguments(bundle);
         return topChartsFragment;
     }
@@ -44,29 +49,34 @@ public class FamilyTopChartsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
-        String category = "topselling_free";
+        String category = DEFAULT_COLLECTION;
+        limit = DEFAULT_ITEM_LIMIT;
         if (getArguments() != null) {
-            category = getArguments().getString("category");
+            category = getArguments().getString(CATEGORY_KEY);
+            limit = getArguments().getInt(ITEM_LIMIT_KEY);
         }
         pageViewModel.getFamilyTopChartsCategory().setValue(category);
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_top_charts, container, false);
         RecyclerView appList = root.findViewById(R.id.app_list);
         final TopChartsAdapter topChartsAdapter = new TopChartsAdapter();
+
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
         appList.setAdapter(topChartsAdapter);
         appList.setHasFixedSize(true);
-        PageViewModel pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
 
+        PageViewModel pageViewModel =
+                ViewModelProviders.of(this,null).get(PageViewModel.class);
         pageViewModel.getFamilyTopChartsCategory().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String collection) {
-
-                pageViewModel.makeCategoryCollectionApiCall(collection, "FAMILY", new ApiResponseCallback() {
+                pageViewModel.makeCategoryCollectionApiCall(collection,
+                        CATEGORY_FAMILY, new ApiResponseCallback() {
                     @Override
                     public void onSuccess(List<App> popularApp) {
                         Log.d("Success", popularApp.size() + "");
@@ -79,7 +89,8 @@ public class FamilyTopChartsFragment extends Fragment {
 
                     @Override
                     public void onFailure() {
-                        Log.d("onEmptyResponse", "Returned empty response");
+                        Log.d("onEmptyResponse",
+                                "Returned empty response");
                     }
                 });
             }

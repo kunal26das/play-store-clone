@@ -1,0 +1,36 @@
+{
+  "categories": [
+    {
+      "name": "Photography",
+      "id": "PHOTOGRAPHY"
+    },
+    {
+      "name": "Family",
+      "id": "FAMILY"
+    },
+    {
+      "name": "Music & Audio",
+      "id": "MUSIC_AND_AUDIO"
+    },
+    {
+      "name": "Entertainment",
+      "id": "ENTERTAINMENT"
+    },
+    {
+      "name": "Shopping",
+      "id": "SHOPPING"
+    },
+    {
+      "name": "Personalization",
+      "id": "PERSONALIZATION"
+    },
+    {
+      "name": "Social",
+      "id": "SOCIAL"
+    },
+    {
+      "name": "Communication",
+      "id": "COMMUNICATION"
+    }
+  ]
+}

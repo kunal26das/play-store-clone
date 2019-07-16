@@ -1,6 +1,10 @@
 package com.emre1s.playstore.api;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.dagger.AppController;
@@ -9,6 +13,7 @@ import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.MovieGenreList;
 import com.emre1s.playstore.models.TabList;
 
+import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.Scheduler;
@@ -21,6 +26,11 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,6 +45,8 @@ public class RetrofitApiFactory {
     private static CategoryList familyCategories;
     private static CategoryList appCategories;
 
+    private static CategoryList appsTopCategoryList;
+
 
     private static TabList gamesAndAppsTabList;
     private static TabList movieTabList;
@@ -43,11 +55,15 @@ public class RetrofitApiFactory {
 
     private static MovieGenreList movieGenreList;
 
+    private Application application;
+
     @Inject
     Retrofit retrofit;
     public RetrofitApiFactory(Application application) {
         ((AppController)application).getAppComponent().inject(this);
+
         retrofitAPICalls = retrofit.create(RetrofitAPICalls.class);
+        this.application = application;
     }
 
     public void appsByCategoryApiCall(final ApiResponseCallback apiResponseCallback, String category) {
@@ -69,6 +85,7 @@ public class RetrofitApiFactory {
                     @Override
                     public void onError(Throwable e) {
                         apiResponseCallback.onFailure();
+                        Log.d(RetrofitApiFactory.class.getSimpleName(), "Data failure" + e.getMessage() + " " + e.getLocalizedMessage());
                     }
                 });
 
@@ -94,6 +111,7 @@ public class RetrofitApiFactory {
 
                     }
                 });
+
     }
 
     public void appsByCollectionApiCall(final ApiResponseCallback apiResponseCallback,
@@ -284,4 +302,14 @@ public class RetrofitApiFactory {
     public static void setMovieGenreList(MovieGenreList movieGenreList) {
         RetrofitApiFactory.movieGenreList = movieGenreList;
     }
+
+    public static CategoryList getAppsTopCategoryList() {
+        return appsTopCategoryList;
+    }
+
+    public static void setAppsTopCategoryList(CategoryList appsTopCategoryList) {
+        RetrofitApiFactory.appsTopCategoryList = appsTopCategoryList;
+    }
+
+
 }
