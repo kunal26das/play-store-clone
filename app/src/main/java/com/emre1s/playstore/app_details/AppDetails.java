@@ -178,6 +178,9 @@ public class AppDetails {
     @SerializedName(KEY_URL)
     private String mUrl;
 
+    public AppDetails(){}
+
+
     public AppDetails(@NonNull String mTitle,
                       @NonNull String mDescription,
                       @NonNull String mDescriptionHtml,

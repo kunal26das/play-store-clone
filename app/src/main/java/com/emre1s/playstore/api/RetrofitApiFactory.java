@@ -11,6 +11,7 @@ import com.emre1s.playstore.dagger.AppController;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.MovieGenreList;
+import com.emre1s.playstore.models.Review;
 import com.emre1s.playstore.models.TabList;
 
 import java.io.IOException;
@@ -259,6 +260,29 @@ public class RetrofitApiFactory {
                     @Override
                     public void onError(Throwable e) {
 
+                    }
+                });
+    }
+
+    public void getReviews(String id, final ReviewResponseCallback reviewResponseCallback) {
+        retrofitAPICalls.getReviews(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Review>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<Review> reviews) {
+                        reviewResponseCallback.onSuccess(reviews);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        reviewResponseCallback.onFailure();
+                        Log.d("Reviews failed",e.getLocalizedMessage());
                     }
                 });
     }

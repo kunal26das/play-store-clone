@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="100">
+    <LinearLayout
+        android:layout_weight="50"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/score_review"
+            android:text="4.5 "
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="50sp"/>
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rating_review"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_gravity="center_horizontal"
+            android:rating="4.5"
+            android:progressTint="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/total_reviews"
+            android:text="84951607"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="50"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        app:rcProgress="55.2"
+        app:rcSecondaryProgress="float"
+        app:rcMax="float"
+        app:rcRadius="5dp"
+        android:layout_margin="10dp"
+        app:rcBackgroundPadding="10dp"
+        app:rcReverse="true"
+        app:rcProgressColor="@color/colorPrimary"
+        app:rcSecondaryProgressColor="@color/colorPrimary"
+        app:rcBackgroundColor="@color/colorGrey" />
+    </LinearLayout>
+
+</LinearLayout>
