@@ -24,14 +24,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--<include layout="@layout/content_app_page" />-->
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_reviews"
-        android:text="@string/show_all"
-        android:textColor="@color/colorPrimary"
-        android:background="@color/colorWhite"/>
+    <include layout="@layout/content_app_page" />
 
     <!--<include layout="@layout/app_details_fragment"/>-->
 

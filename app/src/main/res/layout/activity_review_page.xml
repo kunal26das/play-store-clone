@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context=".ui.ReviewPageActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="@string/all_reviews"
-        android:textStyle="bold" />
+        android:padding="15dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:text="@string/all_reviews"/>
 
     <View
         android:layout_width="match_parent"

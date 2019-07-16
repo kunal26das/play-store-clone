@@ -22,7 +22,7 @@ public class Review {
     private String url;
     @SerializedName("score")
     @Expose
-    private int score;
+    private float score;
     @SerializedName("title")
     @Expose
     private String title;
@@ -70,11 +70,11 @@ public class Review {
         this.url = url;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

@@ -281,7 +281,8 @@ public class RetrofitApiFactory {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        reviewResponseCallback.onFailure();
+                        Log.d("Reviews failed",e.getLocalizedMessage());
                     }
                 });
     }

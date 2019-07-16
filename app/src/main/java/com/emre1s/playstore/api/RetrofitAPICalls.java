@@ -45,7 +45,7 @@ public interface RetrofitAPICalls {
     Single<List<App>> getSearchResults(
             @Query("q") String query);
 
-    @GET("reviews/")
+    @GET("apps/reviews/")
     Single<List<Review>> getReviews(
             @Query("id") String id
     );
