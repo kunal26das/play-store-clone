@@ -26,7 +26,7 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
                               OnCategoryChanged onCategoryChanged) {
         this.categoryList = categoryList;
         this.categoryIcons = categoryIcons;
-        this.onCategoryChanged=onCategoryChanged;
+        this.onCategoryChanged = onCategoryChanged;
     }
 
     @NonNull

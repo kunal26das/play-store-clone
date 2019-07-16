@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context=".ui.ReviewPageActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
+        android:text="@string/all_reviews"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:text="@string/all_reviews"/>
+        android:textSize="20sp" />
 
     <View
         android:layout_width="match_parent"

@@ -1,19 +1,11 @@
 package com.emre1s.playstore.ui.main;
 
 
-import android.graphics.Color;
-
-import androidx.fragment.app.FragmentManager;
-
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.LiveData;
 import android.app.Application;
 
-import androidx.arch.core.util.Function;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.emre1s.playstore.R;
@@ -31,8 +23,6 @@ import com.emre1s.playstore.models.TabList;
 import com.emre1s.playstore.pageradapters.MoviePagerAdapter;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class PageViewModel extends AndroidViewModel {
 
@@ -127,7 +117,7 @@ public class PageViewModel extends AndroidViewModel {
 
     public void makeReviewsApiCall(String id, ReviewResponseCallback reviewResponseCallback) {
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(mApplication);
-        retrofitApiFactory.getReviews(id,reviewResponseCallback);
+        retrofitApiFactory.getReviews(id, reviewResponseCallback);
     }
 
     public MutableLiveData<App> getReceivedAppLiveData() {
@@ -145,8 +135,7 @@ public class PageViewModel extends AndroidViewModel {
     public List<Tab> getTabList(int position) {
         switch (position) {
             case 0:
-            case 1:
-            {
+            case 1: {
                 return gamesAndAppsTabList.getTabs();
             }
             case 2: {
@@ -158,7 +147,7 @@ public class PageViewModel extends AndroidViewModel {
             case 4: {
                 return musicTabList.getTabs();
             }
-            default:{
+            default: {
                 return null;
             }
         }
@@ -167,8 +156,7 @@ public class PageViewModel extends AndroidViewModel {
     public PagerAdapter getPagerAdapter(FragmentManager fragmentManager, int position) {
         switch (position) {
             case 0:
-            case 1:
-            {
+            case 1: {
                 return new SubCategoryPagerAdapter(fragmentManager, position);
             }
             case 2: {
@@ -180,7 +168,7 @@ public class PageViewModel extends AndroidViewModel {
             case 4: {
                 return new SubCategoryPagerAdapter(fragmentManager, position);
             }
-            default:{
+            default: {
                 return null;
             }
         }

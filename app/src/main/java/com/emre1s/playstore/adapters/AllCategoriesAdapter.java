@@ -21,7 +21,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
     private OnCategoryChanged onCategoryChanged;
 
     public AllCategoriesAdapter(OnCategoryChanged onCategoryChanged) {
-        this.onCategoryChanged=onCategoryChanged;
+        this.onCategoryChanged = onCategoryChanged;
     }
 
     @NonNull

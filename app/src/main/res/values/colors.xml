@@ -19,7 +19,6 @@
     <color name="colorMusic">#FF0000</color>
 
 
-
     <!-- Kunal colors -->
     <color name="primaryColor">#01875f</color>
     <color name="primaryLightColor">#4bb88c</color>
@@ -30,5 +29,8 @@
     <color name="grayColor">#757575</color>
     <color name="silverColor">#ecedef</color>
     <color name="whiteColorTransparent">#FFFFFF</color>
+    <color name="blackColorTransparent">#000000</color>
+
+    <color name="black_overlay">#66000000</color>
 
 </resources>

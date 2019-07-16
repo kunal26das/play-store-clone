@@ -22,6 +22,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
 
     private List<Review> reviewList = new ArrayList<>();
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,7 +36,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         Picasso.get().load(reviewList.get(position).getUserImage())
                 .placeholder(R.drawable.placeholder_icon).into(holder.userImage);
         holder.userName.setText(reviewList.get(position).getUserName());
-        holder.ratingBar.setRating((float)reviewList.get(position).getScore());
+        holder.ratingBar.setRating(reviewList.get(position).getScore());
         holder.reviewDate.setText(reviewList.get(position).getDate());
         holder.reviewContent.setText(reviewList.get(position).getText());
     }
@@ -43,6 +44,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return reviewList.size();
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,18 +60,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            userImage=itemView.findViewById(R.id.user_image);
-            userName=itemView.findViewById(R.id.user_name);
-            ratingBar=itemView.findViewById(R.id.score);
-            reviewDate=itemView.findViewById(R.id.review_date);
-            reviewContent=itemView.findViewById(R.id.review_text);
+            userImage = itemView.findViewById(R.id.user_image);
+            userName = itemView.findViewById(R.id.user_name);
+            ratingBar = itemView.findViewById(R.id.score);
+            reviewDate = itemView.findViewById(R.id.review_date);
+            reviewContent = itemView.findViewById(R.id.review_text);
             ratingBar.setProgress(R.color.black);
         }
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
-        notifyDataSetChanged();
     }
 
 }

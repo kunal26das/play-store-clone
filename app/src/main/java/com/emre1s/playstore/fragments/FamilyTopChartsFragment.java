@@ -71,7 +71,7 @@ public class FamilyTopChartsFragment extends Fragment {
         appList.setHasFixedSize(true);
 
         PageViewModel pageViewModel =
-                ViewModelProviders.of(this,null).get(PageViewModel.class);
+                ViewModelProviders.of(this, null).get(PageViewModel.class);
         pageViewModel.getFamilyTopChartsCategory().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String collection) {

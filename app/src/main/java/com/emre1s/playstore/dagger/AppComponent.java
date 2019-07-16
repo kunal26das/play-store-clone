@@ -3,14 +3,11 @@ package com.emre1s.playstore.dagger;
 import android.app.Application;
 
 import com.emre1s.playstore.api.RetrofitApiFactory;
-import com.emre1s.playstore.ui.MainActivity;
 
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.support.AndroidSupportInjectionModule;
-import retrofit2.Retrofit;
 
 @Component(modules = {
         ApiModule.class})

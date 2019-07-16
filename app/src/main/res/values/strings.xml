@@ -7,8 +7,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Kunal Das</string>
+    <string name="nav_header_subtitle">kunal.das@mountblue.io</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -48,5 +48,10 @@
     <string name="family_categories">Family categories</string>
     <string name="action_search">Search</string>
     <string name="title_activity_installed_app_list">InstalledAppListActivity</string>
-    <string name="all_reviews">All Reviews</string>
+
+    <string name="title_activity_screenshot">ScreenshotActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="all_reviews">ALL REVIEWS</string>
 </resources>
