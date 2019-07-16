@@ -102,11 +102,13 @@ public class PlaceholderFragment extends Fragment {
                     }
                 });
 
-                ((ImageView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabIcon))
+                ((ImageView) tabLayout.getTabAt(tabLayout.getSelectedTabPosition())
+                        .getCustomView().findViewById(R.id.tabIcon))
                         .setColorFilter(getResources().getColor(colorId),
                                 android.graphics.PorterDuff.Mode.SRC_IN);
 
-                ((TextView) tabLayout.getTabAt(0).getCustomView().findViewById(R.id.tabText))
+                ((TextView) tabLayout.getTabAt(tabLayout.getSelectedTabPosition())
+                        .getCustomView().findViewById(R.id.tabText))
                         .setTextColor(getResources().getColor(colorId));
             }
         });
@@ -120,7 +122,9 @@ public class PlaceholderFragment extends Fragment {
         for (int i = 0; i < tabList.size(); i++) {
             tabLayout.getTabAt(i).setCustomView(R.layout.custom_tab);
             tabIcon = tabLayout.getTabAt(i).getCustomView().findViewById(R.id.tabIcon);
-            int iconId = getResources().getIdentifier(tabList.get(i).getIcon(), "drawable", getContext().getPackageName());
+            int iconId = getResources().getIdentifier(tabList.get(i).getIcon(),
+                    "drawable", getContext().getPackageName());
+
             tabIcon.setImageDrawable(getResources().getDrawable(iconId));
 
             tabText = tabLayout.getTabAt(i).getCustomView().findViewById(R.id.tabText);

@@ -34,13 +34,15 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String iconPath = "https:";
-        Picasso.get().load("http:" + searchResultList.get(position)
+        Picasso.get().load("https:" + searchResultList.get(position)
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
-        Log.d(SearchResultAdapter.class.getSimpleName(), "path: " + "https:" + searchResultList.get(position)
+        Log.d(SearchResultAdapter.class.getSimpleName(), "path: " + "https:"
+                + searchResultList.get(position)
                 .getIcon());
+
         holder.appName.setText(searchResultList.get(position).getTitle());
         holder.appDeveloper.setText(searchResultList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange(1, 50) + " MB");
+        holder.appSize.setText(getRandomNumberInRange() + " MB");
         holder.appRating.setText(String.format("%s", searchResultList.get(position).getScoreText()));
 
         holder.itemView.setOnClickListener(v -> {
@@ -81,13 +83,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         notifyDataSetChanged();
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
+    private static int getRandomNumberInRange() {
 
         Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
+        return r.nextInt((50 - 1) + 1) + 1;
     }
 }
