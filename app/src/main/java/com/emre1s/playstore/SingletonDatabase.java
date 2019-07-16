@@ -1,5 +1,6 @@
 package com.emre1s.playstore;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -11,6 +12,7 @@ import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.app_details.AppDetailsEntity;
+import com.emre1s.playstore.models.App;
 
 import static com.emre1s.playstore.GlobalConstants.DATABASE;
 
@@ -18,15 +20,17 @@ import static com.emre1s.playstore.GlobalConstants.DATABASE;
 public abstract class SingletonDatabase extends RoomDatabase {
 
     private static volatile SingletonDatabase databaseInstance;
+    private static Application mApplication;
 
-    public static SingletonDatabase getDatabaseInstance(final Context context) {
+    public static SingletonDatabase getDatabaseInstance(Application application) {
         if (databaseInstance == null) {
             synchronized (SingletonDatabase.class) {
                 if (databaseInstance == null) {
-                    databaseInstance = Room.databaseBuilder(context.getApplicationContext(), SingletonDatabase.class, DATABASE)
+                    databaseInstance = Room.databaseBuilder(application.getApplicationContext(), SingletonDatabase.class, DATABASE)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();
+                    mApplication=application;
                 }
             }
         }
@@ -50,7 +54,7 @@ public abstract class SingletonDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(String... strings) {
             final String appId = strings[0];
-            RetrofitApiFactory retrofitApiFactory = RetrofitApiFactory.getInstance();
+            RetrofitApiFactory retrofitApiFactory =new RetrofitApiFactory(mApplication);
             retrofitApiFactory.getAppDetails(new DatabaseCallback() {
                 @Override
                 public void onSuccess(AppDetails appDetails) {

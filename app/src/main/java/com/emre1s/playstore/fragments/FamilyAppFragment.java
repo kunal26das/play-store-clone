@@ -29,6 +29,7 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class FamilyAppFragment extends Fragment {
+
     OnShowAllClickedListener showAllClickedListener;
     private PageViewModel pageViewModel;
     public FamilyAppFragment() {
@@ -43,7 +44,7 @@ public class FamilyAppFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this,null).get(PageViewModel.class);
     }
 
     @Nullable
