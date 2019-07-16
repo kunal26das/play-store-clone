@@ -11,11 +11,13 @@ import com.emre1s.playstore.dagger.AppController;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.MovieGenreList;
+import com.emre1s.playstore.models.Permission;
 import com.emre1s.playstore.models.TabList;
 
 import java.io.IOException;
 import java.util.List;
 
+import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 
 import javax.inject.Inject;
@@ -46,6 +48,7 @@ public class RetrofitApiFactory {
     private static CategoryList appCategories;
 
     private static CategoryList appsTopCategoryList;
+    private static CategoryList gamesTopCategoryList;
 
 
     private static TabList gamesAndAppsTabList;
@@ -263,6 +266,35 @@ public class RetrofitApiFactory {
                 });
     }
 
+    public void getAppPermissions(String packageName,
+                                  final PermissionResponseCallback permissionResponseCallback) {
+
+        retrofitAPICalls.getAppPermissions(packageName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Permission>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Permission> permissions) {
+                        permissionResponseCallback.onSuccess(permissions);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        permissionResponseCallback.onFailure();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     public static TabList getGamesAndAppsTabList() {
         return gamesAndAppsTabList;
     }
@@ -311,5 +343,12 @@ public class RetrofitApiFactory {
         RetrofitApiFactory.appsTopCategoryList = appsTopCategoryList;
     }
 
+    public static CategoryList getGamesTopCategoryList() {
+        return gamesTopCategoryList;
+    }
+
+    public static void setGamesTopCategoryList(CategoryList gamesTopCategoryList) {
+        RetrofitApiFactory.gamesTopCategoryList = gamesTopCategoryList;
+    }
 
 }

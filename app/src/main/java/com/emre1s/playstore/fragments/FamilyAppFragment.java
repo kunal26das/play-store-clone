@@ -59,8 +59,9 @@ public class FamilyAppFragment extends Fragment {
         RecyclerView familyCategories = view.findViewById(R.id.family_categories_rv);
 
         TopCategoryAdapter topCategoryAdapter =
-                new TopCategoryAdapter(pageViewModel.getAppsTopCategoryList()
-                        .getCategoryList(), categoryIcons);
+                new TopCategoryAdapter(getContext());
+        topCategoryAdapter.setCategoryList(pageViewModel.getFamilyCategoryList().getCategoryList());
+
         familyCategories.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         familyCategories.setAdapter(topCategoryAdapter);

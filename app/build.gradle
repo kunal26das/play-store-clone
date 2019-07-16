@@ -76,6 +76,5 @@ dependencies {
 
     implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
 
-
 }
 apply plugin: 'com.google.gms.google-services'

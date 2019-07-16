@@ -99,13 +99,18 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
 
                                 @Override
                                 public void onNext(String s) {
-                                    pageViewModel.makeSearchSuggestionApiCall(s, new SearchResponseCallback() {
+                                    pageViewModel.makeSearchSuggestionApiCall(s,
+                                            new SearchResponseCallback() {
                                         @Override
                                         public void onSuccess(List<String> suggestions) {
                                             List<SearchSuggestion> searchSuggestions = new ArrayList<>();
                                             for (int i = 0; i < suggestions.size(); i++) {
-                                                Log.d(MainActivity.class.getSimpleName(), "Suggestion: " + suggestions.get(i));
-                                                SearchSuggestion searchSuggestion = new com.emre1s.playstore.models.SearchSuggestion(suggestions.get(i));
+                                                Log.d(MainActivity.class.getSimpleName(),
+                                                        "Suggestion: " + suggestions.get(i));
+                                                SearchSuggestion searchSuggestion =
+                                                        new com.emre1s.playstore.models
+                                                                .SearchSuggestion(suggestions.get(i));
+
                                                 searchSuggestions.add(searchSuggestion);
                                             }
                                             searchView.hideProgress();

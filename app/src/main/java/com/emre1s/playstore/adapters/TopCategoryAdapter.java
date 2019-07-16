@@ -1,5 +1,6 @@
 package com.emre1s.playstore.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,17 @@ import java.util.List;
 
 public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.ViewHolder> {
 
-    private List<CategoryList.Category> categoryList = new ArrayList<>();
-    private int[] categoryIcons;
+    private Context context;
 
-    public TopCategoryAdapter(List<CategoryList.Category> categoryList, int[] categoryIcons) {
+    public void setCategoryList(List<CategoryList.Category> categoryList) {
         this.categoryList = categoryList;
-        this.categoryIcons = categoryIcons;
+        notifyDataSetChanged();
+    }
 
+    private List<CategoryList.Category> categoryList = new ArrayList<>();
+
+    public TopCategoryAdapter(Context context) {
+        this.context = context;
     }
 
     @NonNull
@@ -35,7 +40,10 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.categoryIcon.setImageResource(categoryIcons[position]);
+        holder.categoryIcon.setImageResource(context.getResources()
+                .getIdentifier(categoryList.get(position).getIcon(),
+                "drawable", context.getPackageName()));
+
         holder.categoryName.setText(categoryList.get(position).getName());
     }
 

@@ -2,31 +2,38 @@
   "categories": [
     {
       "name": "Family",
-      "id": "FAMILY"
+      "id": "FAMILY",
+      "logo": "icons8_star_100"
     },
     {
-      "name": "Action",
-      "id": "FAMILY_ACTION"
+      "name": "Action & Adventure",
+      "id": "FAMILY_ACTION",
+      "logo": "icons8_action_100"
     },
     {
-      "name": "Brain Benders",
-      "id": "FAMILY_BRAINGAMES"
+      "name": "Brain Games",
+      "id": "FAMILY_BRAINGAMES",
+      "logo": "icons8_puzzle_100"
     },
     {
-      "name": "Create",
-      "id": "FAMILY_CREATE"
+      "name": "Creativity",
+      "id": "FAMILY_CREATE",
+      "logo": "icons8_paint_palette_100"
     },
     {
       "name": "Education",
-      "id": "FAMILY_EDUCATION"
+      "id": "FAMILY_EDUCATION",
+      "logo": "icons8_book_100"
     },
     {
       "name": "Music & Videos",
-      "id": "FAMILY_MUSICVIDEO"
+      "id": "FAMILY_MUSICVIDEO",
+      "logo": "icons8_music_100"
     },
     {
-      "name": "Pretend",
-      "id": "FAMILY_PRETEND"
+      "name": "Pretend Play",
+      "id": "FAMILY_PRETEND",
+      "logo": "icons8_fantasy_64"
     }
   ]
 }

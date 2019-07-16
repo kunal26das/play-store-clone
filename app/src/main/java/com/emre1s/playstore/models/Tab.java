@@ -9,7 +9,7 @@ public class Tab {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("icon")
+    @SerializedName("logo")
     @Expose
     private String icon;
 

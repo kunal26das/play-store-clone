@@ -34,7 +34,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String iconPath = "https:";
-        Picasso.get().load("https:" + searchResultList.get(position)
+        Picasso.get().load(searchResultList.get(position)
                 .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         Log.d(SearchResultAdapter.class.getSimpleName(), "path: " + "https:"
                 + searchResultList.get(position)

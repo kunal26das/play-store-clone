@@ -47,9 +47,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableObserver;
+import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity
@@ -72,39 +78,39 @@ public class MainActivity extends AppCompatActivity
 
         searchView = findViewById(R.id.floating_search_view);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
-                inputStreamToString(getResources().openRawResource(R.raw.family)),
-                inputStreamToString(getResources().openRawResource(R.raw.games)),
-                inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)));
 
+        Completable.create(new CompletableOnSubscribe() {
+            @Override
+            public void subscribe(CompletableEmitter emitter) throws Exception {
+                initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
+                        inputStreamToString(getResources().openRawResource(R.raw.family)),
+                        inputStreamToString(getResources().openRawResource(R.raw.games)),
+                        inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
+                        inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
 
-        String myJson = inputStreamToString(getResources().openRawResource(R.raw.apps));
-        Log.d(TAG, myJson);
+                if (emitter != null) {
+                    emitter.onComplete();
+                }
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        String familyJson = inputStreamToString(getResources().openRawResource(R.raw.family));
-        Log.d(TAG, familyJson);
+                    }
 
-        String gamesJson = inputStreamToString(getResources().openRawResource(R.raw.games));
-        Log.d(TAG, gamesJson);
+                    @Override
+                    public void onComplete() {
+                        Log.d(MainActivity.class.getSimpleName(), "Task complete");
+                    }
 
-        CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
-        CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
-        CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
-        RetrofitApiFactory.setAppCategories(appsCategory);
-        RetrofitApiFactory.setFamilyCategories(familyCategory);
-        RetrofitApiFactory.setGameCategories(gamesCategory);
+                    @Override
+                    public void onError(Throwable e) {
 
-        for (CategoryList.Category category : appsCategory.getCategoryList()) {
-            Log.d(TAG, " App Category Name: " + category.getName() + " ID: " + category.getId());
-        }
+                    }
+                });
 
-        for (CategoryList.Category category : familyCategory.getCategoryList()) {
-            Log.d(TAG, "Family Category name: " + category.getName() + category.getId());
-        }
-
-        for (CategoryList.Category category : gamesCategory.getCategoryList()) {
-            Log.d(TAG, "Game Category name: " + category.getName() + category.getId());
-        }
 
         SectionsPagerAdapter sectionsPagerAdapter = new 
         SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -224,8 +230,12 @@ public class MainActivity extends AppCompatActivity
                                         public void onSuccess(List<String> suggestions) {
                                             List<SearchSuggestion> searchSuggestions = new ArrayList<>();
                                             for (int i = 0; i < suggestions.size(); i++) {
-                                                Log.d(MainActivity.class.getSimpleName(), "Suggestion: " + suggestions.get(i));
-                                                SearchSuggestion searchSuggestion = new com.emre1s.playstore.models.SearchSuggestion(suggestions.get(i));
+                                                Log.d(MainActivity.class.getSimpleName(),
+                                                        "Suggestion: " + suggestions.get(i));
+
+                                                SearchSuggestion searchSuggestion =
+                                                        new com.emre1s.playstore.models
+                                                                .SearchSuggestion(suggestions.get(i));
                                                 searchSuggestions.add(searchSuggestion);
                                             }
                                             searchView.hideProgress();
@@ -258,7 +268,9 @@ public class MainActivity extends AppCompatActivity
 
         searchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
             @Override
-            public void onBindSuggestion(View suggestionView, ImageView leftIcon, TextView textView, SearchSuggestion item, int itemPosition) {
+            public void onBindSuggestion(View suggestionView, ImageView leftIcon,
+                                         TextView textView, SearchSuggestion item,
+                                         int itemPosition) {
 
             }
         });
@@ -276,6 +288,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+                resetSearchView();
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("query", searchSuggestion.getBody());
                 startActivity(intent);
@@ -283,6 +296,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onSearchAction(String currentQuery) {
+                resetSearchView();
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("query", currentQuery);
                 startActivity(intent);
@@ -292,16 +306,33 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initializeCategories(String myJson, String familyJson, String gamesJson, String topAppsJson) {
+    private void resetSearchView() {
+        hideSoftKeyboard(MainActivity.this);
+        searchView.clearSuggestions();
+        searchView.clearQuery();
+    }
+
+    private void initializeCategories(String myJson, String familyJson, String gamesJson,
+                                      String topAppsJson, String topGamesJson) {
+
         CategoryList appsCategory = new Gson().fromJson(myJson, CategoryList.class);
         CategoryList familyCategory = new Gson().fromJson(familyJson, CategoryList.class);
         CategoryList gamesCategory = new Gson().fromJson(gamesJson, CategoryList.class);
         CategoryList topAppCategories = new Gson().fromJson(topAppsJson, CategoryList.class);
+        CategoryList topGameCategories = new Gson().fromJson(topGamesJson, CategoryList.class);
 
-        TabList gamesAndAppsTab = new Gson().fromJson(inputStreamToString(getResources().openRawResource(R.raw.games_apps_tabs)), TabList.class);
-        TabList movieTabs = new Gson().fromJson(inputStreamToString(getResources().openRawResource(R.raw.movie_tabs)), TabList.class);
-        TabList bookTabs = new Gson().fromJson(inputStreamToString(getResources().openRawResource(R.raw.book_tabs)), TabList.class);
-        TabList musicTabs = new Gson().fromJson(inputStreamToString(getResources().openRawResource(R.raw.music_tabs)), TabList.class);
+        TabList gamesAndAppsTab = new Gson().fromJson(inputStreamToString(getResources()
+                .openRawResource(R.raw.games_apps_tabs)), TabList.class);
+        TabList movieTabs = new Gson().fromJson(inputStreamToString(getResources()
+                .openRawResource(R.raw.movie_tabs)), TabList.class);
+        TabList bookTabs = new Gson().fromJson(inputStreamToString(getResources()
+                .openRawResource(R.raw.book_tabs)), TabList.class);
+        TabList musicTabs = new Gson().fromJson(inputStreamToString(getResources()
+                .openRawResource(R.raw.music_tabs)), TabList.class);
+
+        for (CategoryList.Category category : appsCategory.getCategoryList()) {
+            Log.d("Emre1s", "CATEGORY:" + category.getName() + category.getId() + category.getIcon());
+        }
 
         RetrofitApiFactory.setGamesAndAppsTabList(gamesAndAppsTab);
         RetrofitApiFactory.setMovieTabList(movieTabs);
@@ -312,11 +343,15 @@ public class MainActivity extends AppCompatActivity
         RetrofitApiFactory.setFamilyCategories(familyCategory);
         RetrofitApiFactory.setGameCategories(gamesCategory);
         RetrofitApiFactory.setAppsTopCategoryList(topAppCategories);
+        RetrofitApiFactory.setGamesTopCategoryList(topGameCategories);
 
     }
 
     @Override
     public void onBackPressed() {
+        searchView.clearSuggestions();
+        searchView.clearQuery();
+        searchView.setLeftActionMode(FloatingSearchView.LEFT_ACTION_MODE_SHOW_HOME);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

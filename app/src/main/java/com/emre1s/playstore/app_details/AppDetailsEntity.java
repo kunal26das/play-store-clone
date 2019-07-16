@@ -1,5 +1,8 @@
 package com.emre1s.playstore.app_details;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
@@ -27,7 +30,7 @@ import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO;
 import static com.emre1s.playstore.app_details.AppDetailsKeys.KEY_VIDEO_IMAGE;
 
 @Entity(tableName = TABLE_APP_DETAILS)
-public class AppDetailsEntity {
+public class AppDetailsEntity implements Parcelable {
 
     @NonNull
     @PrimaryKey
@@ -301,4 +304,60 @@ public class AppDetailsEntity {
     public void setContentRating(@NonNull String mContentRating) {
         this.mContentRating = mContentRating;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mAppId);
+        dest.writeString(this.mTitle);
+        dest.writeString(this.mSummary);
+        dest.writeString(this.mInstalls);
+        dest.writeString(this.mScoreText);
+        dest.writeValue(this.mReviews);
+        dest.writeValue(this.mOffersIap);
+        dest.writeString(this.mSize);
+        dest.writeString(this.mDeveloper);
+        dest.writeString(this.mGenre);
+        dest.writeString(this.mIcon);
+        dest.writeString(this.mScreenshots);
+        dest.writeString(this.mVideo);
+        dest.writeString(this.mVideoImage);
+        dest.writeValue(this.mAdSupported);
+        dest.writeString(this.mContentRating);
+    }
+
+    protected AppDetailsEntity(Parcel in) {
+        this.mAppId = in.readString();
+        this.mTitle = in.readString();
+        this.mSummary = in.readString();
+        this.mInstalls = in.readString();
+        this.mScoreText = in.readString();
+        this.mReviews = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mOffersIap = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mSize = in.readString();
+        this.mDeveloper = in.readString();
+        this.mGenre = in.readString();
+        this.mIcon = in.readString();
+        this.mScreenshots = in.readString();
+        this.mVideo = in.readString();
+        this.mVideoImage = in.readString();
+        this.mAdSupported = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mContentRating = in.readString();
+    }
+
+    public static final Parcelable.Creator<AppDetailsEntity> CREATOR = new Parcelable.Creator<AppDetailsEntity>() {
+        @Override
+        public AppDetailsEntity createFromParcel(Parcel source) {
+            return new AppDetailsEntity(source);
+        }
+
+        @Override
+        public AppDetailsEntity[] newArray(int size) {
+            return new AppDetailsEntity[size];
+        }
+    };
 }
