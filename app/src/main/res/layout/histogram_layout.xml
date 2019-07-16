@@ -8,6 +8,8 @@
     android:focusable="true"
     android:clickable="true"
     android:id="@+id/histogram"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
     android:background="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -48,7 +50,7 @@
         android:layout_weight="10"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_gravity="center">
         <TextView
