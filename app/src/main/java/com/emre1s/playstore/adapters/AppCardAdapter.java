@@ -9,14 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
-import com.emre1s.playstore.api.DatabaseCallback;
-import com.emre1s.playstore.app_details.AppDetails;
-import com.emre1s.playstore.app_details.AppDetailsViewModel;
 import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.listeners.OnDialogOpenListener;

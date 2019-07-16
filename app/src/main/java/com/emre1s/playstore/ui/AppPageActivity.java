@@ -17,18 +17,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.api.DatabaseCallback;
+import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.app_details.AppDetails;
-import com.emre1s.playstore.app_details.AppDetailsViewModel;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AppPageActivity extends AppCompatActivity {
@@ -99,48 +98,73 @@ public class AppPageActivity extends AppCompatActivity {
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
-        AppDetailsViewModel appDetailsViewModel = ViewModelProviders.of(this).get(AppDetailsViewModel.class);
-        appDetailsViewModel.getAppDetails(mAppId)
-                .observe(this, appDetails -> {
-                    if (appDetails != null) {
-                        Picasso.get().load(appDetails.getIcon()).into(appIcon);
-                        appTitle.setText(appDetails.getTitle());
-                        appDeveloper.setText(appDetails.getDeveloper());
-                        appGenre.setText(appDetails.getGenre());
-                        if (appDetails.getAdSupported() && appDetails.getOffersIap()) {
-                            appMonetize.setText("Contains ads • In-app purchases");
-                        } else if (appDetails.getAdSupported()) {
-                            appMonetize.setText("Contains ads");
-                        } else if (appDetails.getOffersIap()) {
-                            appMonetize.setText("In-app purchases");
-                        }
 
-                        String contentRating = appDetails.getContentRating();
-                        String contentRate = contentRating.substring(contentRating.length() - 3).trim();
-                        appScore.setText(appDetails.getScoreText());
-                        appReviews.setText(appDetails.getReviews() + " reviews");
-                        appSize.setText(appDetails.getSize());
-                        appRating.setText(contentRating + " ⓘ");
-                        appInstalls.setText(appDetails.getInstalls());
-                        appRate.setText(contentRate);
+        RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
+        retrofitApiFactory.getAppDetails(new DatabaseCallback() {
+            @Override
+            public void onSuccess(AppDetails appDetails) {
+                if (appDetails != null) {
 
-                        appSummary.setText(Html.fromHtml(appDetails.getSummary()));
-                        List<String> appScreenshots1 = new ArrayList<>(Arrays.asList(appDetails.getScreenshots().split(",")));
-                        String appVideoImage = appDetails.getVideoImage();
-                        if (appVideoImage != null) {
-                            appScreenshots1.add(0, appVideoImage);
-                        }
-                        screenshotsAdapter.setScreenshots(appScreenshots1);
+                    RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
+                    float progressFive = (float)appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
+                    progressBarFive.setProgress(progressFive * 100);
+                    RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
+                    float progressFour = (float) appDetails.getmHistograms().getmFour() / appDetails.getmRatings();
+                    progressBarFour.setProgress(progressFour * 100);
+                    RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
+                    float progressThree = (float) appDetails.getmHistograms().getmThree() / appDetails.getmRatings();
+                    progressBarThree.setProgress(progressThree * 100);
+                    RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
+                    float progressTwo = (float) appDetails.getmHistograms().getmTwo() / appDetails.getmRatings();
+                    progressBarTwo.setProgress(progressTwo * 100);
+                    RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
+                    float progressOne = (float) appDetails.getmHistograms().getmOne() / appDetails.getmRatings();
+                    progressBarOne.setProgress(progressOne * 100);
+
+                    Picasso.get().load(appDetails.getmIcon()).into(appIcon);
+                    appTitle.setText(appDetails.getmTitle());
+                    appDeveloper.setText(appDetails.getmDeveloper());
+                    appGenre.setText(appDetails.getmGenre());
+                    if (appDetails.hasAdSupport() && appDetails.hasInAppPurchases()) {
+                        appMonetize.setText("Contains ads • In-app purchases");
+                    } else if (appDetails.hasAdSupport()) {
+                        appMonetize.setText("Contains ads");
+                    } else if (appDetails.hasInAppPurchases()) {
+                        appMonetize.setText("In-app purchases");
                     }
-                });
 
-        Button button= findViewById(R.id.show_reviews);
-        button.setOnClickListener(new View.OnClickListener() {
+                    String contentRating = appDetails.getmContentRating();
+                    String contentRate = contentRating.substring(contentRating.length() - 3).trim();
+                    appScore.setText(appDetails.getmScoreText());
+                    appReviews.setText(appDetails.getmReviews() + " reviews");
+                    appSize.setText(appDetails.getmSize());
+                    appRating.setText(contentRating + " ⓘ");
+                    appInstalls.setText(appDetails.getmInstalls());
+                    appRate.setText(contentRate);
+
+                    appSummary.setText(Html.fromHtml(appDetails.getmSummary()));
+                    List<String> appScreenshots1 = appDetails.getmScreenshots();
+                    String appVideoImage = appDetails.getmVideoImage();
+                    if (appVideoImage != null) {
+                        appScreenshots1.add(0, appVideoImage);
+                    }
+                    screenshotsAdapter.setScreenshots(appScreenshots1);
+                }
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        }, mAppId);
+
+        Button seeAll= findViewById(R.id.show_reviews);
+        seeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentReview= new Intent(AppPageActivity.this,ReviewPageActivity.class);
-                intentReview.putExtra("id",mAppId);
-                startActivity(intentReview);
+                Intent reviewIntent= new Intent(AppPageActivity.this,ReviewPageActivity.class);
+                reviewIntent.putExtra("id",mAppId);
+                startActivity(reviewIntent);
             }
         });
     }

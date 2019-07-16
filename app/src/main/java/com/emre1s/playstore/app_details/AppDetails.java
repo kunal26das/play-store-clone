@@ -82,6 +82,10 @@ public class AppDetails {
     @SerializedName(KEY_REVIEWS)
     private Integer mReviews;
 
+    public void setmHistograms(Histogram mHistograms) {
+        this.mHistograms = mHistograms;
+    }
+
     @SerializedName(KEY_HISTOGRAM)
     private Histogram mHistograms;
 
