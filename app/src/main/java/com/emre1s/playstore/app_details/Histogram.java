@@ -13,49 +13,53 @@ public class Histogram {
     public static final String KEY_FIVE = "5";
 
     @SerializedName(KEY_ONE)
-    public Integer mOneStar;
+    public int mOne;
 
     @SerializedName(KEY_TWO)
-    public Integer mTwoStars;
+    public int mTwo;
 
     @SerializedName(KEY_THREE)
-    public Integer mThreeStars;
+    public int mThree;
 
     @SerializedName(KEY_FOUR)
-    public Integer mFourStars;
+    public int mFour;
 
     @SerializedName(KEY_FIVE)
-    private Integer mFiveStars;
+    private int mFive;
 
-    public Histogram(@NonNull Integer mOne,
-                     @NonNull Integer mTwoStars,
-                     @NonNull Integer mThreeStars,
-                     @NonNull Integer mFour,
-                     @NonNull Integer mFive) {
-        this.mOneStar = mOne;
-        this.mTwoStars = mTwoStars;
-        this.mThreeStars = mThreeStars;
-        this.mFourStars = mFour;
-        this.mFiveStars = mFive;
+    public Histogram(){
+
     }
 
-    public Integer getmOneStar() {
-        return mOneStar;
+    public Histogram(@NonNull int mOne,
+                     @NonNull int mTwo,
+                     @NonNull int mThree,
+                     @NonNull int mFour,
+                     @NonNull int mFive) {
+        this.mOne = mOne;
+        this.mTwo = mTwo;
+        this.mThree = mThree;
+        this.mFour = mFour;
+        this.mFive = mFive;
     }
 
-    public Integer getmTwoStars() {
-        return mTwoStars;
+    public int getmOne() {
+        return mOne;
     }
 
-    public Integer getmThreeStars() {
-        return mThreeStars;
+    public int getmTwo() {
+        return mTwo;
     }
 
-    public Integer getmFour() {
-        return mFourStars;
+    public int getmThree() {
+        return mThree;
     }
 
-    public Integer getmFive() {
-        return mFiveStars;
+    public int getmFour() {
+        return mFour;
+    }
+
+    public int getmFive() {
+        return mFive;
     }
 }

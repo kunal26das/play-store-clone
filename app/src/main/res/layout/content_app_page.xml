@@ -24,12 +24,14 @@
 
         <include layout="@layout/divider" />
 
+        <include layout="@layout/histogram_layout"/>
         <Button
             android:id="@+id/show_reviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
             android:text="@string/show_all"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:background="@color/colorWhite" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
