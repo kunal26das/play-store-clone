@@ -21,6 +21,7 @@ import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,16 @@ import java.util.List;
 public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder> {
 
     private Context context;
+    private CircularProgressBar circularProgressBar;
 
     private List<CategoryList.Category> categoryList;
     private PageViewModel pageViewModel;
     private OnCategoryChanged onCategoryChanged;
     private OnDialogOpenListener onDialogOpenListener;
 
-    public ForYouAdapter(Context context, PageViewModel pageViewModel, OnCategoryChanged onCategoryChanged, OnDialogOpenListener onDialogOpenListener) {
+    public ForYouAdapter(Context context, PageViewModel pageViewModel,
+                         OnCategoryChanged onCategoryChanged,
+                         OnDialogOpenListener onDialogOpenListener) {
         this.context = context;
         this.pageViewModel = pageViewModel;
         categoryList = new ArrayList<>();
@@ -66,6 +70,9 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(List<App> popularApp) {
+                if (circularProgressBar != null) {
+                    circularProgressBar.setVisibility(View.GONE);
+                }
                 holder.container.setVisibility(View.VISIBLE);
                 holder.appCardAdapter.setAppByCategoryApiResponse(popularApp);
             }
@@ -103,5 +110,9 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             categoryApps.setAdapter(appCardAdapter);
             linearSnapHelper.attachToRecyclerView(categoryApps);
         }
+    }
+
+    public void setCircularProgressBar(CircularProgressBar circularProgressBar) {
+        this.circularProgressBar = circularProgressBar;
     }
 }

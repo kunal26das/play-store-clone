@@ -168,27 +168,35 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     appDetail = appDetails;
-                    float progressFive = (float) appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
+                    float progressFive = (float) appDetails
+                            .getmHistograms().getmFive() / appDetails.getmRatings();
                     progressBarFive.setProgress((progressFive * 100) + 10);
-                    float progressFour = (float) appDetails.getmHistograms().getmFour() / appDetails.getmRatings();
+
+                    float progressFour = (float) appDetails
+                            .getmHistograms().getmFour() / appDetails.getmRatings();
                     progressBarFour.setProgress((progressFour * 100) + 10);
 
-                    float progressThree = (float) appDetails.getmHistograms().getmThree() / appDetails.getmRatings();
+                    float progressThree = (float) appDetails
+                            .getmHistograms().getmThree() / appDetails.getmRatings();
                     progressBarThree.setProgress((progressThree * 100) + 10);
 
-                    float progressTwo = (float) appDetails.getmHistograms().getmTwo() / appDetails.getmRatings();
+                    float progressTwo = (float) appDetails
+                            .getmHistograms().getmTwo() / appDetails.getmRatings();
                     progressBarTwo.setProgress((progressTwo * 100) + 10);
 
-                    float progressOne = (float) appDetails.getmHistograms().getmOne() / appDetails.getmRatings();
+                    float progressOne = (float) appDetails
+                            .getmHistograms().getmOne() / appDetails.getmRatings();
                     progressBarOne.setProgress((progressOne * 100) + 10);
 
                     Picasso.get().load(appDetails.getmIcon()).into(appIcon);
+
                     appTitle.setText(appDetails.getmTitle());
                     appDeveloper.setText(appDetails.getmDeveloper());
                     appGenre.setText(appDetails.getmGenre());
                     averageRating.setText(appDetails.getmScoreText());
                     ratingBarTotal.setRating(appDetails.getmScore());
                     totalRating.setText(appDetails.getmRatings() + "");
+
                     if (appDetails.hasAdSupport() && appDetails.hasInAppPurchases()) {
                         appMonetize.setText("Contains ads • In-app purchases");
                     } else if (appDetails.hasAdSupport()) {
@@ -320,7 +328,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
         reviewAdapter = new ReviewAdapter();
         reviewsRecycler.setAdapter(reviewAdapter);
-        pageViewModel=ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel= ViewModelProviders.of(this).get(PageViewModel.class);
         pageViewModel.makeReviewsApiCall(mAppId,this);
 
         Button seeAll = findViewById(R.id.show_reviews);
