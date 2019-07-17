@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:weightSum="100"
-    android:focusable="true"
-    android:clickable="true"
     android:id="@+id/histogram"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     android:paddingTop="20dp"
     android:paddingBottom="20dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:weightSum="100">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -47,49 +47,53 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="10"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_gravity="center">
+        android:layout_weight="10"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/five"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:text="@string/five" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:text="4" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="3" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:text="2" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:text="1" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="40"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="40"
         android:orientation="vertical">
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
@@ -97,35 +101,35 @@
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_margin="5dp"
-            app:rcProgressColor="@color/colorGreen"/>
+            app:rcProgressColor="@color/colorGreen" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/four_stars"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_margin="5dp"
-            app:rcProgressColor="@color/colorGreen"/>
+            app:rcProgressColor="@color/colorGreen" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/three_stars"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_margin="5dp"
-            app:rcProgressColor="@color/colorGreen"/>
+            app:rcProgressColor="@color/colorGreen" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/two_stars"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_margin="5dp"
-            app:rcProgressColor="@color/colorGreen"/>
+            app:rcProgressColor="@color/colorGreen" />
 
         <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
             android:id="@+id/one_star"
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_margin="5dp"
-            app:rcProgressColor="@color/colorGreen"/>
+            app:rcProgressColor="@color/colorGreen" />
     </LinearLayout>
 
 </LinearLayout>

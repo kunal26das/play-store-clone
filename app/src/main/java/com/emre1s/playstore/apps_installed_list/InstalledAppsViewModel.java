@@ -1,9 +1,10 @@
 package com.emre1s.playstore.apps_installed_list;
 
 import android.app.Application;
-import android.content.pm.PackageInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -21,7 +22,7 @@ public class InstalledAppsViewModel extends AndroidViewModel {
         mRepository = new InstalledAppsRepository(application);
     }
 
-    public MutableLiveData<List<String>> getInstalledApps() {
+    public MutableLiveData<List<InstalledApp>> getInstalledApps() {
         return mRepository.getInstalledApps();
     }
 
@@ -35,9 +36,9 @@ public class InstalledAppsViewModel extends AndroidViewModel {
             mInstalledApps = new MutableLiveData<>();
         }
 
-        private MutableLiveData<List<String>> getInstalledApps() {
+        private MutableLiveData<List<InstalledApp>> getInstalledApps() {
             InstalledAppsAsyncTask installedAppsAsyncTask = new InstalledAppsAsyncTask(mPackageManager);
-            MutableLiveData<List<String>> installedApps = new MutableLiveData<>();
+            MutableLiveData<List<InstalledApp>> installedApps = new MutableLiveData<>();
             try {
                 installedApps.setValue(installedAppsAsyncTask.execute().get());
             } catch (Exception exception) {
@@ -45,7 +46,7 @@ public class InstalledAppsViewModel extends AndroidViewModel {
             return installedApps;
         }
 
-        static class InstalledAppsAsyncTask extends AsyncTask<Void, Void, List<String>> {
+        static class InstalledAppsAsyncTask extends AsyncTask<Void, Void, List<InstalledApp>> {
 
             private PackageManager mPackageManager;
 
@@ -54,20 +55,21 @@ public class InstalledAppsViewModel extends AndroidViewModel {
             }
 
             @Override
-            protected List<String> doInBackground(final Void... params) {
-                List<String> packages = new ArrayList<>();
-                //List<InstalledApp> installedApps = new ArrayList<>();
-                List<PackageInfo> packageInfos = mPackageManager.getInstalledPackages(0);
-                //List<ApplicationInfo> applicationInfos = mPackageManager.getInstalledApplications(0);
-                /*for (ApplicationInfo app : applicationInfos) {
-                    installedApps.add(new InstalledApp(mPackageManager.getApplicationLabel(app).toString(),
-                            "",
-                            mPackageManager.getApplicationIcon(app)));
-                }*/
-                for (PackageInfo packageInfo : packageInfos) {
-                    packages.add(packageInfo.packageName);
+            protected List<InstalledApp> doInBackground(final Void... params) {
+                List<InstalledApp> apps = new ArrayList<>();
+                List<ApplicationInfo> installedApps = mPackageManager.getInstalledApplications(0);
+                for (ApplicationInfo app : installedApps) {
+                    try {
+                        Log.i("Package Name", app.packageName);
+                        apps.add(new InstalledApp(app.packageName,
+                                mPackageManager.getApplicationLabel(app).toString(),
+                                mPackageManager.getPackageInfo(app.packageName, 0).versionName,
+                                mPackageManager.getApplicationIcon(app)));
+                    } catch (Exception exception) {
+
+                    }
                 }
-                return packages;
+                return apps;
             }
         }
     }

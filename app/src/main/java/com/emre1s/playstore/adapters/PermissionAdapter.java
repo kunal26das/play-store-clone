@@ -41,6 +41,11 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
         return permissions.size();
     }
 
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_permission_title)
         TextView permissionTitle;
@@ -51,10 +56,5 @@ public class PermissionAdapter extends RecyclerView.Adapter<PermissionAdapter.Vi
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    public void setPermissions(List<Permission> permissions) {
-       this.permissions = permissions;
-       notifyDataSetChanged();
     }
 }

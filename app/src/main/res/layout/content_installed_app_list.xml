@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rv_installed_app_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:layout_marginEnd="8dp">
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/silverColor"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_installed_app_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/whiteColor" />
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.cardview.widget.CardView>
+    android:background="@color/silverColor" />
