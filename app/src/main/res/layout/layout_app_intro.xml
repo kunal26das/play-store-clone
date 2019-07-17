@@ -27,7 +27,6 @@
         android:paddingTop="16dp"
         android:text="READ MORE"
         android:textColor="@color/primaryColor"
-        android:onClick="onReadMore"
         android:textStyle="bold" />
 
 </LinearLayout>

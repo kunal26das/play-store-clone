@@ -2,19 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:icon="@mipmap/ic_search_foreground"
+        android:icon="@android:drawable/ic_menu_share"
         android:orderInCategory="1"
-        android:title=""
-        app:showAsAction="always" />
-    <item
-        android:orderInCategory="2"
         android:id="@+id/share_app"
+        app:showAsAction="always"
         android:title="Share" />
-    <item
-        android:orderInCategory="3"
-        android:title="Flag as inappropriate" />
-    <item
-        android:orderInCategory="4"
-        android:title="Enable auto-updates" />
-
 </menu>

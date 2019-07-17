@@ -2,7 +2,6 @@ package com.emre1s.playstore.ui;
 
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -47,10 +46,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class AppPageActivity extends AppCompatActivity {
-    private static final String EMPTY_STRING = "";
-    private static final int UNINSTALL_REQUEST_CODE = 1;
+
     private String mAppId;
     private AppDetails mAppDetails;
+    private PageViewModel mPageViewModel;
+    private static final String EMPTY_STRING = "";
+    private static final int UNINSTALL_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,41 +61,21 @@ public class AppPageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        Intent intent = getIntent();
-        mAppId = intent.getStringExtra("APP_ID");
-        Log.d(AppPageActivity.class.getSimpleName(), "PACKAGE NAME: " + mAppId);
-
+        mAppId = getIntent().getStringExtra("APP_ID");
         if (mAppId == null) {
             finish();
         }
 
-        PackageManager packageManager = getPackageManager();
         try {
-            packageManager.getPackageInfo(mAppId, 0);
+            getPackageManager().getPackageInfo(mAppId, 0);
             switchButtons(true);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception exception) {
             switchButtons(false);
         }
-
-        final Button appOpenButton = findViewById(R.id.btn_open_app);
-        final Button appUninstallButton = findViewById(R.id.btn_uninstall_app);
-
-        appOpenButton.setOnClickListener(v -> {
-            Intent intentOpenApp = packageManager.getLaunchIntentForPackage(mAppId);
-            startActivity(intentOpenApp);
-        });
-
-        appUninstallButton.setOnClickListener(v -> {
-            Intent intentUninstallApp = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-            intentUninstallApp.setData(Uri.parse("package:" + mAppId));
-            intentUninstallApp.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-            startActivityForResult(intentUninstallApp, UNINSTALL_REQUEST_CODE);
-        });
 
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
@@ -102,7 +83,13 @@ public class AppPageActivity extends AppCompatActivity {
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     mAppDetails = appDetails;
-                    populateLayout();
+                    mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
+                    displayAppInformation();
+                    displayAppStatistics();
+                    displayAppIntroduction();
+                    displayAppRatingsAndReviews();
+                    displayAppDeveloperContact();
+                    displaySimilarApps();
                 }
             }
             @Override
@@ -111,137 +98,45 @@ public class AppPageActivity extends AppCompatActivity {
         }, mAppId);
     }
 
-    private void populateLayout() {
+    private void switchButtons(boolean appIsInstalled) {
+        final TextView appMonetize = findViewById(R.id.tv_app_monetize);
+        final Button appInstallButton = findViewById(R.id.btn_install_app);
+        final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
+        if (appIsInstalled) {
+            appInstallButton.setVisibility(View.GONE);
+            appInstalledLayout.setVisibility(View.VISIBLE);
+            appMonetize.setVisibility(View.GONE);
+            findViewById(R.id.btn_open_app).setOnClickListener(v -> {
+                Intent intentOpenApp = getPackageManager().getLaunchIntentForPackage(mAppId);
+                startActivity(intentOpenApp);
+            });
+            findViewById(R.id.btn_uninstall_app).setOnClickListener(v -> {
+                Intent intentUninstallApp = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+                intentUninstallApp.setData(Uri.parse("package:" + mAppId));
+                intentUninstallApp.putExtra(Intent.EXTRA_RETURN_RESULT, true);
+                startActivityForResult(intentUninstallApp, UNINSTALL_REQUEST_CODE);
+            });
+        } else {
+            appInstallButton.setVisibility(View.VISIBLE);
+            appInstalledLayout.setVisibility(View.GONE);
+            appMonetize.setVisibility(View.VISIBLE);
+        }
+    }
 
+    private void displayAppInformation() {
         final TextView appTitle = findViewById(R.id.tv_app_title);
         final TextView appDeveloper = findViewById(R.id.tv_app_developer);
         final TextView appGenre = findViewById(R.id.tv_app_genre);
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
         final TextView averageRating = findViewById(R.id.score_review);
         final TextView totalRating = findViewById(R.id.total_reviews);
-        final TextView appScore = findViewById(R.id.tv_app_score);
-        final TextView appReviews = findViewById(R.id.tv_app_reviews);
-        final TextView appSize = findViewById(R.id.tv_app_size);
-        final TextView appRate = findViewById(R.id.tv_app_content_rate);
-        final TextView appRating = findViewById(R.id.tv_app_content_rating);
-        final TextView appInstalls = findViewById(R.id.tv_app_installs);
-        final TextView appSummary = findViewById(R.id.tv_app_summary);
-        final TextView moreSimilarApps = findViewById(R.id.tv_more_similar_apps);
-        final TextView readMoreSummary = findViewById(R.id.tv_read_more_app_summary);
-
         final ImageView appIcon = findViewById(R.id.iv_app_icon);
-
-        final RatingBar ratingBarTotal = findViewById(R.id.rating_review);
-
-        final RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
-        final RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
-        final RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
-        final RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
-        final RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
-
-        final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
-        final RecyclerView similarAppsRecyclerview = findViewById(R.id.rv_similar_apps);
-        final RecyclerView reviewsRecycler = findViewById(R.id.reviews_recycler);
-
-        final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
-        final ReviewAdapter reviewAdapter = new ReviewAdapter(this);
-
-        final LinearLayout websiteLayout = findViewById(R.id.web_layout);
-        final LinearLayout emailLayout = findViewById(R.id.email_layout);
-        final LinearLayout addressLayout = findViewById(R.id.address_layout);
-        final LinearLayout privacyLayout = findViewById(R.id.privacy_layout);
-
-        similarAppsRecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
-        reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-        appScreenshots.setAdapter(screenshotsAdapter);
-
-        progressBarFive.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarFour.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarThree.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarTwo.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarOne.setProgressBackgroundColor(R.color.colorHistogram);
-
-        PageViewModel pageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
-
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, appDetails1 -> {
-            AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails1);
-            if (getSupportFragmentManager() != null) {
-                bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
-            }
-        });
-
-        similarAppsRecyclerview.setAdapter(appCardAdapter);
-        pageViewModel.makeSimilarAppsApiCall(mAppDetails.getmAppId(), new ApiResponseCallback() {
-            @Override
-            public void onSuccess(List<App> popularApp) {
-                appCardAdapter.setAppByCategoryApiResponse(popularApp);
-            }
-
-            @Override
-            public void onFailure() {
-            }
-        });
-
-        LinearLayout histogramLayout = findViewById(R.id.histogram);
-        histogramLayout.setOnClickListener(view -> {
-            Intent reviewIntent = new Intent(AppPageActivity.this,
-                    ReviewPageActivity.class);
-            reviewIntent.putExtra("id", mAppId);
-            startActivity(reviewIntent);
-        });
-
-        TextView seeAll = findViewById(R.id.show_reviews);
-        seeAll.setOnClickListener(view -> {
-
-            Intent reviewIntent = new Intent(AppPageActivity.this,
-                    ReviewPageActivity.class);
-            reviewIntent.putExtra("id", mAppId);
-            startActivity(reviewIntent);
-        });
-
-        reviewsRecycler.setAdapter(reviewAdapter);
-
-        FrameLayout developerHead = findViewById(R.id.developer_header);
-        LinearLayout developerDetails = findViewById(R.id.developer_details);
-        ImageView navigate = findViewById(R.id.view_more);
-        developerHead.setOnClickListener(view1 -> {
-            if (developerDetails.getVisibility() == View.GONE) {
-                navigate.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-                developerDetails.setVisibility(View.VISIBLE);
-            } else {
-                navigate.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
-                developerDetails.setVisibility(View.GONE);
-            }
-        });
-
-        float progressFive = (float) mAppDetails
-                .getmHistograms().getmFive() / mAppDetails.getmRatings();
-        progressBarFive.setProgress((progressFive * 100) + 10);
-
-        float progressFour = (float) mAppDetails
-                .getmHistograms().getmFour() / mAppDetails.getmRatings();
-        progressBarFour.setProgress((progressFour * 100) + 10);
-
-        float progressThree = (float) mAppDetails
-                .getmHistograms().getmThree() / mAppDetails.getmRatings();
-        progressBarThree.setProgress((progressThree * 100) + 10);
-
-        float progressTwo = (float) mAppDetails
-                .getmHistograms().getmTwo() / mAppDetails.getmRatings();
-        progressBarTwo.setProgress((progressTwo * 100) + 10);
-
-        float progressOne = (float) mAppDetails
-                .getmHistograms().getmOne() / mAppDetails.getmRatings();
-        progressBarOne.setProgress((progressOne * 100) + 10);
 
         Picasso.get().load(mAppDetails.getmIcon()).into(appIcon);
         appTitle.setText(mAppDetails.getmTitle());
         appDeveloper.setText(mAppDetails.getmDeveloper());
         appGenre.setText(mAppDetails.getmGenre());
         averageRating.setText(mAppDetails.getmScoreText());
-        ratingBarTotal.setRating(mAppDetails.getmScore());
         totalRating.setText(mAppDetails.getmRatings() + "");
         if (mAppDetails.hasAdSupport() && mAppDetails.hasInAppPurchases()) {
             appMonetize.setText("Contains ads • In-app purchases");
@@ -250,6 +145,15 @@ public class AppPageActivity extends AppCompatActivity {
         } else if (mAppDetails.hasInAppPurchases()) {
             appMonetize.setText("In-app purchases");
         }
+    }
+
+    private void displayAppStatistics() {
+        final TextView appSize = findViewById(R.id.tv_app_size);
+        final TextView appScore = findViewById(R.id.tv_app_score);
+        final TextView appReviews = findViewById(R.id.tv_app_reviews);
+        final TextView appRate = findViewById(R.id.tv_app_content_rate);
+        final TextView appInstalls = findViewById(R.id.tv_app_installs);
+        final TextView appRating = findViewById(R.id.tv_app_content_rating);
 
         String contentRating = mAppDetails.getmContentRating();
         String contentRate = contentRating.substring(contentRating.length() - 3).trim();
@@ -259,35 +163,107 @@ public class AppPageActivity extends AppCompatActivity {
         appRating.setText(contentRating + " ⓘ");
         appInstalls.setText(mAppDetails.getmInstalls());
         appRate.setText(contentRate);
+    }
+
+    private void displayAppIntroduction() {
+        final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
+        final TextView readMoreSummary = findViewById(R.id.tv_read_more_app_summary);
+        final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
+        final TextView appSummary = findViewById(R.id.tv_app_summary);
 
         appSummary.setText(Html.fromHtml(mAppDetails.getmSummary()));
         List<String> appScreenshots1 = mAppDetails.getmScreenshots();
         String appVideoImage = mAppDetails.getmVideoImage();
-        if (appVideoImage != null) {
-            appScreenshots1.add(0, appVideoImage);
-        }
-
-        appSummary.setText(Html.fromHtml(mAppDetails.getmSummary()));
-        readMoreSummary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AppPageActivity.this, AppDetailsActivity.class);
-                intent.putExtra("movieEntity", mAppDetails);
-                startActivity(intent);
-            }
-        });
-
+        appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        appScreenshots.setAdapter(screenshotsAdapter);
         if (appVideoImage != null) {
             appScreenshots1.add(0, appVideoImage);
             screenshotsAdapter.setHasVideoImage(true, mAppDetails.getmVideo());
         }
         screenshotsAdapter.setScreenshots(appScreenshots1);
+        readMoreSummary.setOnClickListener(v -> {
+            Intent intent = new Intent(AppPageActivity.this, AppDetailsActivity.class);
+            intent.putExtra("movieEntity", mAppDetails);
+            startActivity(intent);
+        });
+    }
 
+    private void displayAppRatingsAndReviews() {
+        final TextView seeAll = findViewById(R.id.show_reviews);
+        final LinearLayout histogramLayout = findViewById(R.id.histogram);
+        final RatingBar ratingBarTotal = findViewById(R.id.rating_review);
+        final ReviewAdapter reviewAdapter = new ReviewAdapter(this);
+        final RecyclerView reviewsRecycler = findViewById(R.id.reviews_recycler);
+        final RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
+        final RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
+        final RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
+        final RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
+        final RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
+
+        float progressFive = (float) mAppDetails.getmHistograms().getmFive() / mAppDetails.getmRatings();
+        float progressFour = (float) mAppDetails.getmHistograms().getmFour() / mAppDetails.getmRatings();
+        float progressThree = (float) mAppDetails.getmHistograms().getmThree() / mAppDetails.getmRatings();
+        float progressTwo = (float) mAppDetails.getmHistograms().getmTwo() / mAppDetails.getmRatings();
+        float progressOne = (float) mAppDetails.getmHistograms().getmOne() / mAppDetails.getmRatings();
+
+        progressBarFive.setProgress((progressFive * 100) + 10);
+        progressBarFour.setProgress((progressFour * 100) + 10);
+        progressBarThree.setProgress((progressThree * 100) + 10);
+        progressBarTwo.setProgress((progressTwo * 100) + 10);
+        progressBarOne.setProgress((progressOne * 100) + 10);
+
+        ratingBarTotal.setRating(mAppDetails.getmScore());
+        reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        reviewsRecycler.setAdapter(reviewAdapter);
+        histogramLayout.setOnClickListener(view -> {
+            Intent reviewIntent = new Intent(AppPageActivity.this,
+                    ReviewPageActivity.class);
+            reviewIntent.putExtra("id", mAppId);
+            startActivity(reviewIntent);
+        });
+        seeAll.setOnClickListener(view -> {
+
+            Intent reviewIntent = new Intent(AppPageActivity.this,
+                    ReviewPageActivity.class);
+            reviewIntent.putExtra("id", mAppId);
+            startActivity(reviewIntent);
+        });
+        mPageViewModel.makeReviewsApiCall(mAppId, new ReviewResponseCallback() {
+            @Override
+            public void onSuccess(List<Review> reviews) {
+                List<Review> reviewsSublist = reviews.subList(0, 2);
+                reviewAdapter.setReviewList(reviewsSublist);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+    }
+
+    private void displayAppDeveloperContact() {
+        final ImageView navigate = findViewById(R.id.view_more);
+        final LinearLayout websiteLayout = findViewById(R.id.web_layout);
+        final LinearLayout emailLayout = findViewById(R.id.email_layout);
+        final LinearLayout addressLayout = findViewById(R.id.address_layout);
+        final LinearLayout privacyLayout = findViewById(R.id.privacy_layout);
+        final FrameLayout developerHead = findViewById(R.id.developer_header);
+        final LinearLayout developerDetails = findViewById(R.id.developer_details);
+
+        developerHead.setOnClickListener(view1 -> {
+            if (developerDetails.getVisibility() == View.GONE) {
+                navigate.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                developerDetails.setVisibility(View.VISIBLE);
+            } else {
+                navigate.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                developerDetails.setVisibility(View.GONE);
+            }
+        });
         String urlWebsite = mAppDetails.getmDeveloperWebsite();
         String emailId = mAppDetails.getmDeveloperEmail();
         String privacyPolicy = mAppDetails.getmPrivacyPolicy();
         String address = mAppDetails.getmDeveloperAddress();
-
         if (urlWebsite == null) {
             websiteLayout.setVisibility(View.GONE);
         } else {
@@ -296,13 +272,6 @@ public class AppPageActivity extends AppCompatActivity {
                 startActivity(browserIntent);
             });
         }
-        moreSimilarApps.setOnClickListener(v -> {
-            Intent intent = new Intent(AppPageActivity.this, MoreAppsActivity.class);
-            intent.putExtra("SIMILAR_APPS_KEY", mAppDetails.getmAppId());
-            startActivity(intent);
-        });
-
-
         if (emailId == null) {
             emailLayout.setVisibility(View.GONE);
         } else {
@@ -314,7 +283,6 @@ public class AppPageActivity extends AppCompatActivity {
                 startActivity(emailIntent);
             });
         }
-
         if (address == null) {
             addressLayout.setVisibility(View.GONE);
         } else {
@@ -340,7 +308,6 @@ public class AppPageActivity extends AppCompatActivity {
                 }
             });
         }
-
         if (privacyPolicy == null) {
             privacyLayout.setVisibility(View.GONE);
         } else {
@@ -349,36 +316,35 @@ public class AppPageActivity extends AppCompatActivity {
                 startActivity(browserIntent);
             });
         }
+    }
 
-        pageViewModel.makeReviewsApiCall(mAppId, new ReviewResponseCallback() {
+    private void displaySimilarApps() {
+        final TextView moreSimilarApps = findViewById(R.id.tv_more_similar_apps);
+        final RecyclerView similarAppsRecyclerview = findViewById(R.id.rv_similar_apps);
+
+        similarAppsRecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        AppCardAdapter appCardAdapter = new AppCardAdapter(mPageViewModel, appDetails1 -> {
+            AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails1);
+            if (getSupportFragmentManager() != null) {
+                bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+            }
+        });
+        mPageViewModel.makeSimilarAppsApiCall(mAppDetails.getmAppId(), new ApiResponseCallback() {
             @Override
-            public void onSuccess(List<Review> reviews) {
-                List<Review> reviewsSublist = reviews.subList(0, 2);
-                reviewAdapter.setReviewList(reviewsSublist);
+            public void onSuccess(List<App> popularApp) {
+                appCardAdapter.setAppByCategoryApiResponse(popularApp);
             }
 
             @Override
             public void onFailure() {
-
             }
         });
-    }
-
-    private void switchButtons(boolean appIsInstalled) {
-        final TextView appMonetize = findViewById(R.id.tv_app_monetize);
-        final Button appInstallButton = findViewById(R.id.btn_install_app);
-        final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
-
-        if (appIsInstalled) {
-            appInstallButton.setVisibility(View.GONE);
-            appInstalledLayout.setVisibility(View.VISIBLE);
-            appMonetize.setVisibility(View.GONE);
-
-        } else {
-            appInstallButton.setVisibility(View.VISIBLE);
-            appInstalledLayout.setVisibility(View.GONE);
-            appMonetize.setVisibility(View.VISIBLE);
-        }
+        similarAppsRecyclerview.setAdapter(appCardAdapter);
+        moreSimilarApps.setOnClickListener(v -> {
+            Intent intent = new Intent(AppPageActivity.this, MoreAppsActivity.class);
+            intent.putExtra("SIMILAR_APPS_KEY", mAppDetails.getmAppId());
+            startActivity(intent);
+        });
     }
 
     @Override
