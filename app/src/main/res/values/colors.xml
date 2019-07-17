@@ -17,8 +17,8 @@
     <color name="colorMovies">#E10057</color>
     <color name="colorBooks">#006ECA</color>
     <color name="colorMusic">#FF0000</color>
+    <color name="background">#dddddd</color>
     <color name="colorHistogram">#F0F0F0</color>
-
 
     <!-- Kunal colors -->
     <color name="primaryColor">#01875f</color>
