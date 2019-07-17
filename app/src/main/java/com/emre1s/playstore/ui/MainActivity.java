@@ -411,6 +411,10 @@ public class MainActivity extends AppCompatActivity
                 ArrayList<String> result = data
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 searchView.setSearchText(result.get(0));
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("query", result.get(0));
+                startActivity(intent);
+                resetSearchView();
             }
         }
     }

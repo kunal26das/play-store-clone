@@ -2,6 +2,7 @@ package com.emre1s.playstore.apps_installed_list;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     public void setInstalledApps(List<InstalledApp> installedApps) {
         mInstalledApps = installedApps;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -44,7 +46,11 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     @Override
     public void onBindViewHolder(@NonNull InstalledAppsViewHolder holder, int position) {
-        holder.updateAppInfo(mInstalledApps.get(position));
+        try {
+            holder.updateAppInfo(mInstalledApps.get(position));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(holder.itemView.getLayoutParams());
         layoutParams.setMargins(16, 0, 16, 0);
         if (position == 0) {
@@ -75,11 +81,15 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
             mAppAction = itemView.findViewById(R.id.btn_open_app);
         }
 
-        void updateAppInfo(InstalledApp app) {
-            mAppTitle.setText(app.getAppTitle());
-            mAppVersion.setText(app.getVersion());
-            mAppIcon.setImageDrawable(app.getAppIcon());
-            final String packageName = app.getPackageName();
+        void updateAppInfo(InstalledApp app) throws PackageManager.NameNotFoundException {
+            mAppTitle.setText(app.getMTitle());
+            mAppVersion.setText(app.getMVersion());
+            if (app.getmIconUrl() != null) {
+                mAppIcon.setImageDrawable(app.getmIconUrl());
+            } else {
+                mAppIcon.setImageDrawable(mPackageManager.getApplicationIcon(app.getMPackageName()));
+            }
+            final String packageName = app.getMPackageName();
             mAppAction.setOnClickListener(v -> {
                 mContext.startActivity(mPackageManager.getLaunchIntentForPackage(packageName));
             });
