@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.Review;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView userImage;
+        private CircularImageView userImage;
         private TextView userName;
         private RatingBar ratingBar;
         private TextView reviewDate;
