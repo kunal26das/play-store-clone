@@ -29,6 +29,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 public class MoreAppsActivity extends AppCompatActivity {
 
     public static final String CATEGORY_KEY = "categoryKey";
+    public static final String SIMILAR_APPS_KEY = "SIMILAR_APPS_KEY";
     public static final int LANDSCAPE_SPAN_COUNT = 5;
     public static final int PORTRAIT_SPAN_COUNT = 3;
     private CategoryList.Category category;

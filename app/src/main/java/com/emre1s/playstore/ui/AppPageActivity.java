@@ -18,15 +18,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.adapters.AppCardAdapter;
+import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.api.DatabaseCallback;
 import com.emre1s.playstore.api.RetrofitApiFactory;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
+import com.emre1s.playstore.fragments.AppSneakPeakFragment;
+import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -113,6 +119,10 @@ public class AppPageActivity extends AppCompatActivity {
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
         final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
 
+        final RecyclerView similarAppsRecyclerview = findViewById(R.id.rv_similar_apps);
+        similarAppsRecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        final TextView moreSimilarApps = findViewById(R.id.tv_more_similar_apps);
+
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
@@ -127,6 +137,30 @@ public class AppPageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
+                    PageViewModel pageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
+                    AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, appDetails1 -> {
+                        AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails1);
+                        if (getSupportFragmentManager() != null) {
+                            bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+                        }
+                    });
+                    similarAppsRecyclerview.setAdapter(appCardAdapter);
+                    pageViewModel.makeSimilarAppsApiCall(appDetails.getmAppId(), new ApiResponseCallback() {
+                        @Override
+                        public void onSuccess(List<App> popularApp) {
+                            for (App app : popularApp) {
+                                Log.i("Log", app.getTitle());
+                            }
+                            appCardAdapter.setAppByCategoryApiResponse(popularApp);
+
+                            Log.i("Log", "Success");
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Log.i("Log", "Data Failuer");
+                        }
+                    });
                     appDetail = appDetails;
                     float progressFive = (float) appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
                     progressBarFive.setProgress(progressFive * 100);
@@ -180,7 +214,11 @@ public class AppPageActivity extends AppCompatActivity {
                     }
 
                     screenshotsAdapter.setScreenshots(appScreenshots1);
-
+                    moreSimilarApps.setOnClickListener(v -> {
+                        Intent intent = new Intent(AppPageActivity.this, MoreAppsActivity.class);
+                        intent.putExtra("SIMILAR_APPS_KEY", appDetails.getmAppId());
+                        //startActivity(intent);
+                    });
                 }
 
             }
@@ -192,25 +230,19 @@ public class AppPageActivity extends AppCompatActivity {
         }, mAppId);
 
         LinearLayout histogramLayout = findViewById(R.id.histogram);
-        histogramLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent reviewIntent = new Intent(AppPageActivity.this,
-                        ReviewPageActivity.class);
-                reviewIntent.putExtra("id", mAppId);
-                startActivity(reviewIntent);
-            }
+        histogramLayout.setOnClickListener(view -> {
+            Intent reviewIntent = new Intent(AppPageActivity.this,
+                    ReviewPageActivity.class);
+            reviewIntent.putExtra("id", mAppId);
+            startActivity(reviewIntent);
         });
 
-        Button seeAll = findViewById(R.id.show_reviews);
-        seeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent reviewIntent = new Intent(AppPageActivity.this,
-                        ReviewPageActivity.class);
-                reviewIntent.putExtra("id", mAppId);
-                startActivity(reviewIntent);
-            }
+        TextView seeAll = findViewById(R.id.show_reviews);
+        seeAll.setOnClickListener(view -> {
+            Intent reviewIntent = new Intent(AppPageActivity.this,
+                    ReviewPageActivity.class);
+            reviewIntent.putExtra("id", mAppId);
+            startActivity(reviewIntent);
         });
     }
 

@@ -104,8 +104,10 @@ public class ScreenshotActivity extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
         if (intent.hasExtra("SCREENSHOTS_URL")) {
+            int screenshotIndex = intent.getIntExtra("SCREENSHOT_INDEX", 0);
             List<String> screenshotsUrls = intent.getStringArrayListExtra("SCREENSHOTS_URL");
             screenshotsViewPager.setAdapter(new ScreenshotPagerAdapter(this, screenshotsUrls));
+            screenshotsViewPager.setCurrentItem(screenshotIndex);
         }
 
         // Set up the user interaction to manually show or hide the system UI.

@@ -56,4 +56,8 @@
 
     <string name="all_reviews">All Reviews</string>
     <string name="five">5</string>
+    <string name="string_four">4</string>
+    <string name="string_three">3</string>
+    <string name="string_two">2</string>
+    <string name="string_one">1</string>
 </resources>

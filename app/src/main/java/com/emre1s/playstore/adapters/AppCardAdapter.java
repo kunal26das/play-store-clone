@@ -74,9 +74,15 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
                     }
                 });
         Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
-        Picasso.get()
-                .load("https:" + appByCategoryApiResponse.get(position).getIcon())
-                .into(holder.appIcon);
+        if (appByCategoryApiResponse.get(position).getIcon().startsWith("h")) {
+            Picasso.get()
+                    .load(appByCategoryApiResponse.get(position).getIcon())
+                    .into(holder.appIcon);
+        } else {
+            Picasso.get()
+                    .load("https:" + appByCategoryApiResponse.get(position).getIcon())
+                    .into(holder.appIcon);
+        }
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
 
 

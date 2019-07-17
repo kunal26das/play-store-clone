@@ -24,13 +24,13 @@
 
         <include layout="@layout/divider" />
 
-        <include layout="@layout/histogram_layout" />
-        <Button
-            android:id="@+id/show_reviews"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:text="@string/show_all"
-            android:textColor="@color/colorPrimary" />
+        <include layout="@layout/layout_app_reviews" />
+
+        <include layout="@layout/divider" />
+
+        <include layout="@layout/layout_app_similar" />
+
+        <include layout="@layout/divider" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
