@@ -1,31 +1,49 @@
 package com.emre1s.playstore.ui;
 
 import android.content.Intent;
+
 import android.content.pm.PackageManager;
+
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
+
 import android.os.Bundle;
+
 import android.text.Html;
+
 import android.util.Log;
+
 import android.view.Menu;
+
 import android.view.MenuItem;
+
 import android.view.View;
+
 import android.widget.Button;
+
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ReviewAdapter;
 import com.emre1s.playstore.api.DatabaseCallback;
+
 import com.emre1s.playstore.api.RetrofitApiFactory;
 
 import com.emre1s.playstore.api.ReviewResponseCallback;
@@ -36,8 +54,10 @@ import com.emre1s.playstore.models.Review;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AppPageActivity extends AppCompatActivity implements ReviewResponseCallback {
@@ -47,6 +67,10 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
     private AppDetails appDetail;
     private ReviewAdapter reviewAdapter;
     private PageViewModel pageViewModel;
+    private String urlWebsite;
+    private String emailId;
+    private String privacyPolicy;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +148,11 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
         final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
 
+        final LinearLayout websiteLayout= findViewById(R.id.web_layout);
+        final LinearLayout emailLayout = findViewById(R.id.email_layout);
+        final LinearLayout addressLayout = findViewById(R.id.address_layout);
+        final LinearLayout privacyLayout= findViewById(R.id.privacy_layout);
+
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
@@ -200,6 +229,79 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
 
                     screenshotsAdapter.setScreenshots(appScreenshots1);
 
+                    urlWebsite=appDetails.getmDeveloperWebsite();
+                    emailId=appDetails.getmDeveloperEmail();
+                    privacyPolicy=appDetails.getmPrivacyPolicy();
+                    address=appDetails.getmDeveloperAddress();
+
+                    if (urlWebsite == null) {
+                        websiteLayout.setVisibility(View.GONE);
+                    } else {
+                        websiteLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlWebsite));
+                                    startActivity(browserIntent);
+                            }
+                        });
+                    }
+
+                    if(emailId== null){
+                        emailLayout.setVisibility(View.GONE);
+                    } else {
+                        TextView emailIdTv= findViewById(R.id.email_id);
+                        emailIdTv.setText(emailId);
+                        emailLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                                    emailIntent.setData(Uri.parse("mailto:" + emailId));
+                                    startActivity(emailIntent);
+                            }
+                        });
+                    }
+
+                    if (address==null){
+                        addressLayout.setVisibility(View.GONE);
+                    } else {
+                        TextView addressTv=findViewById(R.id.address);
+                        addressTv.setText(address);
+                        addressLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("Address", address);
+                                Geocoder geocoder=new Geocoder(AppPageActivity.this);
+                                List<Address> addresses;
+                                try{
+                                    addresses=geocoder.getFromLocationName(address,5);
+                                    if (addresses==null){
+                                        Log.d("Address", "null");
+                                    } else {
+                                        Address location = addresses.get(0);
+                                        Log.d("Address", location.getLatitude()+"****"+ location.getLongitude()+ "");
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse("geo:"+location.getLatitude()+","+location.getLongitude()));
+                                        startActivity(intent);
+                                    }
+                                } catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+
+                    if (privacyPolicy== null){
+                        privacyLayout.setVisibility(View.GONE);
+                    } else {
+                        privacyLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicy));
+                                    startActivity(browserIntent);
+                            }
+                        });
+                    }
+
                 }
 
             }
@@ -237,6 +339,22 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                         ReviewPageActivity.class);
                 reviewIntent.putExtra("appDetails", appDetail);
                 startActivity(reviewIntent);
+            }
+        });
+
+        FrameLayout developerHead= findViewById(R.id.developer_header);
+        LinearLayout developerDetails= findViewById(R.id.developer_details);
+        ImageView navigate = findViewById(R.id.view_more);
+        developerHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (developerDetails.getVisibility()==View.GONE){
+                    navigate.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    developerDetails.setVisibility(View.VISIBLE);
+                } else {
+                    navigate.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    developerDetails.setVisibility(View.GONE);
+                }
             }
         });
     }

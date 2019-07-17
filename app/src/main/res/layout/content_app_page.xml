@@ -70,5 +70,7 @@
             android:background="@color/colorWhite"
             android:text="@string/show_all"
             android:textColor="@color/colorPrimary" />
+
+        <include layout="@layout/developer_layout"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
