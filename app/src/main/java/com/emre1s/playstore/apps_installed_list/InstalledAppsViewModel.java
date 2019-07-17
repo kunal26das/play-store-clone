@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -60,11 +59,13 @@ public class InstalledAppsViewModel extends AndroidViewModel {
                 List<ApplicationInfo> installedApps = mPackageManager.getInstalledApplications(0);
                 for (ApplicationInfo app : installedApps) {
                     try {
-                        Log.i("Package Name", app.packageName);
-                        apps.add(new InstalledApp(app.packageName,
-                                mPackageManager.getApplicationLabel(app).toString(),
-                                mPackageManager.getPackageInfo(app.packageName, 0).versionName,
-                                mPackageManager.getApplicationIcon(app)));
+                        if ((app.flags & (ApplicationInfo.FLAG_UPDATED_SYSTEM_APP | ApplicationInfo.FLAG_SYSTEM)) <= 0) {
+                            apps.add(new InstalledApp(app.packageName,
+                                    mPackageManager.getApplicationLabel(app).toString(),
+                                    mPackageManager.getPackageInfo(app.packageName, 0).versionName,
+                                    mPackageManager.getApplicationIcon(app)));
+                        }
+
                     } catch (Exception exception) {
 
                     }

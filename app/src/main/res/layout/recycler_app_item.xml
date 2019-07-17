@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="4dp"
+    android:orientation="vertical"
+    android:padding="12dp"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -12,42 +13,29 @@
 
     <ImageView
         android:id="@+id/iv_app_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:contentDescription="@string/app_icon_card"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:maxWidth="100dp"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_app_icon"
+        android:maxWidth="80dp"
+        android:paddingTop="8dp"
         android:maxLines="2"
+        android:textSize="12sp"
         android:ellipsize="end"
         tools:text="Instagram" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal85"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".80"/>
-
     <TextView
+        android:paddingTop="8dp"
         android:id="@+id/tv_app_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:paddingBottom="4dp"
         tools:text="37 MB"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal85" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent" />
+</LinearLayout>
