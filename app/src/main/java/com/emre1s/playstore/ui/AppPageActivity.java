@@ -211,9 +211,10 @@ public class AppPageActivity extends AppCompatActivity {
 
                     if (appVideoImage != null) {
                         appScreenshots1.add(0, appVideoImage);
+                        screenshotsAdapter.setHasVideoImage(true, appDetails.getmVideo());
                     }
-
                     screenshotsAdapter.setScreenshots(appScreenshots1);
+
                     moreSimilarApps.setOnClickListener(v -> {
                         Intent intent = new Intent(AppPageActivity.this, MoreAppsActivity.class);
                         intent.putExtra("SIMILAR_APPS_KEY", appDetails.getmAppId());
