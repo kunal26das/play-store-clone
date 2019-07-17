@@ -42,6 +42,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ReviewAdapter;
 import com.emre1s.playstore.api.DatabaseCallback;
@@ -58,11 +59,16 @@ import com.squareup.picasso.Picasso;
 
 import java.text.MessageFormat;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AppPageActivity extends AppCompatActivity implements ReviewResponseCallback {
     private static final String EMPTY_STRING = "";
@@ -75,13 +81,16 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
     private String emailId;
     private String privacyPolicy;
     private String address;
+    private Toolbar toolbar;
+    private Button appInstallButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_page);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
         setSupportActionBar(toolbar);
 
@@ -97,6 +106,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             finish();
         }
 
+        appInstallButton = findViewById(R.id.btn_install_app);
         final ImageView appIcon = findViewById(R.id.iv_app_icon);
         final TextView appTitle = findViewById(R.id.tv_app_title);
         final TextView appDeveloper = findViewById(R.id.tv_app_developer);
@@ -167,6 +177,11 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     appDetail = appDetails;
+                    if (!appDetails.getmFree()) {
+                        appInstallButton.setText("BUY " + appDetails.getmPriceText());
+                    } else {
+                        appInstallButton.setText("INSTALL");
+                    }
                     float progressFive =(float) appDetails
                             .getmHistograms().getmFive() / appDetails.getmRatings();
                     Log.d(AppPageActivity.class.getSimpleName(), "Progress five: " + progressFive);
@@ -199,7 +214,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                     appGenre.setText(appDetails.getmGenre());
                     averageRating.setText(appDetails.getmScoreText());
                     ratingBarTotal.setRating(appDetails.getmScore());
-                    totalRating.setText(appDetails.getmRatings() + "");
+                    totalRating.setText(NumberFormat.getNumberInstance(Locale.US).format(appDetails.getmRatings()));
 
                     if (appDetails.hasAdSupport() && appDetails.hasInAppPurchases()) {
                         appMonetize.setText("Contains ads • In-app purchases");
@@ -212,7 +227,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                     String contentRating = appDetails.getmContentRating();
                     String contentRate = contentRating.substring(contentRating.length() - 3).trim();
                     appScore.setText(appDetails.getmScoreText());
-                    appReviews.setText(appDetails.getmReviews() + " reviews");
+                    appReviews.setText(NumberFormat.getNumberInstance(Locale.US).format(appDetails.getmReviews()) + " reviews");
                     appSize.setText(appDetails.getmSize());
                     appRating.setText(contentRating + " ⓘ");
                     appInstalls.setText(appDetails.getmInstalls());
@@ -366,7 +381,6 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
 
     private void switchButtons(boolean appIsInstalled) {
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
-        final Button appInstallButton = findViewById(R.id.btn_install_app);
         final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
 
         if (appIsInstalled) {
@@ -421,7 +435,6 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                 shareApp(appDetail);
                 break;
             }
-
             default:
                 return super.onOptionsItemSelected(item);
         }
