@@ -9,12 +9,11 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <ImageView
-        android:id="@+id/iv_screenshot"
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/screenshots_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true" />
+        android:layout_height="match_parent" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

@@ -1,12 +1,5 @@
 package com.emre1s.playstore.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -15,6 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.PermissionAdapter;
@@ -109,12 +109,12 @@ public class AppDetailsActivity extends AppCompatActivity {
         appDetailType.setText("Details");
         aboutApp.setText(appDetail.getmDescription());
         ratedNumber.setText(appDetail.getmContentRating()
-                .substring(appDetail.getmContentRating().length()-3));
+                .substring(appDetail.getmContentRating().length() - 3));
         ratedText.setText(appDetail.getmContentRating());
         appVersion.setText(appDetail.getmVersion());
         appLastUpdated.setText(getDate(appDetail.getmUpdated()));
         appDownloads.setText(appDetail.getmInstalls());
-      //  int len = Integer.parseInt(appDetail.getmSize());
+        //  int len = Integer.parseInt(appDetail.getmSize());
         appSize.setText(appDetail.getmSize());
         appReleasedOn.setText(appDetail.getmReleased());
 

@@ -22,7 +22,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 //import com.emre1s.playstore.ui.AppPageActivity;
 
@@ -43,8 +42,8 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_app_item, parent, false);
-
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -75,8 +74,9 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
                     }
                 });
         Log.d("Emre1s", "Image icon: " + appByCategoryApiResponse.get(position).getIcon());
-        Picasso.get().load("https:" + appByCategoryApiResponse.get(position)
-                .getIcon()).placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
+        Picasso.get()
+                .load("https:" + appByCategoryApiResponse.get(position).getIcon())
+                .into(holder.appIcon);
         holder.appName.setText(appByCategoryApiResponse.get(position).getTitle());
 
 
@@ -109,15 +109,6 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
     public void setAppByCategoryApiResponse(List<App> appByCategoryApiResponse) {
         this.appByCategoryApiResponse = appByCategoryApiResponse;
         notifyItemChanged(0);
-    }
-
-    private static int getRandomNumberInRange(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
-        }
-
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
     }
 
 }

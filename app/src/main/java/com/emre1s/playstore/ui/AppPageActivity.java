@@ -1,46 +1,29 @@
 package com.emre1s.playstore.ui;
 
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
-
 import android.net.Uri;
-
 import android.os.Bundle;
-
 import android.text.Html;
-
 import android.util.Log;
-
-import android.view.Menu;
-
 import android.view.MenuItem;
-
 import android.view.View;
-
 import android.widget.Button;
-
 import android.widget.ImageView;
-
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ReviewAdapter;
 import com.emre1s.playstore.api.DatabaseCallback;
-
 import com.emre1s.playstore.api.RetrofitApiFactory;
 
 import com.emre1s.playstore.api.ReviewResponseCallback;
@@ -53,7 +36,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AppPageActivity extends AppCompatActivity implements ReviewResponseCallback {

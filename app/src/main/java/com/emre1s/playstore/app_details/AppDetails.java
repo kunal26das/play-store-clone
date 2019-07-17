@@ -85,9 +85,17 @@ public class AppDetails implements Parcelable {
     @SerializedName(KEY_REVIEWS)
     private Integer mReviews;
 
-    public void setmHistograms(Histogram mHistograms) {
-        this.mHistograms = mHistograms;
-    }
+    public static final Parcelable.Creator<AppDetails> CREATOR = new Parcelable.Creator<AppDetails>() {
+        @Override
+        public AppDetails createFromParcel(Parcel source) {
+            return new AppDetails(source);
+        }
+
+        @Override
+        public AppDetails[] newArray(int size) {
+            return new AppDetails[size];
+        }
+    };
 
     @SerializedName(KEY_HISTOGRAM)
     private Histogram mHistograms;
@@ -443,6 +451,54 @@ public class AppDetails implements Parcelable {
         return mUrl;
     }
 
+    protected AppDetails(Parcel in) {
+        this.mTitle = in.readString();
+        this.mDescription = in.readString();
+        this.mDescriptionHtml = in.readString();
+        this.mSummary = in.readString();
+        this.mInstalls = in.readString();
+        this.mMinInstalls = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mScore = (Float) in.readValue(Float.class.getClassLoader());
+        this.mScoreText = in.readString();
+        this.mRatings = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mReviews = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mPrice = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.mFree = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mCurrency = in.readString();
+        this.mPriceText = in.readString();
+        this.mOffersIap = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mSize = in.readString();
+        this.mAndroidVersion = in.readString();
+        this.mAndroidVersionText = in.readString();
+        this.mDeveloper = in.readString();
+        this.mDeveloperId = in.readString();
+        this.mDeveloperEmail = in.readString();
+        this.mDeveloperWebsite = in.readString();
+        this.mDeveloperAddress = in.readString();
+        this.mPrivacyPolicy = in.readString();
+        this.mDeveloperInternalId = in.readString();
+        this.mGenre = in.readString();
+        this.mGenreId = in.readString();
+        this.mIcon = in.readString();
+        this.mHeaderImage = in.readString();
+        this.mScreenshots = in.createStringArrayList();
+        this.mVideo = in.readString();
+        this.mVideoImage = in.readString();
+        this.mContentRating = in.readString();
+        this.mAdSupported = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.mReleased = in.readString();
+        this.mUpdated = (Long) in.readValue(Long.class.getClassLoader());
+        this.mVersion = in.readString();
+        this.mRecentChanges = in.readString();
+        this.mComments = in.createStringArrayList();
+        this.mAppId = in.readString();
+        this.mUrl = in.readString();
+    }
+
+    public void setmHistograms(Histogram mHistograms) {
+        this.mHistograms = mHistograms;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -492,60 +548,4 @@ public class AppDetails implements Parcelable {
         dest.writeString(this.mAppId);
         dest.writeString(this.mUrl);
     }
-
-    protected AppDetails(Parcel in) {
-        this.mTitle = in.readString();
-        this.mDescription = in.readString();
-        this.mDescriptionHtml = in.readString();
-        this.mSummary = in.readString();
-        this.mInstalls = in.readString();
-        this.mMinInstalls = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.mScore = (Float) in.readValue(Float.class.getClassLoader());
-        this.mScoreText = in.readString();
-        this.mRatings = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.mReviews = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.mPrice = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.mFree = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.mCurrency = in.readString();
-        this.mPriceText = in.readString();
-        this.mOffersIap = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.mSize = in.readString();
-        this.mAndroidVersion = in.readString();
-        this.mAndroidVersionText = in.readString();
-        this.mDeveloper = in.readString();
-        this.mDeveloperId = in.readString();
-        this.mDeveloperEmail = in.readString();
-        this.mDeveloperWebsite = in.readString();
-        this.mDeveloperAddress = in.readString();
-        this.mPrivacyPolicy = in.readString();
-        this.mDeveloperInternalId = in.readString();
-        this.mGenre = in.readString();
-        this.mGenreId = in.readString();
-        this.mIcon = in.readString();
-        this.mHeaderImage = in.readString();
-        this.mScreenshots = in.createStringArrayList();
-        this.mVideo = in.readString();
-        this.mVideoImage = in.readString();
-        this.mContentRating = in.readString();
-        this.mAdSupported = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.mReleased = in.readString();
-        this.mUpdated = (Long) in.readValue(Long.class.getClassLoader());
-        this.mVersion = in.readString();
-        this.mRecentChanges = in.readString();
-        this.mComments = in.createStringArrayList();
-        this.mAppId = in.readString();
-        this.mUrl = in.readString();
-    }
-
-    public static final Parcelable.Creator<AppDetails> CREATOR = new Parcelable.Creator<AppDetails>() {
-        @Override
-        public AppDetails createFromParcel(Parcel source) {
-            return new AppDetails(source);
-        }
-
-        @Override
-        public AppDetails[] newArray(int size) {
-            return new AppDetails[size];
-        }
-    };
 }

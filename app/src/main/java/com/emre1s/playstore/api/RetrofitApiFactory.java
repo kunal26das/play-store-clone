@@ -14,13 +14,10 @@ import com.emre1s.playstore.models.TabList;
 
 import java.util.List;
 
-
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -269,37 +266,6 @@ public class RetrofitApiFactory {
                 });
     }
 
-    public void getAppPermissions(String packageName,
-                                  final PermissionResponseCallback permissionResponseCallback) {
-
-        retrofitAPICalls.getAppPermissions(packageName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Permission>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Permission> permissions) {
-                        permissionResponseCallback.onSuccess(permissions);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        permissionResponseCallback.onFailure();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
-
-
     public static TabList getGamesAndAppsTabList() {
         return gamesAndAppsTabList;
     }
@@ -336,6 +302,43 @@ public class RetrofitApiFactory {
         return movieGenreList;
     }
 
+    public static CategoryList getGamesTopCategoryList() {
+        return gamesTopCategoryList;
+    }
+
+    public static void setGamesTopCategoryList(CategoryList gamesTopCategoryList) {
+        RetrofitApiFactory.gamesTopCategoryList = gamesTopCategoryList;
+    }
+
+    public void getAppPermissions(String packageName,
+                                  final PermissionResponseCallback permissionResponseCallback) {
+
+        retrofitAPICalls.getAppPermissions(packageName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Permission>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Permission> permissions) {
+                        permissionResponseCallback.onSuccess(permissions);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        permissionResponseCallback.onFailure();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     public void getReviews(String id, final ReviewResponseCallback reviewResponseCallback) {
         retrofitAPICalls.getReviews(id)
                 .subscribeOn(Schedulers.io())
@@ -358,14 +361,6 @@ public class RetrofitApiFactory {
                         Log.d("Reviews failed", e.getLocalizedMessage());
                     }
                 });
-    }
-
-    public static CategoryList getGamesTopCategoryList() {
-        return gamesTopCategoryList;
-    }
-
-    public static void setGamesTopCategoryList(CategoryList gamesTopCategoryList) {
-        RetrofitApiFactory.gamesTopCategoryList = gamesTopCategoryList;
     }
 
 }
