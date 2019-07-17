@@ -1,56 +1,35 @@
 package com.emre1s.playstore.ui;
 
 
-
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
-
 import android.net.Uri;
-
 import android.os.Bundle;
-
 import android.text.Html;
-
 import android.util.Log;
-
 import android.view.Menu;
-
 import android.view.MenuItem;
-
 import android.view.View;
-
 import android.widget.Button;
-
 import android.widget.ImageView;
-
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.DatabaseCallback;
-
 import com.emre1s.playstore.api.RetrofitApiFactory;
-
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
-
 import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AppPageActivity extends AppCompatActivity {
@@ -89,8 +68,8 @@ public class AppPageActivity extends AppCompatActivity {
         final Button appUninstallButton = findViewById(R.id.btn_uninstall_app);
 
         final TextView averageRating = findViewById(R.id.score_review);
-        final RatingBar ratingBarTotal= findViewById(R.id.rating_review);
-        final TextView totalRating=findViewById(R.id.total_reviews);
+        final RatingBar ratingBarTotal = findViewById(R.id.rating_review);
+        final TextView totalRating = findViewById(R.id.total_reviews);
 
         PackageManager packageManager = getPackageManager();
 
@@ -150,7 +129,7 @@ public class AppPageActivity extends AppCompatActivity {
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     appDetail = appDetails;
-                    float progressFive = (float)appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
+                    float progressFive = (float) appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
                     progressBarFive.setProgress(progressFive * 100);
                     float progressFour = (float) appDetails.getmHistograms().getmFour() / appDetails.getmRatings();
                     progressBarFour.setProgress(progressFour * 100);
@@ -170,7 +149,7 @@ public class AppPageActivity extends AppCompatActivity {
                     appGenre.setText(appDetails.getmGenre());
                     averageRating.setText(appDetails.getmScoreText());
                     ratingBarTotal.setRating(appDetails.getmScore());
-                    totalRating.setText(appDetails.getmRatings()+"");
+                    totalRating.setText(appDetails.getmRatings() + "");
                     if (appDetails.hasAdSupport() && appDetails.hasInAppPurchases()) {
                         appMonetize.setText("Contains ads • In-app purchases");
                     } else if (appDetails.hasAdSupport()) {
@@ -213,29 +192,28 @@ public class AppPageActivity extends AppCompatActivity {
 
         }, mAppId);
 
-        LinearLayout histogramLayout= findViewById(R.id.histogram);
+        LinearLayout histogramLayout = findViewById(R.id.histogram);
         histogramLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reviewIntent= new Intent(AppPageActivity.this,
+                Intent reviewIntent = new Intent(AppPageActivity.this,
                         ReviewPageActivity.class);
-                reviewIntent.putExtra("id",mAppId);
+                reviewIntent.putExtra("id", mAppId);
                 startActivity(reviewIntent);
             }
         });
 
-        Button seeAll= findViewById(R.id.show_reviews);
+        Button seeAll = findViewById(R.id.show_reviews);
         seeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reviewIntent= new Intent(AppPageActivity.this,
+                Intent reviewIntent = new Intent(AppPageActivity.this,
                         ReviewPageActivity.class);
-                reviewIntent.putExtra("id",mAppId);
+                reviewIntent.putExtra("id", mAppId);
                 startActivity(reviewIntent);
             }
         });
     }
-
 
 
     private void switchButtons(boolean appIsInstalled) {
@@ -273,7 +251,6 @@ public class AppPageActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
     @Override

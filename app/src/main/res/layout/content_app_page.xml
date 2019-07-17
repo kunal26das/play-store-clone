@@ -24,7 +24,7 @@
 
         <include layout="@layout/divider" />
 
-        <include layout="@layout/histogram_layout"/>
+        <include layout="@layout/histogram_layout" />
         <Button
             android:id="@+id/show_reviews"
             android:layout_width="match_parent"

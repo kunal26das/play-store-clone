@@ -10,17 +10,17 @@
         android:id="@+id/app_detail_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="64dp"
         android:background="@color/whiteColor"
-        android:elevation="4dp"
-        android:contentInsetLeft="0dp"
         android:contentInsetStart="0dp"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        android:contentInsetRight="0dp"
+        android:contentInsetLeft="0dp"
         android:contentInsetEnd="0dp"
-        app:contentInsetRight="0dp"
+        android:contentInsetRight="0dp"
+        android:elevation="4dp"
+        android:minHeight="64dp"
         app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,13 +91,13 @@
 
             <include
                 android:id="@+id/app_detail_container"
-                android:visibility="visible"
-                layout="@layout/app_detail_about" />
+                layout="@layout/app_detail_about"
+                android:visibility="visible" />
 
             <include
                 android:id="@+id/app_permissions_container"
-                android:visibility="gone"
-                layout="@layout/activity_app_permissions" />
+                layout="@layout/activity_app_permissions"
+                android:visibility="gone" />
 
         </FrameLayout>
 

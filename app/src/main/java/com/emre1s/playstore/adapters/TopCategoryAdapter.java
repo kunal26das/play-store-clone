@@ -24,14 +24,14 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
     private List<CategoryList.Category> categoryList = new ArrayList<>();
     private OnCategoryChanged onCategoryChanged;
 
-    public void setCategoryList(List<CategoryList.Category> categoryList) {
-        this.categoryList = categoryList;
-        notifyDataSetChanged();
-    }
-
     public TopCategoryAdapter(Context context, OnCategoryChanged onCategoryChanged) {
         this.context = context;
         this.onCategoryChanged = onCategoryChanged;
+    }
+
+    public void setCategoryList(List<CategoryList.Category> categoryList) {
+        this.categoryList = categoryList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -45,7 +45,7 @@ public class TopCategoryAdapter extends RecyclerView.Adapter<TopCategoryAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.categoryIcon.setImageResource(context.getResources()
                 .getIdentifier(categoryList.get(position).getIcon(),
-                "drawable", context.getPackageName()));
+                        "drawable", context.getPackageName()));
 
         holder.categoryName.setText(categoryList.get(position).getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

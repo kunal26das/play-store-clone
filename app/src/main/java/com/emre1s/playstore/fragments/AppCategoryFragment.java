@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -19,13 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AllCategoriesAdapter;
 import com.emre1s.playstore.adapters.TopCategoryAdapter;
-import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.listeners.OnCategoryChanged;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AppCategoryFragment extends Fragment {
@@ -95,9 +92,7 @@ public class AppCategoryFragment extends Fragment {
         pagerSnapHelper.attachToRecyclerView(topCategories);
 
 
-
-
-        AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter(getContext(),new OnCategoryChanged() {
+        AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter(getContext(), new OnCategoryChanged() {
             @Override
             public void changeCategory(CategoryList.Category category) {
                 Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());

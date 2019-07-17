@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,10 +26,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        tools:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_about_app_label" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_about_app_label"
+        tools:text="TextView" />
 
     <View
         android:id="@+id/divider1"
@@ -67,14 +66,14 @@
             android:id="@+id/tv_rated_number"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/rectangle"
-            android:text="12+"
-            android:textColor="@color/black"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="20sp"
-            android:gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="12+"
+            android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_more_info_label" />
 
@@ -239,10 +238,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            tools:text="2.61.233"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_app_info_label" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_app_info_label"
+            tools:text="2.61.233" />
 
         <TextView
             android:id="@+id/tv_updated_on"
@@ -250,10 +249,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            tools:text="Jul 9,2019"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_version" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_version"
+            tools:text="Jul 9,2019" />
 
         <TextView
             android:id="@+id/tv_downloads"
@@ -262,9 +261,9 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:textColor="@color/black"
-            tools:text="1,000,000,000+ downloads"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_updated_on" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_updated_on"
+            tools:text="1,000,000,000+ downloads" />
 
         <TextView
             android:id="@+id/tv_size"
@@ -272,10 +271,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            tools:text="36.15 MB"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_downloads" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_downloads"
+            tools:text="36.15 MB" />
 
         <TextView
             android:id="@+id/tv_released_on"
@@ -283,10 +282,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            tools:text="Apr 3,2012"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_size" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_size"
+            tools:text="Apr 3,2012" />
 
         <TextView
             android:id="@+id/tv_permission"
@@ -294,9 +293,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
+            android:onClick="showPermissions"
             android:text="See More"
             android:textColor="@color/colorPrimaryDark"
-            android:onClick="showPermissions"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_released_on" />
 
