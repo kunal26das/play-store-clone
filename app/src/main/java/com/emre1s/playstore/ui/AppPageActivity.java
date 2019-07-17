@@ -143,7 +143,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
-        progressBarFive.setProgressBackgroundColor(R.color.colorHistogram);
+        progressBarFive.setProgressBackgroundColor(R.color.silverColor);
         progressBarFour.setProgressBackgroundColor(R.color.colorHistogram);
         progressBarThree.setProgressBackgroundColor(R.color.colorHistogram);
         progressBarTwo.setProgressBackgroundColor(R.color.colorHistogram);
