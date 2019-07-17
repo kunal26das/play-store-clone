@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -141,11 +142,11 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         final TextView appRating = findViewById(R.id.tv_app_content_rating);
         final TextView appInstalls = findViewById(R.id.tv_app_installs);
 
-         RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
-         RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
-         RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
-         RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
-         RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
+        ProgressBar progressBarFive = findViewById(R.id.five_stars);
+        ProgressBar progressBarFour = findViewById(R.id.four_stars);
+        ProgressBar progressBarThree = findViewById(R.id.three_stars);
+        ProgressBar progressBarTwo = findViewById(R.id.two_stars);
+        ProgressBar progressBarOne = findViewById(R.id.one_star);
 
         final TextView appSummary = findViewById(R.id.tv_app_summary);
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
@@ -160,37 +161,36 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                 RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
-        progressBarFive.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarFour.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarThree.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarTwo.setProgressBackgroundColor(R.color.colorHistogram);
-        progressBarOne.setProgressBackgroundColor(R.color.colorHistogram);
-
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
             @Override
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     appDetail = appDetails;
-                    float progressFive = (float) appDetails
+                    float progressFive =(float) appDetails
                             .getmHistograms().getmFive() / appDetails.getmRatings();
-                    progressBarFive.setProgress((progressFive * 100) + 10);
+                    Log.d(AppPageActivity.class.getSimpleName(), "Progress five: " + progressFive);
+                    progressBarFive.setProgress((int)(progressFive * 100) + 10);
 
                     float progressFour = (float) appDetails
                             .getmHistograms().getmFour() / appDetails.getmRatings();
-                    progressBarFour.setProgress((progressFour * 100) + 10);
+                    Log.d(AppPageActivity.class.getSimpleName(), "Progress four: " + progressFour);
+                    progressBarFour.setProgress((int)(progressFour * 100) + 10);
 
                     float progressThree = (float) appDetails
                             .getmHistograms().getmThree() / appDetails.getmRatings();
-                    progressBarThree.setProgress((progressThree * 100) + 10);
+                    Log.d(AppPageActivity.class.getSimpleName(), "Progress three: " + progressThree);
+                    progressBarThree.setProgress((int)(progressThree * 100) + 10);
 
                     float progressTwo = (float) appDetails
                             .getmHistograms().getmTwo() / appDetails.getmRatings();
-                    progressBarTwo.setProgress((progressTwo * 100) + 10);
+                    Log.d(AppPageActivity.class.getSimpleName(), "Progress two: " + progressTwo);
+                    progressBarTwo.setProgress((int)(progressTwo * 100) + 10);
 
                     float progressOne = (float) appDetails
                             .getmHistograms().getmOne() / appDetails.getmRatings();
-                    progressBarOne.setProgress((progressOne * 100) + 10);
+                    Log.d(AppPageActivity.class.getSimpleName(), "Progress one: " + progressOne);
+                    progressBarOne.setProgress((int)(progressOne * 100) + 10);
 
                     Picasso.get().load(appDetails.getmIcon()).into(appIcon);
 
