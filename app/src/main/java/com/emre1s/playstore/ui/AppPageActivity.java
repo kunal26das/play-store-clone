@@ -150,7 +150,8 @@ public class AppPageActivity extends AppCompatActivity {
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     appDetail = appDetails;
-                    float progressFive = (float)appDetails.getmHistograms().getmFive() / appDetails.getmRatings();
+                    float progressFive = (float)appDetails
+                            .getmHistograms().getmFive() / appDetails.getmRatings();
                     progressBarFive.setProgress(progressFive * 100);
                     float progressFour = (float) appDetails.getmHistograms().getmFour() / appDetails.getmRatings();
                     progressBarFour.setProgress(progressFour * 100);
