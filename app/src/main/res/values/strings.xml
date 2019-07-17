@@ -56,4 +56,6 @@
 
     <string name="all_reviews">All Reviews</string>
     <string name="five">5</string>
+    <string name="share_application">Share Application</string>
+    <string name="no_application_available">No application available to handle request</string>
 </resources>

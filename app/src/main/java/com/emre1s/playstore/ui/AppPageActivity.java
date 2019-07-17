@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +37,11 @@ import com.emre1s.playstore.models.Review;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AppPageActivity extends AppCompatActivity implements ReviewResponseCallback {
     private static final String EMPTY_STRING = "";
@@ -114,11 +117,11 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         final TextView appRating = findViewById(R.id.tv_app_content_rating);
         final TextView appInstalls = findViewById(R.id.tv_app_installs);
 
-        final RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
-        final RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
-        final RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
-        final RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
-        final RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
+         RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
+         RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
+         RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
+         RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
+         RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
 
         final TextView appSummary = findViewById(R.id.tv_app_summary);
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
@@ -127,7 +130,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
-        progressBarFive.setProgressBackgroundColor(R.color.silverColor);
+        progressBarFive.setProgressBackgroundColor(R.color.colorHistogram);
         progressBarFour.setProgressBackgroundColor(R.color.colorHistogram);
         progressBarThree.setProgressBackgroundColor(R.color.colorHistogram);
         progressBarTwo.setProgressBackgroundColor(R.color.colorHistogram);
@@ -237,10 +240,10 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                         ReviewPageActivity.class);
                 reviewIntent.putExtra("appDetails", appDetail);
                 startActivity(reviewIntent);
+
             }
         });
     }
-
 
     private void switchButtons(boolean appIsInstalled) {
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
@@ -291,9 +294,14 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case android.R.id.home:
+            case android.R.id.home: {
                 onBackPressed();
                 break;
+            }
+            case R.id.share_app: {
+                shareApp(appDetail);
+                break;
+            }
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -316,5 +324,23 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
     @Override
     public void onFailure() {
 
+    }
+
+    private void shareApp(AppDetails appDetails) {
+        Intent shareLink = new Intent(Intent.ACTION_SEND);
+        String shareType;
+        shareLink.setType("text/plain");
+        if (appDetails != null) {
+            shareLink.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_application));
+            shareLink.putExtra(Intent.EXTRA_TEXT, appDetails.getmUrl());
+            shareType = appDetails.getmTitle();
+
+            if (shareLink.resolveActivity(getPackageManager()) != null) {
+                startActivity(Intent.createChooser(shareLink, shareType));
+            } else {
+                Toast.makeText(AppPageActivity.this, getString(R.string.no_application_available),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
