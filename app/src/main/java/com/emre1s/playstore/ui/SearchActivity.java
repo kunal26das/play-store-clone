@@ -32,6 +32,8 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.emre1s.playstore.ui.MainActivity.hideSoftKeyboard;
+
 public class SearchActivity extends AppCompatActivity implements ApiResponseCallback {
     private FloatingSearchView searchView;
     private SearchResultAdapter searchResultAdapter;
@@ -81,7 +83,8 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
         searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                Log.d(MainActivity.class.getSimpleName(), "SearchTextChanged" + "Old query: " + oldQuery +
+                Log.d(MainActivity.class.getSimpleName(),
+                        "SearchTextChanged" + "Old query: " + oldQuery +
                         "New query: " + newQuery);
 
                 if (oldQuery.equals("") && newQuery.equals("")) {
@@ -137,16 +140,19 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
             }
         });
 
-        String finalQuery = query;
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-
+                resetSearchView();
+                pageViewModel.makeSearchResultsApiCall(searchSuggestion.getBody(),
+                        SearchActivity.this);
             }
 
             @Override
             public void onSearchAction(String currentQuery) {
-                pageViewModel.makeSearchResultsApiCall(finalQuery, SearchActivity.this);
+                resetSearchView();
+                pageViewModel.makeSearchResultsApiCall(currentQuery,
+                        SearchActivity.this);
             }
         });
     }
@@ -170,11 +176,18 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
 
     @Override
     public void onSuccess(List<App> popularApp) {
+        Log.d(SearchActivity.class.getSimpleName(), "SearchActivity search called");
         searchResultAdapter.setSearchResultList(popularApp);
     }
 
     @Override
     public void onFailure() {
 
+    }
+
+    private void resetSearchView() {
+        hideSoftKeyboard(SearchActivity.this);
+        searchView.clearSuggestions();
+        searchView.clearQuery();
     }
 }

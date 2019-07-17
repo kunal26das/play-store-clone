@@ -8,6 +8,7 @@
         app:showAsAction="always" />
     <item
         android:orderInCategory="2"
+        android:id="@+id/share_app"
         android:title="Share" />
     <item
         android:orderInCategory="3"

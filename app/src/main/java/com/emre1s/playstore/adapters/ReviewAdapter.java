@@ -1,10 +1,10 @@
 package com.emre1s.playstore.adapters;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.models.Review;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,8 +21,12 @@ import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
-
     private List<Review> reviewList = new ArrayList<>();
+    private LayoutInflater mLayoutInflater;
+
+    public ReviewAdapter(Context context) {
+        mLayoutInflater = LayoutInflater.from(context);
+    }
 
     @NonNull
     @Override
@@ -52,7 +57,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView userImage;
+        private CircularImageView userImage;
         private TextView userName;
         private RatingBar ratingBar;
         private TextView reviewDate;
@@ -68,5 +73,4 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             ratingBar.setProgress(R.color.black);
         }
     }
-
 }

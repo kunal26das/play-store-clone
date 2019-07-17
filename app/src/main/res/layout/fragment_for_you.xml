@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/silverColor"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -10,14 +11,16 @@
         android:layout_height="match_parent"
         android:visibility="visible" />
 
-    <ProgressBar
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/pb_for_you"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone" />
+        android:visibility="visible"
+        app:cpb_background_progressbar_color="@color/colorPrimary"
+        app:cpb_background_progressbar_width="4dp"
+        app:cpb_indeterminate_mode="true" />
+
 
 </FrameLayout>
 
