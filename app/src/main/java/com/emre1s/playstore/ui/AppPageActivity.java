@@ -20,6 +20,7 @@ import android.view.View;
 
 import android.widget.Button;
 
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
@@ -63,6 +64,10 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
     private AppDetails appDetail;
     private ReviewAdapter reviewAdapter;
     private PageViewModel pageViewModel;
+    private String urlWebsite;
+    private String emailId;
+    private String privacyPolicy;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +145,11 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
         final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
 
+        final LinearLayout websiteLayout= findViewById(R.id.web_layout);
+        final LinearLayout emailLayout = findViewById(R.id.email_layout);
+        final LinearLayout addressLayout = findViewById(R.id.address_layout);
+        final LinearLayout privacyLayout= findViewById(R.id.privacy_layout);
+
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
@@ -208,6 +218,63 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
 
                     screenshotsAdapter.setScreenshots(appScreenshots1);
 
+                    urlWebsite=appDetails.getmDeveloperWebsite();
+                    emailId=appDetails.getmDeveloperEmail();
+                    privacyPolicy=appDetails.getmPrivacyPolicy();
+                    address=appDetails.getmDeveloperAddress();
+
+                    if (urlWebsite == null) {
+                        websiteLayout.setVisibility(View.GONE);
+                    } else {
+                        websiteLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlWebsite));
+                                    startActivity(browserIntent);
+                            }
+                        });
+                    }
+
+                    if(emailId== null){
+                        emailLayout.setVisibility(View.GONE);
+                    } else {
+                        TextView emailIdTv= findViewById(R.id.email_id);
+                        emailIdTv.setText(emailId);
+                        emailLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                                    emailIntent.setData(Uri.parse("mailto:" + emailId));
+                                    startActivity(emailIntent);
+                            }
+                        });
+                    }
+
+                    if (address==null){
+                        addressLayout.setVisibility(View.GONE);
+                    } else {
+                        TextView addressTv=findViewById(R.id.address);
+                        addressTv.setText(address);
+                        addressLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.d("Address", address);
+                            }
+                        });
+                    }
+
+                    if (privacyPolicy== null){
+                        privacyLayout.setVisibility(View.GONE);
+                    } else {
+                        privacyLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicy));
+                                    startActivity(browserIntent);
+                            }
+                        });
+                    }
+
                 }
 
             }
@@ -245,6 +312,22 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                         ReviewPageActivity.class);
                 reviewIntent.putExtra("appDetails", appDetail);
                 startActivity(reviewIntent);
+            }
+        });
+
+        FrameLayout developerHead= findViewById(R.id.developer_header);
+        LinearLayout developerDetails= findViewById(R.id.developer_details);
+        ImageView navigate = findViewById(R.id.view_more);
+        developerHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (developerDetails.getVisibility()==View.GONE){
+                    navigate.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    developerDetails.setVisibility(View.VISIBLE);
+                } else {
+                    navigate.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    developerDetails.setVisibility(View.GONE);
+                }
             }
         });
     }
