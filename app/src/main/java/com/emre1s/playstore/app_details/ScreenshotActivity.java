@@ -7,13 +7,12 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ import java.util.List;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class ScreenshotActivity extends AppCompatActivity {
+public class ScreenshotActivity extends AppCompatActivity implements View.OnClickListener {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -80,7 +79,7 @@ public class ScreenshotActivity extends AppCompatActivity {
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(true);
-                //actionBar.setBackgroundDrawable(null);
+                actionBar.setBackgroundDrawable(null);
                 actionBar.setTitle("");
                 actionBar.show();
             }
@@ -99,36 +98,17 @@ public class ScreenshotActivity extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.iv_screenshot);
-        ImageView screenshotImageView = (ImageView) mContentView;
+        mContentView = findViewById(R.id.screenshots_viewpager);
+        ViewPager screenshotsViewPager = (ViewPager) mContentView;
 
 
         Intent intent = getIntent();
         if (intent.hasExtra("SCREENSHOTS_URL")) {
             List<String> screenshotsUrls = intent.getStringArrayListExtra("SCREENSHOTS_URL");
-            final int screenshotsCount = screenshotsUrls.size();
-            final int screenshotIndex = intent.getIntExtra("SCREENSHOT_INDEX", 0);
-            Picasso.get().load(screenshotsUrls.get(screenshotIndex)).into(screenshotImageView);
-            /*screenshotImageView.setOnTouchListener(new OnSwipeTouchListener(this) {
-                int index = screenshotIndex;
-
-                public void onSwipeRight() {
-                    if (index > 0) {
-                        Picasso.get().load(screenshotsUrls.get(--index)).into(screenshotImageView);
-                    }
-                }
-
-                public void onSwipeLeft() {
-                    if (index < screenshotsCount) {
-                        Picasso.get().load(screenshotsUrls.get(index++)).into(screenshotImageView);
-                    }
-                }
-            });*/
+            screenshotsViewPager.setAdapter(new ScreenshotPagerAdapter(this, screenshotsUrls));
         }
 
         // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(view -> toggle());
-
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -202,5 +182,10 @@ public class ScreenshotActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(menuItem);
             }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        toggle();
     }
 }

@@ -3,8 +3,8 @@ package com.emre1s.playstore.api;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.Permission;
-
 import com.emre1s.playstore.models.Review;
+
 import java.util.List;
 
 import io.reactivex.Observable;

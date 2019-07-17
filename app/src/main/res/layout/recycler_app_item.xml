@@ -14,9 +14,9 @@
         android:id="@+id/iv_app_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/app_icon_card"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

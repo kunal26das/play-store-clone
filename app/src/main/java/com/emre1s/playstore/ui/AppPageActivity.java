@@ -1,63 +1,52 @@
 package com.emre1s.playstore.ui;
 
-
-
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
-
 import android.net.Uri;
-
 import android.os.Bundle;
-
 import android.text.Html;
-
 import android.util.Log;
-
 import android.view.Menu;
-
 import android.view.MenuItem;
-
 import android.view.View;
-
 import android.widget.Button;
-
 import android.widget.ImageView;
-
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.adapters.ReviewAdapter;
 import com.emre1s.playstore.api.DatabaseCallback;
-
 import com.emre1s.playstore.api.RetrofitApiFactory;
 
+import com.emre1s.playstore.api.ReviewResponseCallback;
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.app_details.ScreenshotsAdapter;
 
+import com.emre1s.playstore.models.Review;
+import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class AppPageActivity extends AppCompatActivity {
+public class AppPageActivity extends AppCompatActivity implements ReviewResponseCallback {
     private static final String EMPTY_STRING = "";
     private static final int UNINSTALL_REQUEST_CODE = 1;
     private String mAppId;
     private AppDetails appDetail;
+    private ReviewAdapter reviewAdapter;
+    private PageViewModel pageViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +78,8 @@ public class AppPageActivity extends AppCompatActivity {
         final Button appUninstallButton = findViewById(R.id.btn_uninstall_app);
 
         final TextView averageRating = findViewById(R.id.score_review);
-        final RatingBar ratingBarTotal= findViewById(R.id.rating_review);
-        final TextView totalRating=findViewById(R.id.total_reviews);
+        final RatingBar ratingBarTotal = findViewById(R.id.rating_review);
+        final TextView totalRating = findViewById(R.id.total_reviews);
 
         PackageManager packageManager = getPackageManager();
 
@@ -138,11 +127,11 @@ public class AppPageActivity extends AppCompatActivity {
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
 
-        progressBarFive.setProgressBackgroundColor(R.color.colorLightGrey);
-        progressBarFour.setProgressBackgroundColor(R.color.colorLightGrey);
-        progressBarThree.setProgressBackgroundColor(R.color.colorLightGrey);
-        progressBarTwo.setProgressBackgroundColor(R.color.colorLightGrey);
-        progressBarOne.setProgressBackgroundColor(R.color.colorLightGrey);
+        progressBarFive.setProgressBackgroundColor(R.color.silverColor);
+        progressBarFour.setProgressBackgroundColor(R.color.colorHistogram);
+        progressBarThree.setProgressBackgroundColor(R.color.colorHistogram);
+        progressBarTwo.setProgressBackgroundColor(R.color.colorHistogram);
+        progressBarOne.setProgressBackgroundColor(R.color.colorHistogram);
 
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
@@ -150,28 +139,35 @@ public class AppPageActivity extends AppCompatActivity {
             public void onSuccess(AppDetails appDetails) {
                 if (appDetails != null) {
                     appDetail = appDetails;
-                    float progressFive = (float)appDetails
+                    float progressFive = (float) appDetails
                             .getmHistograms().getmFive() / appDetails.getmRatings();
-                    progressBarFive.setProgress(progressFive * 100);
-                    float progressFour = (float) appDetails.getmHistograms().getmFour() / appDetails.getmRatings();
-                    progressBarFour.setProgress(progressFour * 100);
+                    progressBarFive.setProgress((progressFive * 100) + 10);
 
-                    float progressThree = (float) appDetails.getmHistograms().getmThree() / appDetails.getmRatings();
-                    progressBarThree.setProgress(progressThree * 100);
+                    float progressFour = (float) appDetails
+                            .getmHistograms().getmFour() / appDetails.getmRatings();
+                    progressBarFour.setProgress((progressFour * 100) + 10);
 
-                    float progressTwo = (float) appDetails.getmHistograms().getmTwo() / appDetails.getmRatings();
-                    progressBarTwo.setProgress(progressTwo * 100);
+                    float progressThree = (float) appDetails
+                            .getmHistograms().getmThree() / appDetails.getmRatings();
+                    progressBarThree.setProgress((progressThree * 100) + 10);
 
-                    float progressOne = (float) appDetails.getmHistograms().getmOne() / appDetails.getmRatings();
-                    progressBarOne.setProgress(progressOne * 100);
+                    float progressTwo = (float) appDetails
+                            .getmHistograms().getmTwo() / appDetails.getmRatings();
+                    progressBarTwo.setProgress((progressTwo * 100) + 10);
+
+                    float progressOne = (float) appDetails
+                            .getmHistograms().getmOne() / appDetails.getmRatings();
+                    progressBarOne.setProgress((progressOne * 100) + 10);
 
                     Picasso.get().load(appDetails.getmIcon()).into(appIcon);
+
                     appTitle.setText(appDetails.getmTitle());
                     appDeveloper.setText(appDetails.getmDeveloper());
                     appGenre.setText(appDetails.getmGenre());
                     averageRating.setText(appDetails.getmScoreText());
                     ratingBarTotal.setRating(appDetails.getmScore());
-                    totalRating.setText(appDetails.getmRatings()+"");
+                    totalRating.setText(appDetails.getmRatings() + "");
+
                     if (appDetails.hasAdSupport() && appDetails.hasInAppPurchases()) {
                         appMonetize.setText("Contains ads • In-app purchases");
                     } else if (appDetails.hasAdSupport()) {
@@ -207,6 +203,7 @@ public class AppPageActivity extends AppCompatActivity {
                 }
 
             }
+
             @Override
             public void onFailure() {
 
@@ -214,29 +211,35 @@ public class AppPageActivity extends AppCompatActivity {
 
         }, mAppId);
 
-        LinearLayout histogramLayout= findViewById(R.id.histogram);
+        LinearLayout histogramLayout = findViewById(R.id.histogram);
         histogramLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reviewIntent= new Intent(AppPageActivity.this,
+                Intent reviewIntent = new Intent(AppPageActivity.this,
                         ReviewPageActivity.class);
-                reviewIntent.putExtra("id",mAppId);
+                reviewIntent.putExtra("appDetails", appDetail);
                 startActivity(reviewIntent);
             }
         });
 
-        Button seeAll= findViewById(R.id.show_reviews);
+        RecyclerView reviewsRecycler=findViewById(R.id.reviews_recycler);
+        reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        reviewAdapter = new ReviewAdapter();
+        reviewsRecycler.setAdapter(reviewAdapter);
+        pageViewModel= ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel.makeReviewsApiCall(mAppId,this);
+
+        Button seeAll = findViewById(R.id.show_reviews);
         seeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent reviewIntent= new Intent(AppPageActivity.this,
+                Intent reviewIntent = new Intent(AppPageActivity.this,
                         ReviewPageActivity.class);
-                reviewIntent.putExtra("id",mAppId);
+                reviewIntent.putExtra("appDetails", appDetail);
                 startActivity(reviewIntent);
             }
         });
     }
-
 
 
     private void switchButtons(boolean appIsInstalled) {
@@ -276,14 +279,12 @@ public class AppPageActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
 
     }
-
 
 
     @Override
@@ -304,5 +305,16 @@ public class AppPageActivity extends AppCompatActivity {
         Intent intent = new Intent(AppPageActivity.this, AppDetailsActivity.class);
         intent.putExtra("movieEntity", appDetail);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess(List<Review> reviews) {
+        List<Review> reviewsSublist= reviews.subList(0,2);
+        reviewAdapter.setReviewList(reviewsSublist);
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 }

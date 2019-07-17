@@ -27,7 +27,7 @@ public class Histogram {
     @SerializedName(KEY_FIVE)
     private int mFive;
 
-    public Histogram(){
+    public Histogram() {
 
     }
 

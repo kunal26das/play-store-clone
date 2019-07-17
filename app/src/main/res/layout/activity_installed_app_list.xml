@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/silverColor"
+    android:orientation="vertical"
     tools:context=".apps_installed_list.InstalledAppsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,8 +21,14 @@
             android:theme="@style/ToolbarTheme"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/app_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/whiteColor" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_installed_app_list" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

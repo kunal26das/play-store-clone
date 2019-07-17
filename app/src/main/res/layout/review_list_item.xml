@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -11,25 +12,26 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <ImageView
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/user_image"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:contentDescription="@string/app_name"/>
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:text="Ruchika Goel"
+            android:layout_marginStart="10dp"
+            tools:text="Ruchika Goel"
             android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
         android:orientation="horizontal">
 
         <RatingBar
@@ -37,14 +39,15 @@
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:progressTint="@color/colorPrimary"
             android:rating="4" />
 
         <TextView
             android:id="@+id/review_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="22/07/15" />
+            android:layout_marginStart="10dp"
+            tools:text="22/07/15" />
     </LinearLayout>
 
     <TextView
@@ -57,6 +60,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorGrey" />
+        android:background="@color/colorHistogram" />
 
 </LinearLayout>

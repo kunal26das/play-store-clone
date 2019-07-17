@@ -1,21 +1,20 @@
 package com.emre1s.playstore.ui;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.PermissionAdapter;
@@ -34,11 +33,11 @@ import butterknife.ButterKnife;
 
 public class AppDetailsActivity extends AppCompatActivity {
 
-    @BindView(R.id.app_detail_toolbar)
+    @BindView(R.id.app_review_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.iv_app_detail_icon)
+    @BindView(R.id.iv_app_icon)
     ImageView appIcon;
-    @BindView(R.id.tv_app_detail_name)
+    @BindView(R.id.tv_app_name)
     TextView appName;
     @BindView(R.id.tv_app_detail_type)
     TextView appDetailType;
@@ -110,12 +109,12 @@ public class AppDetailsActivity extends AppCompatActivity {
         appDetailType.setText("Details");
         aboutApp.setText(appDetail.getmDescription());
         ratedNumber.setText(appDetail.getmContentRating()
-                .substring(appDetail.getmContentRating().length()-3));
+                .substring(appDetail.getmContentRating().length() - 3));
         ratedText.setText(appDetail.getmContentRating());
         appVersion.setText(appDetail.getmVersion());
         appLastUpdated.setText(getDate(appDetail.getmUpdated()));
         appDownloads.setText(appDetail.getmInstalls());
-      //  int len = Integer.parseInt(appDetail.getmSize());
+        //  int len = Integer.parseInt(appDetail.getmSize());
         appSize.setText(appDetail.getmSize());
         appReleasedOn.setText(appDetail.getmReleased());
 

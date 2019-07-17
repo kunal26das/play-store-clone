@@ -1,44 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/iv_app_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="16dp" />
+    android:background="@color/whiteColor"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_app_title"
-            android:lines="1"
-            android:textColor="@color/blackColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_app_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_app_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="16dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_app_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:textColor="@color/blackColor" />
+
+                <TextView
+                    android:id="@+id/tv_app_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_open_app"
+                android:layout_width="72dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/btn_border"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="OPEN"
+                android:textColor="@color/primaryColor" />
+
+        </LinearLayout>
+
+        <include layout="@layout/divider" />
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="72dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="16dp"
-        android:id="@+id/btn_open_app"
-        android:background="@drawable/btn_border"
-        android:text="OPEN"
-        android:textColor="@color/primaryColor"
-        android:visibility="invisible" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>
