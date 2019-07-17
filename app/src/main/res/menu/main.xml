@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/app_page_search"
         android:icon="@mipmap/ic_search_foreground"
         android:orderInCategory="1"
         android:title=""

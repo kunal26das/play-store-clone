@@ -42,7 +42,7 @@ public class TopCharts extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
+        //getMenuInflater().inflate(R.menu.menu_search, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -52,9 +52,6 @@ public class TopCharts extends AppCompatActivity {
             case android.R.id.home: {
                 onBackPressed();
                 break;
-            }
-            case R.id.action_search: {
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
             }
         }
         return super.onOptionsItemSelected(item);
