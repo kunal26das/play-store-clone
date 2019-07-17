@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,11 +33,11 @@ import butterknife.ButterKnife;
 
 public class AppDetailsActivity extends AppCompatActivity {
 
-    @BindView(R.id.app_detail_toolbar)
+    @BindView(R.id.app_review_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.iv_app_detail_icon)
+    @BindView(R.id.iv_app_icon)
     ImageView appIcon;
-    @BindView(R.id.tv_app_detail_name)
+    @BindView(R.id.tv_app_name)
     TextView appName;
     @BindView(R.id.tv_app_detail_type)
     TextView appDetailType;

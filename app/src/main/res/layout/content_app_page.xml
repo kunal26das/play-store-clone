@@ -24,7 +24,22 @@
 
         <include layout="@layout/divider" />
 
-        <include layout="@layout/histogram_layout"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Ratings and Reviews"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <include layout="@layout/histogram_layout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reviews_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/show_reviews"
             android:layout_width="match_parent"
