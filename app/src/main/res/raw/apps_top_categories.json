@@ -2,35 +2,43 @@
   "categories": [
     {
       "name": "Photography",
-      "id": "PHOTOGRAPHY"
+      "id": "PHOTOGRAPHY",
+      "logo": "camera"
     },
     {
       "name": "Family",
-      "id": "FAMILY"
+      "id": "FAMILY",
+      "logo": "icons8_star_100"
     },
     {
       "name": "Music & Audio",
-      "id": "MUSIC_AND_AUDIO"
+      "id": "MUSIC_AND_AUDIO",
+      "logo": "icons8_music_100"
     },
     {
       "name": "Entertainment",
-      "id": "ENTERTAINMENT"
+      "id": "ENTERTAINMENT",
+      "logo": "icons8_movie_ticket_100"
     },
     {
       "name": "Shopping",
-      "id": "SHOPPING"
+      "id": "SHOPPING",
+      "logo": "domain"
     },
     {
       "name": "Personalization",
-      "id": "PERSONALIZATION"
+      "id": "PERSONALIZATION",
+      "logo": "icons8_admin_settings_male_64"
     },
     {
       "name": "Social",
-      "id": "SOCIAL"
+      "id": "SOCIAL",
+      "logo": "icons8_team_64"
     },
     {
       "name": "Communication",
-      "id": "COMMUNICATION"
+      "id": "COMMUNICATION",
+      "logo": "icons8_chat_100"
     }
   ]
 }

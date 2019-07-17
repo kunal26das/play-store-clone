@@ -64,7 +64,7 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
         }
 
         void updateScreenshot(String screenshotUrl, int screenshotIndex) {
-            Picasso.get().load(screenshotUrl).into(appScreenshot);
+            Picasso.get().load(screenshotUrl).resize(0, 768).into(appScreenshot);
             itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(itemView.getContext(), ScreenshotActivity.class);
                 intent.putStringArrayListExtra("SCREENSHOTS_URL", (ArrayList<String>) mScreenshots);

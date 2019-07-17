@@ -1,76 +1,89 @@
 {
   "categories": [
     {
-      "name": "Games",
-      "id": "GAME"
-    },
-    {
       "name": "Action",
-      "id": "GAME_ACTION"
+      "id": "GAME_ACTION",
+      "logo": "icons8_action_100"
     },
     {
       "name": "Adventure",
-      "id": "GAME_ADVENTURE"
+      "id": "GAME_ADVENTURE",
+      "logo": "icons8_adventure_100"
     },
     {
       "name": "Arcade",
-      "id": "GAME_ARCADE"
+      "id": "GAME_ARCADE",
+      "logo": "icons8_arcade_cabinet_100"
     },
     {
       "name": "Board",
-      "id": "GAME_BOARD"
+      "id": "GAME_BOARD",
+      "logo": "icons8_dice_100"
     },
     {
       "name": "Card",
-      "id": "GAME_CARD"
+      "id": "GAME_CARD",
+      "logo": "icons8aceofhearts100"
     },
     {
       "name": "Casino",
-      "id": "GAME_CASINO"
+      "id": "GAME_CASINO",
+      "logo": "icons8_chip_100"
     },
     {
       "name": "Casual",
-      "id": "GAME_CASUAL"
+      "id": "GAME_CASUAL",
+      "logo": "icons8_queen_of_spades_100"
     },
     {
       "name": "Educational",
-      "id": "GAME_EDUCATIONAL"
+      "id": "GAME_EDUCATIONAL",
+      "logo": "icons8_graduation_cap_100"
     },
     {
       "name": "Music",
-      "id": "GAME_MUSIC"
+      "id": "GAME_MUSIC",
+      "logo": "icons8_music_100"
     },
     {
       "name": "Puzzle",
-      "id": "GAME_PUZZLE"
+      "id": "GAME_PUZZLE",
+      "logo": "icons8_puzzle_100"
     },
     {
       "name": "Racing",
-      "id": "GAME_RACING"
+      "id": "GAME_RACING",
+      "logo": "icons8_steering_wheel_100"
     },
     {
       "name": "Role Playing",
-      "id": "GAME_ROLE_PLAYING"
+      "id": "GAME_ROLE_PLAYING",
+      "logo": "icons8_footman_100"
     },
     {
       "name": "Simulation",
-      "id": "GAME_SIMULATION"
+      "id": "GAME_SIMULATION",
+      "logo": "icons8_eye_100"
     },
     {
       "name": "Sports",
-      "id": "GAME_SPORTS"
+      "id": "GAME_SPORTS",
+      "logo": "icons8_tennis_ball_100"
     },
     {
       "name": "Strategy",
-      "id": "GAME_STRATEGY"
+      "id": "GAME_STRATEGY",
+      "logo": "icons8_knight_100"
     },
     {
       "name": "Trivia",
-      "id": "GAME_TRIVIA"
+      "id": "GAME_TRIVIA",
+      "logo": "icons8_faq_100"
     },
     {
       "name": "Wordplay",
-      "id": "GAME_WORD"
+      "id": "GAME_WORD",
+      "logo": "icons8_circled_w_100"
     }
   ]
 }

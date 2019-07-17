@@ -8,6 +8,7 @@ import com.emre1s.playstore.dagger.AppController;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.MovieGenreList;
+import com.emre1s.playstore.models.Permission;
 import com.emre1s.playstore.models.Review;
 import com.emre1s.playstore.models.TabList;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -33,6 +35,7 @@ public class RetrofitApiFactory {
     private static CategoryList appCategories;
 
     private static CategoryList appsTopCategoryList;
+    private static CategoryList gamesTopCategoryList;
 
 
     private static TabList gamesAndAppsTabList;
@@ -52,10 +55,6 @@ public class RetrofitApiFactory {
 
         retrofitAPICalls = retrofit.create(RetrofitAPICalls.class);
         this.application = application;
-    }
-
-    public static TabList getGamesAndAppsTabList() {
-        return gamesAndAppsTabList;
     }
 
     public void getAppDetails(DatabaseCallback databaseCallback, String appID) {
@@ -107,14 +106,6 @@ public class RetrofitApiFactory {
 
     }
 
-    public static void setGamesAndAppsTabList(TabList gamesAndAppsTabList) {
-        RetrofitApiFactory.gamesAndAppsTabList = gamesAndAppsTabList;
-    }
-
-    public static TabList getMovieTabList() {
-        return movieTabList;
-    }
-
     public static CategoryList getGameCategories() {
         return gameCategories;
     }
@@ -137,30 +128,6 @@ public class RetrofitApiFactory {
 
     public static void setAppCategories(CategoryList appCategories) {
         RetrofitApiFactory.appCategories = appCategories;
-    }
-
-    public static void setMovieTabList(TabList movieTabList) {
-        RetrofitApiFactory.movieTabList = movieTabList;
-    }
-
-    public static TabList getBookTabList() {
-        return bookTabList;
-    }
-
-    public static void setBookTabList(TabList bookTabList) {
-        RetrofitApiFactory.bookTabList = bookTabList;
-    }
-
-    public static TabList getMusicTabList() {
-        return musicTabList;
-    }
-
-    public static void setMusicTabList(TabList musicTabList) {
-        RetrofitApiFactory.musicTabList = musicTabList;
-    }
-
-    public static MovieGenreList getMovieGenreList() {
-        return movieGenreList;
     }
 
     public static void setMovieGenreList(MovieGenreList movieGenreList) {
@@ -299,6 +266,79 @@ public class RetrofitApiFactory {
                 });
     }
 
+    public static TabList getGamesAndAppsTabList() {
+        return gamesAndAppsTabList;
+    }
+
+    public static void setGamesAndAppsTabList(TabList gamesAndAppsTabList) {
+        RetrofitApiFactory.gamesAndAppsTabList = gamesAndAppsTabList;
+    }
+
+    public static TabList getMovieTabList() {
+        return movieTabList;
+    }
+
+    public static void setMovieTabList(TabList movieTabList) {
+        RetrofitApiFactory.movieTabList = movieTabList;
+    }
+
+    public static TabList getBookTabList() {
+        return bookTabList;
+    }
+
+    public static void setBookTabList(TabList bookTabList) {
+        RetrofitApiFactory.bookTabList = bookTabList;
+    }
+
+    public static TabList getMusicTabList() {
+        return musicTabList;
+    }
+
+    public static void setMusicTabList(TabList musicTabList) {
+        RetrofitApiFactory.musicTabList = musicTabList;
+    }
+
+    public static MovieGenreList getMovieGenreList() {
+        return movieGenreList;
+    }
+
+    public static CategoryList getGamesTopCategoryList() {
+        return gamesTopCategoryList;
+    }
+
+    public static void setGamesTopCategoryList(CategoryList gamesTopCategoryList) {
+        RetrofitApiFactory.gamesTopCategoryList = gamesTopCategoryList;
+    }
+
+    public void getAppPermissions(String packageName,
+                                  final PermissionResponseCallback permissionResponseCallback) {
+
+        retrofitAPICalls.getAppPermissions(packageName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Permission>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Permission> permissions) {
+                        permissionResponseCallback.onSuccess(permissions);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        permissionResponseCallback.onFailure();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     public void getReviews(String id, final ReviewResponseCallback reviewResponseCallback) {
         retrofitAPICalls.getReviews(id)
                 .subscribeOn(Schedulers.io())
@@ -306,6 +346,7 @@ public class RetrofitApiFactory {
                 .subscribe(new SingleObserver<List<Review>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
+
 
                     }
 
@@ -321,6 +362,5 @@ public class RetrofitApiFactory {
                     }
                 });
     }
-
 
 }

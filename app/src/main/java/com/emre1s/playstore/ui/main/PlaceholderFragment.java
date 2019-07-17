@@ -121,8 +121,10 @@ public class PlaceholderFragment extends Fragment {
         for (int i = 0; i < tabList.size(); i++) {
             tabLayout.getTabAt(i).setCustomView(R.layout.custom_tab);
             tabIcon = tabLayout.getTabAt(i).getCustomView().findViewById(R.id.tabIcon);
+            Log.d("Emre1s", "ICONAME:" + tabList.get(i).getIcon());
             int iconId = getResources().getIdentifier(tabList.get(i).getIcon(),
                     "drawable", getContext().getPackageName());
+            Log.d("Emre1s", "ICONID:" + iconId);
 
             tabIcon.setImageDrawable(getResources().getDrawable(iconId));
 

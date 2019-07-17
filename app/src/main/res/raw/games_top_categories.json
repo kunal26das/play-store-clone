@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "name": "Racing",
+      "id": "GAME_RACING",
+      "logo": "icons8_steering_wheel_100"
+    },
+    {
+      "name": "Card",
+      "id": "GAME_CARD",
+      "logo": "icons8aceofhearts100"
+    },
+    {
+      "name": "Puzzle",
+      "id": "GAME_PUZZLE",
+      "logo": "icons8_puzzle_100"
+    },
+    {
+      "name": "Action",
+      "id": "GAME_ACTION",
+      "logo": "icons8_action_100"
+    },
+    {
+      "name": "Casual",
+      "id": "GAME_CASUAL",
+      "logo": "icons8_queen_of_spades_100"
+    },
+    {
+      "name": "Trivia",
+      "id": "GAME_TRIVIA",
+      "logo": "icons8_faq_100"
+    },
+    {
+      "name": "Sports",
+      "id": "GAME_SPORTS",
+      "logo": "icons8_tennis_ball_100"
+    },
+    {
+      "name": "Wordplay",
+      "id": "GAME_WORD",
+      "logo": "icons8_circled_w_100"
+    }
+  ]
+}

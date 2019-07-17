@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,14 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     @Override
     public void onBindViewHolder(@NonNull InstalledAppsViewHolder holder, int position) {
         holder.updateAppInfo(mInstalledApps.get(position));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(holder.itemView.getLayoutParams());
+        layoutParams.setMargins(16, 0, 16, 0);
+        if (position == 0) {
+            layoutParams.setMargins(16, 20, 16, 0);
+        } else if (position == getItemCount() - 1) {
+            layoutParams.setMargins(16, 0, 16, 28);
+        }
+        holder.itemView.setLayoutParams(layoutParams);
     }
 
     @Override

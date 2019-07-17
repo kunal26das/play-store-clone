@@ -2,10 +2,12 @@ package com.emre1s.playstore.api;
 
 import com.emre1s.playstore.app_details.AppDetails;
 import com.emre1s.playstore.models.App;
+import com.emre1s.playstore.models.Permission;
 import com.emre1s.playstore.models.Review;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -45,9 +47,12 @@ public interface RetrofitAPICalls {
     Single<List<App>> getSearchResults(
             @Query("q") String query);
 
+    @GET("apps/permissions/")
+    Observable<List<Permission>> getAppPermissions(
+            @Query("id") String packageName);
+
     @GET("apps/reviews/")
     Single<List<Review>> getReviews(
             @Query("id") String id
     );
-
 }
