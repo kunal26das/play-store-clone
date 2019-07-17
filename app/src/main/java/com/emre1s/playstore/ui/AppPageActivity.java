@@ -4,6 +4,8 @@ import android.content.Intent;
 
 import android.content.pm.PackageManager;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 
 import android.os.Bundle;
@@ -52,6 +54,7 @@ import com.emre1s.playstore.models.Review;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.Arrays;
@@ -259,6 +262,22 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                             @Override
                             public void onClick(View view) {
                                 Log.d("Address", address);
+                                Geocoder geocoder=new Geocoder(AppPageActivity.this);
+                                List<Address> addresses;
+                                try{
+                                    addresses=geocoder.getFromLocationName(address,5);
+                                    if (addresses==null){
+                                        Log.d("Address", "null");
+                                    } else {
+                                        Address location = addresses.get(0);
+                                        Log.d("Address", location.getLatitude()+"****"+ location.getLongitude()+ "");
+                                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                                        intent.setData(Uri.parse("geo:"+location.getLatitude()+","+location.getLongitude()));
+                                        startActivity(intent);
+                                    }
+                                } catch (IOException e){
+                                    e.printStackTrace();
+                                }
                             }
                         });
                     }

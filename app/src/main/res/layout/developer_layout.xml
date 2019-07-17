@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/review_border"
     android:layout_margin="5dp">
@@ -39,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/web_layout"
@@ -98,7 +99,7 @@
                     android:id="@+id/email_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ruchika.goel7@gmail.com" />
+                    tools:text="ruchika.goel7@gmail.com" />
             </LinearLayout>
         </LinearLayout>
 
@@ -118,7 +119,7 @@
                 android:src="@drawable/ic_location_black_24dp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:orientation="vertical">
@@ -134,8 +135,7 @@
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="250dp"
-                    android:text="ruchika.goel7@gmail.com" />
+                    tools:text="ruchika.goel7@gmail.com" />
             </LinearLayout>
         </LinearLayout>
 
