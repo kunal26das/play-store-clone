@@ -23,6 +23,24 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_installed_app_list" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/content_installed_app_list" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/pb_installed_apps"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            app:cpb_background_progressbar_color="@color/colorPrimary"
+            app:cpb_background_progressbar_width="4dp"
+            android:visibility="visible"
+            app:cpb_indeterminate_mode="true"
+            app:cpb_progressbar_color="@color/colorPrimary" />
+
+    </FrameLayout>
 
 </LinearLayout>

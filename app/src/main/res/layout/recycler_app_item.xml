@@ -16,7 +16,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:contentDescription="@string/app_icon_card"
-        android:src="@drawable/ic_launcher_background" />
+        android:src="@drawable/placeholder_1" />
 
     <TextView
         android:id="@+id/tv_app_name"

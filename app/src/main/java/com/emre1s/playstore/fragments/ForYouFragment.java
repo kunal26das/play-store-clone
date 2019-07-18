@@ -20,6 +20,7 @@ import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikepenz.itemanimators.AlphaInAnimator;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class ForYouFragment extends Fragment {
@@ -67,6 +68,7 @@ public class ForYouFragment extends Fragment {
         RecyclerView forYouRecycler = view.findViewById(R.id.rv_for_you);
         forYouRecycler.setHasFixedSize(true);
         forYouRecycler.setItemViewCacheSize(20);
+        forYouRecycler.setItemAnimator(new AlphaInAnimator());
         progressBar = view.findViewById(R.id.pb_for_you);
         progressBar.setVisibility(View.VISIBLE);
         final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(),
