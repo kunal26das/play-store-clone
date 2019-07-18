@@ -62,4 +62,5 @@
     <string name="string_one">1</string>
     <string name="share_application">Share Application</string>
     <string name="no_application_available">No application available to handle request</string>
+    <string name="_404_not_found">404 not found</string>
 </resources>

@@ -42,6 +42,7 @@ import com.emre1s.playstore.fragments.AppSneakPeakFragment;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.Review;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -57,6 +58,9 @@ public class AppPageActivity extends AppCompatActivity {
     private static final String EMPTY_STRING = "";
     private static final int UNINSTALL_REQUEST_CODE = 1;
     private Button appInstallButton;
+    private View contentContainer;
+    private View noContentContainer;
+    private CircularProgressBar circularProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,14 @@ public class AppPageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
         setSupportActionBar(toolbar);
+
+        contentContainer = findViewById(R.id.content_app_container);
+        noContentContainer = findViewById(R.id.no_content_container);
+        circularProgressBar = findViewById(R.id.pb_app_detial);
+
+        noContentContainer.setVisibility(View.GONE);
+        circularProgressBar.setVisibility(View.VISIBLE);
+
         appInstallButton = findViewById(R.id.btn_install_app);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,6 +100,7 @@ public class AppPageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(AppDetails appDetails) {
                 Log.d("yash", "success");
+                circularProgressBar.setVisibility(View.GONE);
                 if (appDetails != null) {
                     mAppDetails = appDetails;
                     if (!mAppDetails.getmFree()) {
@@ -95,7 +108,7 @@ public class AppPageActivity extends AppCompatActivity {
                     } else {
                         appInstallButton.setText("INSTALL");
                     }
-
+                    contentContainer.setVisibility(View.VISIBLE);
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
                     displayAppStatistics();
@@ -107,7 +120,8 @@ public class AppPageActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure() {
-                Log.d("yash", "failed");
+                circularProgressBar.setVisibility(View.GONE);
+                noContentContainer.setVisibility(View.VISIBLE);
             }
         }, mAppId);
     }

@@ -19,6 +19,7 @@ import com.emre1s.playstore.adapters.TopChartsAdapter;
 import com.emre1s.playstore.api.ApiResponseCallback;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.List;
 
@@ -64,6 +65,9 @@ public class FamilyTopChartsFragment extends Fragment {
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_top_charts, container, false);
         RecyclerView appList = root.findViewById(R.id.app_list);
+        CircularProgressBar circularProgressBar = root.findViewById(R.id.pb_top_charts);
+        circularProgressBar.setVisibility(View.VISIBLE);
+
         final TopChartsAdapter topChartsAdapter = new TopChartsAdapter();
 
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -79,6 +83,7 @@ public class FamilyTopChartsFragment extends Fragment {
                         CATEGORY_FAMILY, new ApiResponseCallback() {
                     @Override
                     public void onSuccess(List<App> popularApp) {
+                        circularProgressBar.setVisibility(View.GONE);
                         Log.d("Success", popularApp.size() + "");
                         if (limit != 3) {
                             topChartsAdapter.setmList(popularApp);
