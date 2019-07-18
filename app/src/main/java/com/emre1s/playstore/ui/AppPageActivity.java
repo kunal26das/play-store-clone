@@ -350,11 +350,11 @@ public class AppPageActivity extends AppCompatActivity {
             }
         });
         similarAppsRecyclerview.setAdapter(appCardAdapter);
-        moreSimilarApps.setOnClickListener(v -> {
+        /*moreSimilarApps.setOnClickListener(v -> {
             Intent intent = new Intent(AppPageActivity.this, MoreAppsActivity.class);
             intent.putExtra("SIMILAR_APPS_KEY", mAppDetails.getmAppId());
             startActivity(intent);
-        });
+        });*/
     }
 
     @Override
