@@ -54,6 +54,7 @@ public class AppPageActivity extends AppCompatActivity {
     private PageViewModel mPageViewModel;
     private static final String EMPTY_STRING = "";
     private static final int UNINSTALL_REQUEST_CODE = 1;
+    private Button appInstallButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class AppPageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
         setSupportActionBar(toolbar);
+        appInstallButton = findViewById(R.id.btn_install_app);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -72,6 +74,12 @@ public class AppPageActivity extends AppCompatActivity {
             finish();
         }
 
+        try {
+            getPackageManager().getPackageInfo(mAppId, 0);
+            switchButtons(true);
+        } catch (Exception exception) {
+            switchButtons(false);
+        }
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
             @Override
@@ -79,12 +87,13 @@ public class AppPageActivity extends AppCompatActivity {
                 Log.d("yash", "success");
                 if (appDetails != null) {
                     mAppDetails = appDetails;
-                    try {
-                        getPackageManager().getPackageInfo(mAppId, 0);
-                        switchButtons(true);
-                    } catch (Exception exception) {
-                        switchButtons(false);
+                    if (!mAppDetails.getmFree()) {
+                        appInstallButton.setText("BUY " + mAppDetails.getmPriceText());
+                    } else {
+                        appInstallButton.setText("INSTALL");
                     }
+                    appInstallButton.setVisibility(View.VISIBLE);
+
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
                     displayAppStatistics();
@@ -103,7 +112,6 @@ public class AppPageActivity extends AppCompatActivity {
 
     private void switchButtons(boolean appIsInstalled) {
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
-        final Button appInstallButton = findViewById(R.id.btn_install_app);
         final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
         if (appIsInstalled) {
             appInstallButton.setVisibility(View.GONE);
@@ -120,14 +128,8 @@ public class AppPageActivity extends AppCompatActivity {
                 startActivityForResult(intentUninstallApp, UNINSTALL_REQUEST_CODE);
             });
         } else {
-            appInstallButton.setVisibility(View.VISIBLE);
             appInstalledLayout.setVisibility(View.GONE);
             appMonetize.setVisibility(View.VISIBLE);
-            if (!mAppDetails.getmFree()) {
-                appInstallButton.setText("BUY " + mAppDetails.getmPriceText());
-            } else {
-                appInstallButton.setText("INSTALL");
-            }
         }
     }
 
