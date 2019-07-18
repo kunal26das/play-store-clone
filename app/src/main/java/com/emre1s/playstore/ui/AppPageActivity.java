@@ -1,6 +1,8 @@
 package com.emre1s.playstore.ui;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -92,7 +94,6 @@ public class AppPageActivity extends AppCompatActivity {
                     } else {
                         appInstallButton.setText("INSTALL");
                     }
-                    appInstallButton.setVisibility(View.VISIBLE);
 
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
@@ -130,6 +131,7 @@ public class AppPageActivity extends AppCompatActivity {
         } else {
             appInstalledLayout.setVisibility(View.GONE);
             appMonetize.setVisibility(View.VISIBLE);
+            appInstallButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -266,9 +268,26 @@ public class AppPageActivity extends AppCompatActivity {
             if (developerDetails.getVisibility() == View.GONE) {
                 navigate.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
                 developerDetails.setVisibility(View.VISIBLE);
+                developerDetails.setAlpha(0.0f);
+                developerDetails.animate()
+                        .alpha(1.0f)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                            }
+                        });
             } else {
                 navigate.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
-                developerDetails.setVisibility(View.GONE);
+                developerDetails.animate()
+                        .alpha(0.0f)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                developerDetails.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
         String urlWebsite = mAppDetails.getmDeveloperWebsite();

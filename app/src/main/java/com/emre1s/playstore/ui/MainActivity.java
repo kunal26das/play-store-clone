@@ -294,6 +294,7 @@ public class MainActivity extends AppCompatActivity
         hideSoftKeyboard(MainActivity.this);
         searchView.clearSuggestions();
         searchView.clearQuery();
+        searchView.setSearchFocused(false);
     }
 
     private void initializeCategories(String myJson, String familyJson, String gamesJson,
