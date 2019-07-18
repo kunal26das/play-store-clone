@@ -148,10 +148,10 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         final RecyclerView appScreenshots = findViewById(R.id.rv_app_screenshots);
         final ScreenshotsAdapter screenshotsAdapter = new ScreenshotsAdapter(this);
 
-        final LinearLayout websiteLayout= findViewById(R.id.web_layout);
+        final LinearLayout websiteLayout = findViewById(R.id.web_layout);
         final LinearLayout emailLayout = findViewById(R.id.email_layout);
         final LinearLayout addressLayout = findViewById(R.id.address_layout);
-        final LinearLayout privacyLayout= findViewById(R.id.privacy_layout);
+        final LinearLayout privacyLayout = findViewById(R.id.privacy_layout);
 
         appScreenshots.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         appScreenshots.setAdapter(screenshotsAdapter);
@@ -221,10 +221,10 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
 
                     screenshotsAdapter.setScreenshots(appScreenshots1);
 
-                    urlWebsite=appDetails.getmDeveloperWebsite();
-                    emailId=appDetails.getmDeveloperEmail();
-                    privacyPolicy=appDetails.getmPrivacyPolicy();
-                    address=appDetails.getmDeveloperAddress();
+                    urlWebsite = appDetails.getmDeveloperWebsite();
+                    emailId = appDetails.getmDeveloperEmail();
+                    privacyPolicy = appDetails.getmPrivacyPolicy();
+                    address = appDetails.getmDeveloperAddress();
 
                     if (urlWebsite == null) {
                         websiteLayout.setVisibility(View.GONE);
@@ -232,70 +232,68 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                         websiteLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlWebsite));
-                                    startActivity(browserIntent);
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlWebsite));
+                                startActivity(browserIntent);
                             }
                         });
                     }
 
-                    if(emailId== null){
+                    if (emailId == null) {
                         emailLayout.setVisibility(View.GONE);
                     } else {
-                        TextView emailIdTv= findViewById(R.id.email_id);
+                        TextView emailIdTv = findViewById(R.id.email_id);
                         emailIdTv.setText(emailId);
                         emailLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                                    emailIntent.setData(Uri.parse("mailto:" + emailId));
-                                    startActivity(emailIntent);
+                                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                                emailIntent.setData(Uri.parse("mailto:" + emailId));
+                                startActivity(emailIntent);
                             }
                         });
                     }
 
-                    if (address==null){
+                    if (address == null) {
                         addressLayout.setVisibility(View.GONE);
                     } else {
-                        TextView addressTv=findViewById(R.id.address);
+                        TextView addressTv = findViewById(R.id.address);
                         addressTv.setText(address);
                         addressLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 Log.d("Address", address);
-                                Geocoder geocoder=new Geocoder(AppPageActivity.this);
+                                Geocoder geocoder = new Geocoder(AppPageActivity.this);
                                 List<Address> addresses;
-                                try{
-                                    addresses=geocoder.getFromLocationName(address,5);
-                                    if (addresses==null){
+                                try {
+                                    addresses = geocoder.getFromLocationName(address, 5);
+                                    if (addresses == null) {
                                         Log.d("Address", "null");
                                     } else {
                                         Address location = addresses.get(0);
-                                        Log.d("Address", location.getLatitude()+"****"+ location.getLongitude()+ "");
+                                        Log.d("Address", location.getLatitude() + "****" + location.getLongitude() + "");
                                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse("geo:"+location.getLatitude()+","+location.getLongitude()));
+                                        intent.setData(Uri.parse("geo:" + location.getLatitude() + "," + location.getLongitude()));
                                         startActivity(intent);
                                     }
-                                } catch (IOException e){
+                                } catch (IOException e) {
                                     e.printStackTrace();
                                 }
                             }
                         });
                     }
 
-                    if (privacyPolicy== null){
+                    if (privacyPolicy == null) {
                         privacyLayout.setVisibility(View.GONE);
                     } else {
                         privacyLayout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicy));
-                                    startActivity(browserIntent);
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicy));
+                                startActivity(browserIntent);
                             }
                         });
                     }
-
                 }
-
             }
 
             @Override
@@ -316,12 +314,12 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             }
         });
 
-        RecyclerView reviewsRecycler=findViewById(R.id.reviews_recycler);
+        RecyclerView reviewsRecycler = findViewById(R.id.reviews_recycler);
         reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
         reviewAdapter = new ReviewAdapter();
         reviewsRecycler.setAdapter(reviewAdapter);
-        pageViewModel=ViewModelProviders.of(this).get(PageViewModel.class);
-        pageViewModel.makeReviewsApiCall(mAppId,this);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel.makeReviewsApiCall(mAppId, this);
 
         Button seeAll = findViewById(R.id.show_reviews);
         seeAll.setOnClickListener(new View.OnClickListener() {
@@ -334,13 +332,13 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             }
         });
 
-        FrameLayout developerHead= findViewById(R.id.developer_header);
-        LinearLayout developerDetails= findViewById(R.id.developer_details);
+        FrameLayout developerHead = findViewById(R.id.developer_header);
+        LinearLayout developerDetails = findViewById(R.id.developer_details);
         ImageView navigate = findViewById(R.id.view_more);
         developerHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (developerDetails.getVisibility()==View.GONE){
+                if (developerDetails.getVisibility() == View.GONE) {
                     navigate.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
                     developerDetails.setVisibility(View.VISIBLE);
                 } else {
@@ -350,7 +348,6 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             }
         });
     }
-
 
     private void switchButtons(boolean appIsInstalled) {
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
@@ -376,11 +373,9 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
             if (resultCode == RESULT_OK) {
                 //Log.d("TAG", "onActivityResult: user accepted the (un)install");
                 switchButtons(false);
-
             } else if (resultCode == RESULT_CANCELED) {
                 //Log.d("TAG", "onActivityResult: user canceled the (un)install");
                 switchButtons(true);
-
             } else if (resultCode == RESULT_FIRST_USER) {
                 //Log.d("TAG", "onActivityResult: failed to (un)install");
                 switchButtons(true);
@@ -388,14 +383,12 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
 
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -419,7 +412,7 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
 
     @Override
     public void onSuccess(List<Review> reviews) {
-        List<Review> reviewsSublist= reviews.subList(0,2);
+        List<Review> reviewsSublist = reviews.subList(0, 2);
         reviewAdapter.setReviewList(reviewsSublist);
     }
 
