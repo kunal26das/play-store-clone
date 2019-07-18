@@ -17,11 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.ForYouAdapter;
-import com.emre1s.playstore.app_details.AppDetails;
-import com.emre1s.playstore.listeners.OnCategoryChanged;
-import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
-import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -74,25 +70,19 @@ public class ForYouFragment extends Fragment {
         progressBar = view.findViewById(R.id.pb_for_you);
         progressBar.setVisibility(View.VISIBLE);
         final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(),
-                pageViewModel, new OnCategoryChanged() {
-            @Override
-            public void changeCategory(CategoryList.Category category) {
-                Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
-                Intent intent = new Intent(getContext(), MoreAppsActivity.class);
-                intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
-                startActivity(intent);
-            }
-        }, new OnDialogOpenListener() {
-            @Override
-            public void onLongClickListener(AppDetails appDetails) {
-                /*Intent intent = new Intent(v.getContext(), AppPageActivity.class);
-                intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
-                v.getContext().startActivity(intent);*/
+                pageViewModel, category -> {
+            Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
+            Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+            intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+            startActivity(intent);
+        }, appDetails -> {
+                    /*Intent intent = new Intent(v.getContext(), AppPageActivity.class);
+                    intent.putExtra("APP_ID", appByCategoryApiResponse.get(position).getAppId());
+                    v.getContext().startActivity(intent);*/
 
-                AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails);
-                if (getFragmentManager() != null) {
-                    bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
-                }
+            AppSneakPeakFragment bottomSheetFragment = new AppSneakPeakFragment(appDetails);
+            if (getFragmentManager() != null) {
+                bottomSheetFragment.show(getFragmentManager(), bottomSheetFragment.getTag());
             }
         });
 

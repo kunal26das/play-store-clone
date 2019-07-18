@@ -82,6 +82,7 @@ public class AppPageActivity extends AppCompatActivity {
         } catch (Exception exception) {
             switchButtons(false);
         }
+
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
             @Override
