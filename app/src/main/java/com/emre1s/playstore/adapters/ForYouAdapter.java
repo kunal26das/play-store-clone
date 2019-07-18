@@ -95,8 +95,8 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         ConstraintLayout categoryDetailsContainer;
         TextView categoryName;
         RecyclerView categoryApps;
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, onDialogOpenListener);
-        LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+        AppCardAdapter appCardAdapter;
+        LinearSnapHelper linearSnapHelper;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -105,9 +105,14 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             categoryApps = itemView.findViewById(R.id.rv_app_cards);
             container = itemView.findViewById(R.id.cv_apps);
             categoryDetailsContainer = itemView.findViewById(R.id.category_details_container);
+
+            linearSnapHelper = new LinearSnapHelper();
             categoryApps.setLayoutManager(new LinearLayoutManager(context,
                     LinearLayoutManager.HORIZONTAL, false));
+            appCardAdapter = new AppCardAdapter(pageViewModel, onDialogOpenListener);
             categoryApps.setAdapter(appCardAdapter);
+            categoryApps.setItemViewCacheSize(8);
+            categoryApps.setHasFixedSize(true);
             linearSnapHelper.attachToRecyclerView(categoryApps);
         }
     }
