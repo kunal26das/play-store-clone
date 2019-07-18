@@ -54,7 +54,7 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
         if (position == 0) {
             screenshotHolder.appScreenshot.setPadding(44, 0, 4, 0);
             if (mHasVideoImage) {
-                screenshotHolder.playable.setVisibility(View.INVISIBLE);
+                screenshotHolder.playable.setVisibility(View.VISIBLE);
             }
         } else if (position == mScreenshots.size() - 1) {
             screenshotHolder.appScreenshot.setPadding(4, 0, 44, 0);

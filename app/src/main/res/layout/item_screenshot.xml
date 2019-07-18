@@ -15,5 +15,5 @@
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_play_circle_filled_black_24dp"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 </FrameLayout>
