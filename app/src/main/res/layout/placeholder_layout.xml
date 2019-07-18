@@ -2,20 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
     android:layout_marginLeft="10dp"
-    >
+    android:layout_marginTop="20dp">
 
     <View
         android:layout_width="100dp"
         android:layout_height="12dp"
-        android:background="@color/background"/>
+        android:background="@color/background" />
 
     <View
-        android:layout_marginEnd="12dp"
         android:layout_width="60dp"
-        android:layout_alignParentEnd="true"
         android:layout_height="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
         android:background="@color/background" />
 
 
@@ -29,82 +28,84 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginTop="36dp"
-            android:orientation="vertical"
             android:layout_weight=".3"
-            >
+            android:orientation="vertical">
+
             <View
-                android:layout_gravity="center"
                 android:id="@+id/thumbnail"
                 android:layout_width="@dimen/placeholderImage"
                 android:layout_height="@dimen/placeholderImage"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/padding_10"
                 android:layout_marginEnd="@dimen/padding_10"
-                android:background="@color/background"
-                />
+                android:background="@color/background" />
 
             <View
-                android:layout_marginTop="@dimen/padding_10"
                 android:layout_width="100dp"
                 android:layout_height="@dimen/placeholderTextHeight"
+                android:layout_marginTop="@dimen/padding_10"
                 android:background="@color/background" />
+
             <View
                 android:layout_width="30dp"
                 android:layout_height="@dimen/placeholderTextHeight"
                 android:layout_marginTop="8dp"
                 android:background="@color/background" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginTop="36dp"
-            android:orientation="vertical"
             android:layout_weight=".3"
-            >
+            android:orientation="vertical">
+
             <View
-                android:layout_gravity="center"
                 android:id="@+id/thumbnail1"
                 android:layout_width="@dimen/placeholderImage"
                 android:layout_height="@dimen/placeholderImage"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/padding_10"
                 android:layout_marginEnd="@dimen/padding_10"
-                android:background="@color/background"
-                />
+                android:background="@color/background" />
 
             <View
-                android:layout_marginTop="@dimen/padding_10"
                 android:layout_width="100dp"
                 android:layout_height="@dimen/placeholderTextHeight"
+                android:layout_marginTop="@dimen/padding_10"
                 android:background="@color/background" />
+
             <View
                 android:layout_width="30dp"
                 android:layout_height="@dimen/placeholderTextHeight"
                 android:layout_marginTop="8dp"
                 android:background="@color/background" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginTop="36dp"
-            android:orientation="vertical"
             android:layout_weight=".3"
-            >
+            android:orientation="vertical">
+
             <View
-                android:layout_gravity="center"
                 android:id="@+id/thumbnail2"
                 android:layout_width="@dimen/placeholderImage"
                 android:layout_height="@dimen/placeholderImage"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/padding_10"
                 android:layout_marginEnd="@dimen/padding_10"
-                android:background="@color/background"
-                />
+                android:background="@color/background" />
 
             <View
-                android:layout_marginTop="@dimen/padding_10"
                 android:layout_width="100dp"
                 android:layout_height="@dimen/placeholderTextHeight"
+                android:layout_marginTop="@dimen/padding_10"
                 android:background="@color/background" />
+
             <View
                 android:layout_width="30dp"
                 android:layout_height="@dimen/placeholderTextHeight"

@@ -42,12 +42,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
                 .getIdentifier(categories.get(position).getIcon(),
                         "drawable", context.getPackageName()));
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onCategoryChanged.changeCategory(categories.get(position));
-            }
-        });
+        holder.itemView.setOnClickListener(view -> onCategoryChanged.changeCategory(categories.get(position)));
     }
 
     @Override

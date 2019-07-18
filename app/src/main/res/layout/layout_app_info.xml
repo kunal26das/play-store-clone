@@ -70,7 +70,7 @@
         android:background="@color/colorPrimary"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        tools:text="INSTALL"
+        android:text="INSTALL"
         android:textColor="@color/whiteColor"
         app:cornerRadius="2dp"
         app:layout_constraintEnd_toEndOf="parent"

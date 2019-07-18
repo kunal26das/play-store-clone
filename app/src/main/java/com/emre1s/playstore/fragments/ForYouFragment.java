@@ -24,13 +24,12 @@ import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class ForYouFragment extends Fragment {
 
     private PageViewModel pageViewModel;
-    private  CircularProgressBar progressBar;
+    private CircularProgressBar progressBar;
 
     public ForYouFragment() {
     }

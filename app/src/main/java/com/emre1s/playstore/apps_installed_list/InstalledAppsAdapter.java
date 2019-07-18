@@ -2,7 +2,6 @@ package com.emre1s.playstore.apps_installed_list;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.listeners.OnInstalledAppListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,12 +22,14 @@ import java.util.List;
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.InstalledAppsViewHolder> {
 
     private Context mContext;
+    private OnInstalledAppListener onInstalledAppListener;
     private LayoutInflater mLayoutInflater;
     private PackageManager mPackageManager;
     private List<InstalledApp> mInstalledApps = Collections.emptyList();
 
-    InstalledAppsAdapter(Context context) {
+    InstalledAppsAdapter(Context context, OnInstalledAppListener onInstalledAppListener) {
         mContext = context;
+        this.onInstalledAppListener = onInstalledAppListener;
         mPackageManager = context.getPackageManager();
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -90,9 +92,11 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                 mAppIcon.setImageDrawable(mPackageManager.getApplicationIcon(app.getMPackageName()));
             }
             final String packageName = app.getMPackageName();
-            mAppAction.setOnClickListener(v -> {
-                mContext.startActivity(mPackageManager.getLaunchIntentForPackage(packageName));
-            });
+            mAppAction.setOnClickListener(v -> mContext.startActivity(mPackageManager.getLaunchIntentForPackage(packageName)));
+            /*itemView.setOnClickListener(v -> {
+                Log.d("yash", packageName);
+                onInstalledAppListener.installApp(packageName);
+            });*/
         }
     }
 }

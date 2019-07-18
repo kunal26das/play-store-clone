@@ -36,6 +36,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
+                    android:scaleType="fitXY"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@mipmap/ic_star" />

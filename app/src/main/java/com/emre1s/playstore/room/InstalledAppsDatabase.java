@@ -26,5 +26,6 @@ public abstract class InstalledAppsDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
     public abstract InstalledAppsDao installedAppsDao();
 }

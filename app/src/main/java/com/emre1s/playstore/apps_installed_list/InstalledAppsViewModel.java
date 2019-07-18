@@ -2,10 +2,8 @@ package com.emre1s.playstore.apps_installed_list;
 
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -17,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 public class InstalledAppsViewModel extends AndroidViewModel {
 
@@ -53,21 +49,18 @@ public class InstalledAppsViewModel extends AndroidViewModel {
 
         private Observable<List<InstalledApp>> getInstalledApps() {
             InstalledAppsAsyncTask installedAppsAsyncTask = new InstalledAppsAsyncTask(mPackageManager);
-           // MutableLiveData<List<InstalledApp>> installedApps = new MutableLiveData<>();
+            // MutableLiveData<List<InstalledApp>> installedApps = new MutableLiveData<>();
             List<InstalledApp> installedApps = new ArrayList<>();
             try {
                 installedApps = installedAppsAsyncTask.execute().get();  //NETWORK CALL
             } catch (Exception exception) {
             }
             List<InstalledApp> finalInstalledApps = installedApps;
-            return Observable.create(new ObservableOnSubscribe<List<InstalledApp>>() {
-                @Override
-                public void subscribe(ObservableEmitter<List<InstalledApp>> emitter) throws Exception {
-                    if (emitter != null) {
-                        emitter.onNext(finalInstalledApps);
-                    }
-                    emitter.onComplete();
+            return Observable.create(emitter -> {
+                if (emitter != null) {
+                    emitter.onNext(finalInstalledApps);
                 }
+                emitter.onComplete();
             });
         }
 

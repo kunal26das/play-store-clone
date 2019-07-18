@@ -85,6 +85,13 @@ public class AppDetails implements Parcelable {
     @SerializedName(KEY_REVIEWS)
     private Integer mReviews;
 
+    @SerializedName("status")
+    private Integer mStatus;
+
+    public Integer getmStatus() {
+        return mStatus;
+    }
+
     public static final Parcelable.Creator<AppDetails> CREATOR = new Parcelable.Creator<AppDetails>() {
         @Override
         public AppDetails createFromParcel(Parcel source) {
