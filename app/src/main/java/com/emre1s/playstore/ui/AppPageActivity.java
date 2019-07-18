@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.adapters.AppCardAdapter;
 import com.emre1s.playstore.adapters.ReviewAdapter;
@@ -43,7 +43,9 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class AppPageActivity extends AppCompatActivity {
 
@@ -70,13 +72,6 @@ public class AppPageActivity extends AppCompatActivity {
             finish();
         }
 
-        try {
-            getPackageManager().getPackageInfo(mAppId, 0);
-            switchButtons(true);
-        } catch (Exception exception) {
-            switchButtons(false);
-        }
-
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
             @Override
@@ -84,6 +79,12 @@ public class AppPageActivity extends AppCompatActivity {
                 Log.d("yash", "success");
                 if (appDetails != null) {
                     mAppDetails = appDetails;
+                    try {
+                        getPackageManager().getPackageInfo(mAppId, 0);
+                        switchButtons(true);
+                    } catch (Exception exception) {
+                        switchButtons(false);
+                    }
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
                     displayAppStatistics();
@@ -91,7 +92,6 @@ public class AppPageActivity extends AppCompatActivity {
                     displayAppRatingsAndReviews();
                     displayAppDeveloperContact();
                     displaySimilarApps();
-
                 }
             }
             @Override
@@ -123,6 +123,11 @@ public class AppPageActivity extends AppCompatActivity {
             appInstallButton.setVisibility(View.VISIBLE);
             appInstalledLayout.setVisibility(View.GONE);
             appMonetize.setVisibility(View.VISIBLE);
+            if (!mAppDetails.getmFree()) {
+                appInstallButton.setText("BUY " + mAppDetails.getmPriceText());
+            } else {
+                appInstallButton.setText("INSTALL");
+            }
         }
     }
 
@@ -140,7 +145,7 @@ public class AppPageActivity extends AppCompatActivity {
         appDeveloper.setText(mAppDetails.getmDeveloper());
         appGenre.setText(mAppDetails.getmGenre());
         averageRating.setText(mAppDetails.getmScoreText());
-        totalRating.setText(mAppDetails.getmRatings() + "");
+        totalRating.setText(NumberFormat.getNumberInstance(Locale.US).format(mAppDetails.getmRatings()));
         if (mAppDetails.hasAdSupport() && mAppDetails.hasInAppPurchases()) {
             appMonetize.setText("Contains ads • In-app purchases");
         } else if (mAppDetails.hasAdSupport()) {
@@ -161,7 +166,7 @@ public class AppPageActivity extends AppCompatActivity {
         String contentRating = mAppDetails.getmContentRating();
         String contentRate = contentRating.substring(contentRating.length() - 3).trim();
         appScore.setText(mAppDetails.getmScoreText());
-        appReviews.setText(mAppDetails.getmReviews() + " reviews");
+        appReviews.setText(NumberFormat.getNumberInstance(Locale.US).format(mAppDetails.getmReviews()) + " reviews");
         appSize.setText(mAppDetails.getmSize());
         appRating.setText(contentRating + " ⓘ");
         appInstalls.setText(mAppDetails.getmInstalls());
@@ -197,11 +202,11 @@ public class AppPageActivity extends AppCompatActivity {
         final RatingBar ratingBarTotal = findViewById(R.id.rating_review);
         final ReviewAdapter reviewAdapter = new ReviewAdapter(this);
         final RecyclerView reviewsRecycler = findViewById(R.id.reviews_recycler);
-        final RoundCornerProgressBar progressBarOne = findViewById(R.id.one_star);
-        final RoundCornerProgressBar progressBarTwo = findViewById(R.id.two_stars);
-        final RoundCornerProgressBar progressBarFive = findViewById(R.id.five_stars);
-        final RoundCornerProgressBar progressBarFour = findViewById(R.id.four_stars);
-        final RoundCornerProgressBar progressBarThree = findViewById(R.id.three_stars);
+        final ProgressBar progressBarOne = findViewById(R.id.one_star);
+        final ProgressBar progressBarTwo = findViewById(R.id.two_stars);
+        final ProgressBar progressBarFive = findViewById(R.id.five_stars);
+        final ProgressBar progressBarFour = findViewById(R.id.four_stars);
+        final ProgressBar progressBarThree = findViewById(R.id.three_stars);
 
         float progressFive = (float) mAppDetails.getmHistograms().getmFive() / mAppDetails.getmRatings();
         float progressFour = (float) mAppDetails.getmHistograms().getmFour() / mAppDetails.getmRatings();
@@ -209,11 +214,11 @@ public class AppPageActivity extends AppCompatActivity {
         float progressTwo = (float) mAppDetails.getmHistograms().getmTwo() / mAppDetails.getmRatings();
         float progressOne = (float) mAppDetails.getmHistograms().getmOne() / mAppDetails.getmRatings();
 
-        progressBarFive.setProgress((progressFive * 100) + 10);
-        progressBarFour.setProgress((progressFour * 100) + 10);
-        progressBarThree.setProgress((progressThree * 100) + 10);
-        progressBarTwo.setProgress((progressTwo * 100) + 10);
-        progressBarOne.setProgress((progressOne * 100) + 10);
+        progressBarFive.setProgress((int) (progressFive * 100) + 10);
+        progressBarFour.setProgress((int) (progressFour * 100) + 10);
+        progressBarThree.setProgress((int) (progressThree * 100) + 10);
+        progressBarTwo.setProgress((int) (progressTwo * 100) + 10);
+        progressBarOne.setProgress((int) (progressOne * 100) + 10);
 
         ratingBarTotal.setRating(mAppDetails.getmScore());
         reviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -224,13 +229,14 @@ public class AppPageActivity extends AppCompatActivity {
             reviewIntent.putExtra("id", mAppId);
             startActivity(reviewIntent);
         });
-        seeAll.setOnClickListener(view -> {
-
+        View.OnClickListener showReviewsOnClick = v -> {
             Intent reviewIntent = new Intent(AppPageActivity.this,
                     ReviewPageActivity.class);
-            reviewIntent.putExtra("id", mAppId);
+            reviewIntent.putExtra("appDetails", mAppDetails);
             startActivity(reviewIntent);
-        });
+        };
+        histogramLayout.setOnClickListener(showReviewsOnClick);
+        seeAll.setOnClickListener(showReviewsOnClick);
         mPageViewModel.makeReviewsApiCall(mAppId, new ReviewResponseCallback() {
             @Override
             public void onSuccess(List<Review> reviews) {
