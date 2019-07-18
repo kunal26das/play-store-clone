@@ -93,7 +93,6 @@ public class AppPageActivity extends AppCompatActivity {
                     } else {
                         appInstallButton.setText("INSTALL");
                     }
-                    appInstallButton.setVisibility(View.VISIBLE);
 
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
@@ -131,6 +130,7 @@ public class AppPageActivity extends AppCompatActivity {
         } else {
             appInstalledLayout.setVisibility(View.GONE);
             appMonetize.setVisibility(View.VISIBLE);
+            appInstallButton.setVisibility(View.VISIBLE);
         }
     }
 
