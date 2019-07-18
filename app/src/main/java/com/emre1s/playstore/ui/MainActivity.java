@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -31,6 +32,7 @@ import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.TabList;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.emre1s.playstore.ui.main.ParentGuide;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
 import com.facebook.stetho.Stetho;
 import com.google.android.material.appbar.AppBarLayout;
@@ -347,12 +349,39 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.nav_my_apps_and_games) {
-            Intent intent = new Intent(this, InstalledAppsActivity.class);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.nav_my_apps_and_games: {
+                Intent intent = new Intent(this, InstalledAppsActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_notifications: {
+                Intent intent = new Intent(this, Notifications.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_about_google_play: {
+                String url = "https://support.google.com/googleplay/answer/6034670?p=about_play";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_parent_guide: {
+                Intent intent = new Intent(this, ParentGuide.class);
+                intent.putExtra("url", "https://support.google.com/googleplay/answer/6209547");
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_help_and_feedback: {
+                Intent intent = new Intent(this, ParentGuide.class);
+                intent.putExtra("url", "https://support.google.com/googleplay/?hl=en#topic=3364260");
+                startActivity(intent);
+                break;
+            }
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
