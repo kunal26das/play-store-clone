@@ -48,7 +48,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         holder.appName.setText(searchResultList.get(position).getTitle());
         holder.appDeveloper.setText(searchResultList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange() + " MB"+ " ●");
+        holder.appSize.setText(getRandomNumberInRange() + " MB" + " •");
         holder.appRating.setText(String.format("%s", searchResultList.get(position).getScoreText())+" ★");
 
         holder.itemView.setOnClickListener(v -> {

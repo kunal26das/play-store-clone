@@ -69,7 +69,7 @@ public class TopChartsAdapter extends RecyclerView.Adapter<TopChartsAdapter.TopC
                 .placeholder(R.drawable.placeholder_icon).into(holder.appIcon);
         holder.appName.setText(mList.get(position).getTitle());
         holder.appDeveloper.setText(mList.get(position).getDeveloper());
-        holder.appSize.setText(getRandomNumberInRange() + " MB"+ " ●");
+        holder.appSize.setText(getRandomNumberInRange() + " MB" + " •");
         holder.appRating.setText(String.format("%s", mList.get(position).getScore())+" ★");
 
         holder.itemView.setOnClickListener(v -> {        //Todo: Change this to an interface asap
