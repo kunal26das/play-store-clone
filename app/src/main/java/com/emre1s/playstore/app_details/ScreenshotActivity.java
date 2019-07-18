@@ -98,6 +98,7 @@ public class ScreenshotActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_screenshot);
         Toolbar toolbar = findViewById(R.id.screnshot_toolbar);
         setSupportActionBar(toolbar);
+        setTitle("");
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.screenshots_viewpager);
