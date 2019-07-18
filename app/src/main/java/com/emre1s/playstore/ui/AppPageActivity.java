@@ -54,6 +54,7 @@ public class AppPageActivity extends AppCompatActivity {
     private PageViewModel mPageViewModel;
     private static final String EMPTY_STRING = "";
     private static final int UNINSTALL_REQUEST_CODE = 1;
+    private Button appInstallButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class AppPageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(EMPTY_STRING);
         setSupportActionBar(toolbar);
+        appInstallButton = findViewById(R.id.btn_install_app);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -71,6 +73,7 @@ public class AppPageActivity extends AppCompatActivity {
         if (mAppId == null) {
             finish();
         }
+
         try {
             getPackageManager().getPackageInfo(mAppId, 0);
             switchButtons(true);
@@ -85,12 +88,13 @@ public class AppPageActivity extends AppCompatActivity {
                 Log.d("yash", "success");
                 if (appDetails != null) {
                     mAppDetails = appDetails;
-                    final Button appInstallButton = findViewById(R.id.btn_install_app);
                     if (!mAppDetails.getmFree()) {
                         appInstallButton.setText("BUY " + mAppDetails.getmPriceText());
                     } else {
                         appInstallButton.setText("INSTALL");
                     }
+                    appInstallButton.setVisibility(View.VISIBLE);
+
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
                     displayAppStatistics();
@@ -109,7 +113,6 @@ public class AppPageActivity extends AppCompatActivity {
 
     private void switchButtons(boolean appIsInstalled) {
         final TextView appMonetize = findViewById(R.id.tv_app_monetize);
-        final Button appInstallButton = findViewById(R.id.btn_install_app);
         final LinearLayout appInstalledLayout = findViewById(R.id.layout_installed);
         if (appIsInstalled) {
             appInstallButton.setVisibility(View.GONE);
@@ -126,7 +129,6 @@ public class AppPageActivity extends AppCompatActivity {
                 startActivityForResult(intentUninstallApp, UNINSTALL_REQUEST_CODE);
             });
         } else {
-            appInstallButton.setVisibility(View.VISIBLE);
             appInstalledLayout.setVisibility(View.GONE);
             appMonetize.setVisibility(View.VISIBLE);
         }
@@ -350,11 +352,11 @@ public class AppPageActivity extends AppCompatActivity {
             }
         });
         similarAppsRecyclerview.setAdapter(appCardAdapter);
-        /*moreSimilarApps.setOnClickListener(v -> {
+        moreSimilarApps.setOnClickListener(v -> {
             Intent intent = new Intent(AppPageActivity.this, MoreAppsActivity.class);
             intent.putExtra("SIMILAR_APPS_KEY", mAppDetails.getmAppId());
             startActivity(intent);
-        });*/
+        });
     }
 
     @Override

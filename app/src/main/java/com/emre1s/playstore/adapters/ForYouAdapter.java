@@ -85,10 +85,12 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         });
         //pageViewModel.getAppCategory().setValue(categoryNames[position]);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(holder.itemView.getLayoutParams());
-        layoutParams.setMargins(20, 0, 20, 20);
-        if (position == 0) {
-            layoutParams.setMargins(20, 20, 20, 0);
+        if (position > 0) {
+            layoutParams.setMargins(22, 0, 22, 22);
+        } else {
+            layoutParams.setMargins(22, 22, 22, 22);
         }
+
         holder.itemView.setLayoutParams(layoutParams);
     }
 
