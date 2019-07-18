@@ -53,6 +53,9 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
         screenshotHolder.updateScreenshot(mScreenshots.get(position), position);
         if (position == 0) {
             screenshotHolder.appScreenshot.setPadding(44, 0, 4, 0);
+            if (mHasVideoImage) {
+                screenshotHolder.playable.setVisibility(View.VISIBLE);
+            }
         } else if (position == mScreenshots.size() - 1) {
             screenshotHolder.appScreenshot.setPadding(4, 0, 44, 0);
         } else {
@@ -68,9 +71,11 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
     class ScreenshotHolder extends RecyclerView.ViewHolder {
 
         ImageView appScreenshot;
+        ImageView playable;
 
         ScreenshotHolder(@NonNull View view) {
             super(view);
+            playable = view.findViewById(R.id.playable);
             appScreenshot = view.findViewById(R.id.iv_app_screenshot);
         }
 

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -83,6 +84,14 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             }
         });
         //pageViewModel.getAppCategory().setValue(categoryNames[position]);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(holder.itemView.getLayoutParams());
+        if (position > 0) {
+            layoutParams.setMargins(22, 0, 22, 22);
+        } else {
+            layoutParams.setMargins(22, 22, 22, 22);
+        }
+
+        holder.itemView.setLayoutParams(layoutParams);
     }
 
     @Override
