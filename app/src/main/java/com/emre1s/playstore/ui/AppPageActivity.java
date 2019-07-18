@@ -71,6 +71,12 @@ public class AppPageActivity extends AppCompatActivity {
         if (mAppId == null) {
             finish();
         }
+        try {
+            getPackageManager().getPackageInfo(mAppId, 0);
+            switchButtons(true);
+        } catch (Exception exception) {
+            switchButtons(false);
+        }
 
         RetrofitApiFactory retrofitApiFactory = new RetrofitApiFactory(getApplication());
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
@@ -79,11 +85,11 @@ public class AppPageActivity extends AppCompatActivity {
                 Log.d("yash", "success");
                 if (appDetails != null) {
                     mAppDetails = appDetails;
-                    try {
-                        getPackageManager().getPackageInfo(mAppId, 0);
-                        switchButtons(true);
-                    } catch (Exception exception) {
-                        switchButtons(false);
+                    final Button appInstallButton = findViewById(R.id.btn_install_app);
+                    if (!mAppDetails.getmFree()) {
+                        appInstallButton.setText("BUY " + mAppDetails.getmPriceText());
+                    } else {
+                        appInstallButton.setText("INSTALL");
                     }
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
                     displayAppInformation();
@@ -123,11 +129,6 @@ public class AppPageActivity extends AppCompatActivity {
             appInstallButton.setVisibility(View.VISIBLE);
             appInstalledLayout.setVisibility(View.GONE);
             appMonetize.setVisibility(View.VISIBLE);
-            if (!mAppDetails.getmFree()) {
-                appInstallButton.setText("BUY " + mAppDetails.getmPriceText());
-            } else {
-                appInstallButton.setText("INSTALL");
-            }
         }
     }
 
