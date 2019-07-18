@@ -227,7 +227,8 @@ public class AppPageActivity extends AppCompatActivity implements ReviewResponse
                     String contentRating = appDetails.getmContentRating();
                     String contentRate = contentRating.substring(contentRating.length() - 3).trim();
                     appScore.setText(appDetails.getmScoreText());
-                    appReviews.setText(NumberFormat.getNumberInstance(Locale.US).format(appDetails.getmReviews()) + " reviews");
+                    appReviews.setText(NumberFormat.getNumberInstance(Locale.US)
+                            .format(appDetails.getmReviews()) + " reviews");
                     appSize.setText(appDetails.getmSize());
                     appRating.setText(contentRating + " ⓘ");
                     appInstalls.setText(appDetails.getmInstalls());
