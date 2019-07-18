@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.emre1s.playstore.api.SearchResponseCallback;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.main.PageViewModel;
 import com.google.android.material.appbar.AppBarLayout;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +41,16 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
     private FloatingSearchView searchView;
     private SearchResultAdapter searchResultAdapter;
     private PageViewModel pageViewModel;
+    private CircularProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+
+        progressBar = findViewById(R.id.pb_search_activity);
+        progressBar.setVisibility(View.VISIBLE);
 
         RecyclerView searchResultsRecycler = findViewById(R.id.rv_search_results);
         searchResultAdapter = new SearchResultAdapter();
@@ -193,6 +199,7 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
     @Override
     public void onSuccess(List<App> popularApp) {
         Log.d(SearchActivity.class.getSimpleName(), "SearchActivity search called");
+        progressBar.setVisibility(View.GONE);
         searchResultAdapter.setSearchResultList(popularApp);
     }
 
@@ -202,8 +209,10 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
     }
 
     private void resetSearchView() {
+        searchResultAdapter.setSearchResultList(new ArrayList<App>());
+        progressBar.setVisibility(View.VISIBLE);
         hideSoftKeyboard(SearchActivity.this);
         searchView.clearSuggestions();
-        searchView.clearQuery();
+        searchView.setSearchFocused(false);
     }
 }
