@@ -81,6 +81,7 @@ public class AppPageActivity extends AppCompatActivity {
         retrofitApiFactory.getAppDetails(new DatabaseCallback() {
             @Override
             public void onSuccess(AppDetails appDetails) {
+                Log.d("yash", "success");
                 if (appDetails != null) {
                     mAppDetails = appDetails;
                     mPageViewModel = ViewModelProviders.of(AppPageActivity.this).get(PageViewModel.class);
@@ -90,10 +91,12 @@ public class AppPageActivity extends AppCompatActivity {
                     displayAppRatingsAndReviews();
                     displayAppDeveloperContact();
                     displaySimilarApps();
+
                 }
             }
             @Override
             public void onFailure() {
+                Log.d("yash", "failed");
             }
         }, mAppId);
     }

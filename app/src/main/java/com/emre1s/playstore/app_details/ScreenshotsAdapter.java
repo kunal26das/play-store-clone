@@ -77,8 +77,7 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
         void updateScreenshot(String screenshotUrl, int screenshotIndex) {
             Picasso.get().load(screenshotUrl).resize(0, 768).into(appScreenshot);
             itemView.setOnClickListener(v -> {
-                if (screenshotIndex == 0 && mHasVideoImage) {
-                    //Intent intent = new Intent
+                if (mHasVideoImage && screenshotIndex == 0) {
                     Intent yt_play = new Intent(Intent.ACTION_VIEW, Uri.parse(mTrailerUrl));
                     Intent chooser = Intent.createChooser(yt_play, "Open With");
 
@@ -89,7 +88,6 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
                     Intent intent = new Intent(itemView.getContext(), ScreenshotActivity.class);
                     intent.putStringArrayListExtra("SCREENSHOTS_URL", (ArrayList<String>) mScreenshots);
                     intent.putExtra("SCREENSHOT_INDEX", screenshotIndex);
-                    intent.putExtra("HAS_VIDEO_IMAGE", mHasVideoImage);
                     itemView.getContext().startActivity(intent);
                 }
             });

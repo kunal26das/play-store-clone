@@ -69,12 +69,13 @@ public class RetrofitApiFactory {
 
                     @Override
                     public void onSuccess(AppDetails appDetails) {
+                        Log.d("kunal", appDetails.getmAppId());
                         databaseCallback.onSuccess(appDetails);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("kunal", "Error");
                     }
                 });
 

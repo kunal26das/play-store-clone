@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.listeners.OnInstalledAppListener;
+import com.emre1s.playstore.ui.AppPageActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class InstalledAppsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class InstalledAppsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnInstalledAppListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class InstalledAppsActivity extends AppCompatActivity implements Navigati
         }
 
         RecyclerView installedAppsRecyclerView = findViewById(R.id.rv_installed_app_list);
-        InstalledAppsAdapter installedAppsAdapter = new InstalledAppsAdapter(this);
+        InstalledAppsAdapter installedAppsAdapter = new InstalledAppsAdapter(this, this);
         installedAppsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         installedAppsRecyclerView.setAdapter(installedAppsAdapter);
 
@@ -104,5 +106,12 @@ public class InstalledAppsActivity extends AppCompatActivity implements Navigati
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void installApp(String packageName) {
+        Intent intent = new Intent(this, AppPageActivity.class);
+        intent.putExtra("APP_ID", packageName);
+        startActivity(intent);
     }
 }

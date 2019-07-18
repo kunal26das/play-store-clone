@@ -72,15 +72,12 @@ public class AppCategoryFragment extends Fragment {
             categoryList = pageViewModel.getGamesTopCategoryList().getCategoryList();
         }
         TopCategoryAdapter topCategoryAdapter =
-                new TopCategoryAdapter(getContext(), new OnCategoryChanged() {
-                    @Override
-                    public void changeCategory(CategoryList.Category category) {
-                        Log.d(ForYouFragment.class.getSimpleName(), "Category received: "
-                                + category.getName());
-                        Intent intent = new Intent(getContext(), MoreAppsActivity.class);
-                        intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
-                        startActivity(intent);
-                    }
+                new TopCategoryAdapter(getContext(), category -> {
+                    Log.d(ForYouFragment.class.getSimpleName(), "Category received: "
+                            + category.getName());
+                    Intent intent = new Intent(getContext(), MoreAppsActivity.class);
+                    intent.putExtra(MoreAppsActivity.CATEGORY_KEY, category);
+                    startActivity(intent);
                 });
 
         topCategoryAdapter.setCategoryList(categoryList);

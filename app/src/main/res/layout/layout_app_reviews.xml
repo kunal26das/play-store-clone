@@ -181,9 +181,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:background="@drawable/review_border"
         android:orientation="vertical">
 
@@ -195,7 +195,7 @@
             android:layout_marginBottom="10dp"
             android:text="Top Reviews"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="12sp" />
 
         <View
             android:layout_width="match_parent"
