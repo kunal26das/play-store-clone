@@ -114,7 +114,7 @@ public class AppCardAdapter extends RecyclerView.Adapter<AppCardAdapter.ViewHold
 
     public void setAppByCategoryApiResponse(List<App> appByCategoryApiResponse) {
         this.appByCategoryApiResponse = appByCategoryApiResponse;
-        notifyItemChanged(0);
+        notifyDataSetChanged();
     }
 
 }
