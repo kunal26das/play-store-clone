@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,15 +33,18 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static com.emre1s.playstore.ui.MainActivity.hideSoftKeyboard;
+
 public class SearchActivity extends AppCompatActivity implements ApiResponseCallback {
     private FloatingSearchView searchView;
     private SearchResultAdapter searchResultAdapter;
+    private PageViewModel pageViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
+        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
         RecyclerView searchResultsRecycler = findViewById(R.id.rv_search_results);
         searchResultAdapter = new SearchResultAdapter();
@@ -81,7 +85,8 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
         searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                Log.d(MainActivity.class.getSimpleName(), "SearchTextChanged" + "Old query: " + oldQuery +
+                Log.d(MainActivity.class.getSimpleName(),
+                        "SearchTextChanged" + "Old query: " + oldQuery +
                         "New query: " + newQuery);
 
                 if (oldQuery.equals("") && newQuery.equals("")) {
@@ -137,20 +142,37 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
             }
         });
 
-        String finalQuery = query;
         searchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-
+                resetSearchView();
+                pageViewModel.makeSearchResultsApiCall(searchSuggestion.getBody(),
+                        SearchActivity.this);
             }
 
             @Override
             public void onSearchAction(String currentQuery) {
-                pageViewModel.makeSearchResultsApiCall(finalQuery, SearchActivity.this);
+                resetSearchView();
+                pageViewModel.makeSearchResultsApiCall(currentQuery,
+                        SearchActivity.this);
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK && null != data) {
+
+                ArrayList<String> result = data
+                        .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                searchView.setSearchText(result.get(0));
+                pageViewModel.makeSearchResultsApiCall(result.get(0), this);
+            }
+        }
+    }
 
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -170,11 +192,18 @@ public class SearchActivity extends AppCompatActivity implements ApiResponseCall
 
     @Override
     public void onSuccess(List<App> popularApp) {
+        Log.d(SearchActivity.class.getSimpleName(), "SearchActivity search called");
         searchResultAdapter.setSearchResultList(popularApp);
     }
 
     @Override
     public void onFailure() {
 
+    }
+
+    private void resetSearchView() {
+        hideSoftKeyboard(SearchActivity.this);
+        searchView.clearSuggestions();
+        searchView.clearQuery();
     }
 }

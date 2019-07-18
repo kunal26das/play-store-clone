@@ -4,46 +4,64 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.emre1s.playstore.room.AppsRepository;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 public class InstalledAppsViewModel extends AndroidViewModel {
 
     private InstalledAppsRepository mRepository;
+    private AppsRepository appsRepository;
 
     public InstalledAppsViewModel(@NonNull Application application) {
         super(application);
         mRepository = new InstalledAppsRepository(application);
+        this.appsRepository = new AppsRepository(application);
     }
 
-    public MutableLiveData<List<InstalledApp>> getInstalledApps() {
-        return mRepository.getInstalledApps();
+    public Observable<List<InstalledApp>> getInstalledApps() {
+        Observable<List<InstalledApp>> memory = appsRepository.getInstalledAppsObservable();
+        Observable<List<InstalledApp>> cache = CacheDataSource.getInstance().getCacheObserver();
+        Observable<List<InstalledApp>> localCall = mRepository.getInstalledApps();
+
+        return Observable.concat(memory, cache, localCall);
     }
 
     static class InstalledAppsRepository {
 
         MutableLiveData<List<InstalledApp>> mInstalledApps;
         PackageManager mPackageManager;
+        static AppsRepository appsRepository;
 
         public InstalledAppsRepository(Application application) {
             mPackageManager = application.getPackageManager();
             mInstalledApps = new MutableLiveData<>();
+            appsRepository = new AppsRepository(application);
         }
 
-        private MutableLiveData<List<InstalledApp>> getInstalledApps() {
+        private Observable<List<InstalledApp>> getInstalledApps() {
             InstalledAppsAsyncTask installedAppsAsyncTask = new InstalledAppsAsyncTask(mPackageManager);
-            MutableLiveData<List<InstalledApp>> installedApps = new MutableLiveData<>();
+            // MutableLiveData<List<InstalledApp>> installedApps = new MutableLiveData<>();
+            List<InstalledApp> installedApps = new ArrayList<>();
             try {
-                installedApps.setValue(installedAppsAsyncTask.execute().get());
+                installedApps = installedAppsAsyncTask.execute().get();  //NETWORK CALL
             } catch (Exception exception) {
             }
-            return installedApps;
+            List<InstalledApp> finalInstalledApps = installedApps;
+            return Observable.create(emitter -> {
+                if (emitter != null) {
+                    emitter.onNext(finalInstalledApps);
+                }
+                emitter.onComplete();
+            });
         }
 
         static class InstalledAppsAsyncTask extends AsyncTask<Void, Void, List<InstalledApp>> {
@@ -60,16 +78,25 @@ public class InstalledAppsViewModel extends AndroidViewModel {
                 List<ApplicationInfo> installedApps = mPackageManager.getInstalledApplications(0);
                 for (ApplicationInfo app : installedApps) {
                     try {
-                        Log.i("Package Name", app.packageName);
-                        apps.add(new InstalledApp(app.packageName,
-                                mPackageManager.getApplicationLabel(app).toString(),
-                                mPackageManager.getPackageInfo(app.packageName, 0).versionName,
-                                mPackageManager.getApplicationIcon(app)));
+                        if (!isSystemPackage(app)) {
+                            apps.add(new InstalledApp(
+                                    app.packageName,
+                                    mPackageManager.getApplicationLabel(app).toString(),
+                                    mPackageManager.getPackageInfo(app.packageName, 0).versionName,
+                                    mPackageManager.getApplicationIcon(app)));
+                        }
                     } catch (Exception exception) {
 
                     }
                 }
+                appsRepository.insertInstalledApp(apps);  //MEMORY CALL
+                CacheDataSource cacheDataSource = CacheDataSource.getInstance();
+                cacheDataSource.setInstalledApps(apps); // CACHE CALL
                 return apps;
+            }
+
+            private boolean isSystemPackage(ApplicationInfo pkgInfo) {
+                return (pkgInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
             }
         }
     }

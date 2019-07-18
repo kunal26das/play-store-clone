@@ -23,7 +23,7 @@
             <View
                 android:id="@+id/searchBarBackground"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="56dp"
                 android:background="@color/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways" />
 
@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                app:tabMinWidth="96dp"
                 app:layout_scrollFlags="scroll|enterAlways" />
 
         </com.google.android.material.appbar.AppBarLayout>

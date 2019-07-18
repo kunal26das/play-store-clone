@@ -28,7 +28,7 @@ public class ReviewPageActivity extends AppCompatActivity implements ReviewRespo
     private ImageView appIconCustom;
     private TextView appNameCustom;
     private TextView typeCustom;
-    private AppDetails appDetails=new AppDetails();
+    private AppDetails appDetails = new AppDetails();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,12 @@ public class ReviewPageActivity extends AppCompatActivity implements ReviewRespo
         setContentView(R.layout.activity_review_page);
         PageViewModel pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        appIconCustom= findViewById(R.id.review_icon_custom);
-        appNameCustom=findViewById(R.id.app_name_custom);
+        appIconCustom = findViewById(R.id.review_icon_custom);
+        appNameCustom = findViewById(R.id.app_name_custom);
         typeCustom = findViewById(R.id.type_custom);
 
         RecyclerView reviewRecyclerView = findViewById(R.id.review_rv);
-        reviewAdapter = new ReviewAdapter();
+        reviewAdapter = new ReviewAdapter(this);
 
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         reviewRecyclerView.setAdapter(reviewAdapter);

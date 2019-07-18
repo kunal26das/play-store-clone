@@ -24,10 +24,12 @@ import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class ForYouFragment extends Fragment {
 
     private PageViewModel pageViewModel;
+    private CircularProgressBar progressBar;
 
     public ForYouFragment() {
     }
@@ -52,20 +54,27 @@ public class ForYouFragment extends Fragment {
         pageViewModel.getTabPosition().setValue(position);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_for_you, container, false);
-
         RecyclerView forYouRecycler = view.findViewById(R.id.rv_for_you);
         forYouRecycler.setHasFixedSize(true);
         forYouRecycler.setItemViewCacheSize(20);
-//        ProgressBar progressBar = view.findViewById(R.id.pb_for_you);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setIndeterminateTintList(ColorStateList
-//                .valueOf(getResources().getColor(R.color.colorDarkGreen)));
-//        progressBar.setVisibility(View.VISIBLE);
-        final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(), pageViewModel, new OnCategoryChanged() {
+        progressBar = view.findViewById(R.id.pb_for_you);
+        progressBar.setVisibility(View.VISIBLE);
+        final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(),
+                pageViewModel, new OnCategoryChanged() {
             @Override
             public void changeCategory(CategoryList.Category category) {
                 Log.d(ForYouFragment.class.getSimpleName(), "Category received: " + category.getName());
@@ -86,6 +95,8 @@ public class ForYouFragment extends Fragment {
                 }
             }
         });
+
+        forYouAdapter.setCircularProgressBar(progressBar);
 
         forYouRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         forYouRecycler.setAdapter(forYouAdapter);

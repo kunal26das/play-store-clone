@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
+import com.emre1s.playstore.listeners.OnInstalledAppListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,18 +22,21 @@ import java.util.List;
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.InstalledAppsViewHolder> {
 
     private Context mContext;
+    private OnInstalledAppListener onInstalledAppListener;
     private LayoutInflater mLayoutInflater;
     private PackageManager mPackageManager;
     private List<InstalledApp> mInstalledApps = Collections.emptyList();
 
-    InstalledAppsAdapter(Context context) {
+    InstalledAppsAdapter(Context context, OnInstalledAppListener onInstalledAppListener) {
         mContext = context;
+        this.onInstalledAppListener = onInstalledAppListener;
         mPackageManager = context.getPackageManager();
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     public void setInstalledApps(List<InstalledApp> installedApps) {
         mInstalledApps = installedApps;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -44,7 +48,11 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     @Override
     public void onBindViewHolder(@NonNull InstalledAppsViewHolder holder, int position) {
-        holder.updateAppInfo(mInstalledApps.get(position));
+        try {
+            holder.updateAppInfo(mInstalledApps.get(position));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(holder.itemView.getLayoutParams());
         layoutParams.setMargins(16, 0, 16, 0);
         if (position == 0) {
@@ -75,14 +83,20 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
             mAppAction = itemView.findViewById(R.id.btn_open_app);
         }
 
-        void updateAppInfo(InstalledApp app) {
-            mAppTitle.setText(app.getAppTitle());
-            mAppVersion.setText(app.getVersion());
-            mAppIcon.setImageDrawable(app.getAppIcon());
-            final String packageName = app.getPackageName();
-            mAppAction.setOnClickListener(v -> {
-                mContext.startActivity(mPackageManager.getLaunchIntentForPackage(packageName));
-            });
+        void updateAppInfo(InstalledApp app) throws PackageManager.NameNotFoundException {
+            mAppTitle.setText(app.getMTitle());
+            mAppVersion.setText(app.getMVersion());
+            if (app.getmIconUrl() != null) {
+                mAppIcon.setImageDrawable(app.getmIconUrl());
+            } else {
+                mAppIcon.setImageDrawable(mPackageManager.getApplicationIcon(app.getMPackageName()));
+            }
+            final String packageName = app.getMPackageName();
+            mAppAction.setOnClickListener(v -> mContext.startActivity(mPackageManager.getLaunchIntentForPackage(packageName)));
+            /*itemView.setOnClickListener(v -> {
+                Log.d("yash", packageName);
+                onInstalledAppListener.installApp(packageName);
+            });*/
         }
     }
 }

@@ -33,16 +33,15 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
             android:layout_margin="4dp"
-            android:layout_marginTop="64dp"
             android:elevation="4dp"
             android:padding="4dp"
             app:layout_anchor="@id/searchAppBar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_anchorGravity="bottom">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginTop="50dp"
+
                 android:id="@+id/rv_search_results"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -64,6 +63,7 @@
         app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
         app:floatingSearch_searchHint="Search..."
         app:floatingSearch_showSearchKey="true"
+        app:floatingSearch_showMoveSuggestionUp="true"
         app:floatingSearch_suggestionsListAnimDuration="250" />
 </RelativeLayout>
 

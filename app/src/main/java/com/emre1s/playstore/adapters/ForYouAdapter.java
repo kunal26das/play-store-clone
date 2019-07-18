@@ -21,6 +21,7 @@ import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,16 @@ import java.util.List;
 public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder> {
 
     private Context context;
+    private CircularProgressBar circularProgressBar;
 
     private List<CategoryList.Category> categoryList;
     private PageViewModel pageViewModel;
     private OnCategoryChanged onCategoryChanged;
     private OnDialogOpenListener onDialogOpenListener;
 
-    public ForYouAdapter(Context context, PageViewModel pageViewModel, OnCategoryChanged onCategoryChanged, OnDialogOpenListener onDialogOpenListener) {
+    public ForYouAdapter(Context context, PageViewModel pageViewModel,
+                         OnCategoryChanged onCategoryChanged,
+                         OnDialogOpenListener onDialogOpenListener) {
         this.context = context;
         this.pageViewModel = pageViewModel;
         categoryList = new ArrayList<>();
@@ -66,6 +70,9 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         pageViewModel.makeCategoryApiCall(categoryList.get(position).getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(List<App> popularApp) {
+                if (circularProgressBar != null) {
+                    circularProgressBar.setVisibility(View.GONE);
+                }
                 holder.container.setVisibility(View.VISIBLE);
                 holder.appCardAdapter.setAppByCategoryApiResponse(popularApp);
             }
@@ -88,8 +95,8 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
         ConstraintLayout categoryDetailsContainer;
         TextView categoryName;
         RecyclerView categoryApps;
-        AppCardAdapter appCardAdapter = new AppCardAdapter(pageViewModel, onDialogOpenListener);
-        LinearSnapHelper linearSnapHelper = new LinearSnapHelper();
+        AppCardAdapter appCardAdapter;
+        LinearSnapHelper linearSnapHelper;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -98,10 +105,19 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             categoryApps = itemView.findViewById(R.id.rv_app_cards);
             container = itemView.findViewById(R.id.cv_apps);
             categoryDetailsContainer = itemView.findViewById(R.id.category_details_container);
+
+            linearSnapHelper = new LinearSnapHelper();
             categoryApps.setLayoutManager(new LinearLayoutManager(context,
                     LinearLayoutManager.HORIZONTAL, false));
+            appCardAdapter = new AppCardAdapter(pageViewModel, onDialogOpenListener);
             categoryApps.setAdapter(appCardAdapter);
+            categoryApps.setItemViewCacheSize(8);
+            categoryApps.setHasFixedSize(true);
             linearSnapHelper.attachToRecyclerView(categoryApps);
         }
+    }
+
+    public void setCircularProgressBar(CircularProgressBar circularProgressBar) {
+        this.circularProgressBar = circularProgressBar;
     }
 }

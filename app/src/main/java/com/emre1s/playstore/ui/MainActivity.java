@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +22,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
-import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.emre1s.playstore.R;
 import com.emre1s.playstore.api.RetrofitApiFactory;
@@ -49,9 +46,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableObserver;
-import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -89,18 +84,14 @@ public class MainActivity extends AppCompatActivity
         searchView = findViewById(R.id.floating_search_view);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(CompletableEmitter emitter) throws Exception {
-                initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
-                        inputStreamToString(getResources().openRawResource(R.raw.family)),
-                        inputStreamToString(getResources().openRawResource(R.raw.games)),
-                        inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
-                        inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
-
-                if (emitter != null) {
-                    emitter.onComplete();
-                }
+        Completable.create(emitter -> {
+            initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
+                    inputStreamToString(getResources().openRawResource(R.raw.family)),
+                    inputStreamToString(getResources().openRawResource(R.raw.games)),
+                    inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
+                    inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
+            if (emitter != null) {
+                emitter.onComplete();
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -127,7 +118,7 @@ public class MainActivity extends AppCompatActivity
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.setOffscreenPageLimit(5);
+        //viewPager.setOffscreenPageLimit(5);
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
@@ -137,12 +128,7 @@ public class MainActivity extends AppCompatActivity
         AppBarLayout appBarLayout = findViewById(R.id.appBar);
         View searchViewBackground = findViewById(R.id.searchBarBackground);
 
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                searchView.setTranslationY(verticalOffset);
-            }
-        });
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> searchView.setTranslationY(verticalOffset));
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -215,82 +201,70 @@ public class MainActivity extends AppCompatActivity
 
         searchView.setZ(15);
 
-        searchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
-            @Override
-            public void onSearchTextChanged(String oldQuery, final String newQuery) {
-                Log.d(MainActivity.class.getSimpleName(), "SearchTextChanged" + "Old query: " + oldQuery +
-                        "New query: " + newQuery);
+        searchView.setOnQueryChangeListener((oldQuery, newQuery) -> {
+            Log.d(MainActivity.class.getSimpleName(), "SearchTextChanged" + "Old query: " + oldQuery +
+                    "New query: " + newQuery);
 
-                if (oldQuery.equals("") && newQuery.equals("")) {
-                    searchView.clearSuggestions();
-                } else {
-                    searchView.showProgress();
-                    Observable.just(newQuery)
-                            .debounce(400, TimeUnit.MILLISECONDS)
-                            .subscribe(new Observer<String>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
+            if (oldQuery.equals("") && newQuery.equals("")) {
+                searchView.clearSuggestions();
+            } else {
+                searchView.showProgress();
+                Observable.just(newQuery)
+                        .debounce(400, TimeUnit.MILLISECONDS)
+                        .subscribe(new Observer<String>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                                }
+                            }
 
-                                @Override
-                                public void onNext(String s) {
-                                    pageViewModel.makeSearchSuggestionApiCall(s, new SearchResponseCallback() {
-                                        @Override
-                                        public void onSuccess(List<String> suggestions) {
-                                            List<SearchSuggestion> searchSuggestions = new ArrayList<>();
-                                            for (int i = 0; i < suggestions.size(); i++) {
-                                                Log.d(MainActivity.class.getSimpleName(),
-                                                        "Suggestion: " + suggestions.get(i));
+                            @Override
+                            public void onNext(String s) {
+                                pageViewModel.makeSearchSuggestionApiCall(s, new SearchResponseCallback() {
+                                    @Override
+                                    public void onSuccess(List<String> suggestions) {
+                                        List<SearchSuggestion> searchSuggestions = new ArrayList<>();
+                                        for (int i = 0; i < suggestions.size(); i++) {
+                                            Log.d(MainActivity.class.getSimpleName(),
+                                                    "Suggestion: " + suggestions.get(i));
 
-                                                SearchSuggestion searchSuggestion =
-                                                        new com.emre1s.playstore.models
-                                                                .SearchSuggestion(suggestions.get(i));
-                                                searchSuggestions.add(searchSuggestion);
-                                            }
-                                            searchView.hideProgress();
-                                            searchView.swapSuggestions(searchSuggestions);
+                                            SearchSuggestion searchSuggestion =
+                                                    new com.emre1s.playstore.models
+                                                            .SearchSuggestion(suggestions.get(i));
+                                            searchSuggestions.add(searchSuggestion);
                                         }
+                                        searchView.hideProgress();
+                                        searchView.swapSuggestions(searchSuggestions);
+                                    }
 
-                                        @Override
-                                        public void onFailure() {
+                                    @Override
+                                    public void onFailure() {
 
-                                        }
-                                    });
-                                }
+                                    }
+                                });
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                                }
+                            }
 
-                                @Override
-                                public void onComplete() {
+                            @Override
+                            public void onComplete() {
 
-                                }
-                            });
-                }
+                            }
+                        });
             }
         });
 
 
         searchView.attachNavigationDrawerToMenuButton(drawer);
 
-        searchView.setOnBindSuggestionCallback(new SearchSuggestionsAdapter.OnBindSuggestionCallback() {
-            @Override
-            public void onBindSuggestion(View suggestionView, ImageView leftIcon,
-                                         TextView textView, SearchSuggestion item,
-                                         int itemPosition) {
+        searchView.setOnBindSuggestionCallback((suggestionView, leftIcon, textView, item, itemPosition) -> {
 
-            }
         });
 
-        searchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
-            @Override
-            public void onActionMenuItemSelected(MenuItem item) {
-                Toast.makeText(MainActivity.this, "Check done", Toast.LENGTH_SHORT).show();
-                promptSpeechInput();
-            }
+        searchView.setOnMenuItemClickListener(item -> {
+            promptSpeechInput();
         });
 
         searchView.setShowMoveUpSuggestion(true);
@@ -370,7 +344,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -411,6 +384,10 @@ public class MainActivity extends AppCompatActivity
                 ArrayList<String> result = data
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 searchView.setSearchText(result.get(0));
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("query", result.get(0));
+                startActivity(intent);
+                resetSearchView();
             }
         }
     }

@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
@@ -95,7 +96,9 @@ public class ScreenshotActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_screenshot);
-
+        Toolbar toolbar = findViewById(R.id.screnshot_toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("");
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.screenshots_viewpager);
@@ -105,7 +108,9 @@ public class ScreenshotActivity extends AppCompatActivity implements View.OnClic
         Intent intent = getIntent();
         if (intent.hasExtra("SCREENSHOTS_URL")) {
             List<String> screenshotsUrls = intent.getStringArrayListExtra("SCREENSHOTS_URL");
+            int screenshotIndex = intent.getIntExtra("SCREENSHOT_INDEX", 0);
             screenshotsViewPager.setAdapter(new ScreenshotPagerAdapter(this, screenshotsUrls));
+            screenshotsViewPager.setCurrentItem(screenshotIndex);
         }
 
         // Set up the user interaction to manually show or hide the system UI.

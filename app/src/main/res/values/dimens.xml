@@ -9,4 +9,9 @@
     <dimen name="search_view_inset">5dp</dimen>
     <dimen name="sliding_search_view_header_height">250dp</dimen>
 
+    <dimen name="activityPadding">16dp</dimen>
+    <dimen name="placeholderImage">60dp</dimen>
+    <dimen name="placeholderTextHeight">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+
 </resources>

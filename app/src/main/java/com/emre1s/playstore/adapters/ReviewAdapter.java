@@ -1,5 +1,6 @@
 package com.emre1s.playstore.adapters;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,11 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
 
     private List<Review> reviewList = new ArrayList<>();
+    private LayoutInflater mLayoutInflater;
+
+    public ReviewAdapter(Context context) {
+        mLayoutInflater = LayoutInflater.from(context);
+    }
 
     @NonNull
     @Override

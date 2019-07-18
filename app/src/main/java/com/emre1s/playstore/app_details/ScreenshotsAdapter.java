@@ -2,12 +2,14 @@ package com.emre1s.playstore.app_details;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emre1s.playstore.R;
@@ -19,16 +21,25 @@ import java.util.List;
 
 public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.ScreenshotHolder> {
 
+    private String mTrailerUrl;
+    private Boolean mHasVideoImage;
     private LayoutInflater mLayoutInflater;
     private List<String> mScreenshots = Collections.emptyList();
 
     public ScreenshotsAdapter(Context context) {
+        mTrailerUrl = null;
+        mHasVideoImage = false;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
     public void setScreenshots(List<String> screenshots) {
         mScreenshots = screenshots;
         notifyDataSetChanged();
+    }
+
+    public void setHasVideoImage(boolean flag, @Nullable String trailerUrl) {
+        mHasVideoImage = flag;
+        mTrailerUrl = trailerUrl;
     }
 
     @NonNull
@@ -66,11 +77,21 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
         void updateScreenshot(String screenshotUrl, int screenshotIndex) {
             Picasso.get().load(screenshotUrl).resize(0, 768).into(appScreenshot);
             itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(itemView.getContext(), ScreenshotActivity.class);
-                intent.putStringArrayListExtra("SCREENSHOTS_URL", (ArrayList<String>) mScreenshots);
-                intent.putExtra("SCREENSHOT_INDEX", screenshotIndex);
-                itemView.getContext().startActivity(intent);
+                if (mHasVideoImage && screenshotIndex == 0) {
+                    Intent yt_play = new Intent(Intent.ACTION_VIEW, Uri.parse(mTrailerUrl));
+                    Intent chooser = Intent.createChooser(yt_play, "Open With");
+
+                    if (yt_play.resolveActivity(appScreenshot.getContext().getPackageManager()) != null) {
+                        appScreenshot.getContext().startActivity(chooser);
+                    }
+                } else {
+                    Intent intent = new Intent(itemView.getContext(), ScreenshotActivity.class);
+                    intent.putStringArrayListExtra("SCREENSHOTS_URL", (ArrayList<String>) mScreenshots);
+                    intent.putExtra("SCREENSHOT_INDEX", screenshotIndex);
+                    itemView.getContext().startActivity(intent);
+                }
             });
+
         }
     }
 }
