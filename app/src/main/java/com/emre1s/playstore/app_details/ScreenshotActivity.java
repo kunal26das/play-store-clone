@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.emre1s.playstore.R;
@@ -95,7 +96,8 @@ public class ScreenshotActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_screenshot);
-
+        Toolbar toolbar = findViewById(R.id.screnshot_toolbar);
+        setSupportActionBar(toolbar);
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.screenshots_viewpager);
