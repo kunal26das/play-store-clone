@@ -264,7 +264,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         searchView.setOnMenuItemClickListener(item -> {
-            Toast.makeText(MainActivity.this, "Check done", Toast.LENGTH_SHORT).show();
             promptSpeechInput();
         });
 
