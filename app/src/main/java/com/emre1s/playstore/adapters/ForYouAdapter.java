@@ -124,6 +124,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             categoryApps.setAdapter(appCardAdapter);
             categoryApps.setItemViewCacheSize(8);
             categoryApps.setHasFixedSize(true);
+            categoryApps.setNestedScrollingEnabled(false);
             linearSnapHelper.attachToRecyclerView(categoryApps);
         }
     }
