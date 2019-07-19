@@ -67,8 +67,8 @@ public class FamilyTopChartsFragment extends Fragment {
         CircularProgressBar circularProgressBar = root.findViewById(R.id.pb_top_charts);
         circularProgressBar.setVisibility(View.VISIBLE);
         RecyclerView appList = root.findViewById(R.id.app_list);
-        CircularProgressBar circularProgressBar = root.findViewById(R.id.pb_top_charts);
-        circularProgressBar.setVisibility(View.VISIBLE);
+        /*CircularProgressBar circularProgressBar = root.findViewById(R.id.pb_top_charts);
+        circularProgressBar.setVisibility(View.VISIBLE);*/
 
         final TopChartsAdapter topChartsAdapter = new TopChartsAdapter();
 
