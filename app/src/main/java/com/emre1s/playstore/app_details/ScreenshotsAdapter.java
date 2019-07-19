@@ -58,8 +58,10 @@ public class ScreenshotsAdapter extends RecyclerView.Adapter<ScreenshotsAdapter.
             }
         } else if (position == mScreenshots.size() - 1) {
             screenshotHolder.appScreenshot.setPadding(4, 0, 44, 0);
+            screenshotHolder.playable.setVisibility(View.GONE);
         } else {
             screenshotHolder.appScreenshot.setPadding(4, 0, 4, 0);
+            screenshotHolder.playable.setVisibility(View.GONE);
         }
     }
 
