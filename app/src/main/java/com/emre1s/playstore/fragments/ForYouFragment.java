@@ -23,6 +23,8 @@ import com.emre1s.playstore.ui.main.PageViewModel;
 import com.mikepenz.itemanimators.AlphaInAnimator;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
+import java.util.concurrent.Executors;
+
 public class ForYouFragment extends Fragment {
 
     private PageViewModel pageViewModel;
@@ -104,6 +106,12 @@ public class ForYouFragment extends Fragment {
             }
         });
 
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
         pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer tabPosition) {

@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,35 +63,41 @@ public class InstalledAppsActivity extends AppCompatActivity implements Navigati
 //                installedAppsAdapter.setInstalledApps(installedApps);
 //            }
 //        });
-        installedAppsViewModel.getInstalledApps()
-                .firstElement()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .toObservable()
-                .subscribe(new Observer<List<InstalledApp>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                installedAppsViewModel.getInstalledApps()
+                        .firstElement()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .toObservable()
+                        .subscribe(new Observer<List<InstalledApp>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                    }
+                            }
 
-                    @Override
-                    public void onNext(List<InstalledApp> installedApps) {
-                        Log.d(InstalledAppsActivity.class.getSimpleName(), "SIZE: " + installedApps.size());
-                        installedAppsAdapter.setInstalledApps(installedApps);
-                    }
+                            @Override
+                            public void onNext(List<InstalledApp> installedApps) {
+                                Log.d(InstalledAppsActivity.class.getSimpleName(), "SIZE: " + installedApps.size());
+                                installedAppsAdapter.setInstalledApps(installedApps);
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        circularProgressBar.setVisibility(View.GONE);
-                        Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps error " + e.getLocalizedMessage());
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                circularProgressBar.setVisibility(View.GONE);
+                                Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps error " + e.getLocalizedMessage());
+                            }
 
-                    @Override
-                    public void onComplete() {
-                        circularProgressBar.setVisibility(View.GONE);
-                        Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps complete");
-                    }
-                });
+                            @Override
+                            public void onComplete() {
+                                circularProgressBar.setVisibility(View.GONE);
+                                Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps complete");
+                            }
+                        });
+            }
+        });
+
     }
 
     @Override

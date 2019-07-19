@@ -263,7 +263,7 @@ public class RetrofitApiFactory {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        searchResponseCallback.onFailure();
                     }
                 });
     }

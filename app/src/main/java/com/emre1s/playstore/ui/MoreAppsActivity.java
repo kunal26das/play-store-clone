@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -21,6 +22,7 @@ import com.emre1s.playstore.listeners.OnDialogOpenListener;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.List;
 
@@ -34,6 +36,9 @@ public class MoreAppsActivity extends AppCompatActivity {
     public static final int PORTRAIT_SPAN_COUNT = 3;
     private CategoryList.Category category;
     private int spanCount;
+    private CircularProgressBar progressBar;
+    private View noContentContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,12 @@ public class MoreAppsActivity extends AppCompatActivity {
         }
         getSupportActionBar().setTitle(category.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        progressBar = findViewById(R.id.pb_more_apps);
+        progressBar.setVisibility(View.VISIBLE);
+
+        noContentContainer = findViewById(R.id.no_content_container);
+        noContentContainer.setVisibility(View.GONE);
 
         RecyclerView moreApps = findViewById(R.id.rv_more_apps);
 
@@ -72,12 +83,14 @@ public class MoreAppsActivity extends AppCompatActivity {
         pageViewModel.makeCategoryApiCall(category.getId(), new ApiResponseCallback() {
             @Override
             public void onSuccess(List<App> popularApp) {
+                progressBar.setVisibility(View.GONE);
                 appCardAdapter.setAppByCategoryApiResponse(popularApp);
             }
 
             @Override
             public void onFailure() {
-
+                progressBar.setVisibility(View.GONE);
+                noContentContainer.setVisibility(View.VISIBLE);
             }
         });
 
