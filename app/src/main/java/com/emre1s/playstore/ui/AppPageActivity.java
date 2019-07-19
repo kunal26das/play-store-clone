@@ -118,6 +118,7 @@ public class AppPageActivity extends AppCompatActivity {
                     displaySimilarApps();
                 }
             }
+
             @Override
             public void onFailure() {
                 circularProgressBar.setVisibility(View.GONE);
@@ -366,7 +367,7 @@ public class AppPageActivity extends AppCompatActivity {
     private void displaySimilarApps() {
         final TextView moreSimilarApps = findViewById(R.id.tv_more_similar_apps);
         final RecyclerView similarAppsRecyclerview = findViewById(R.id.rv_similar_apps);
-        final TextView similarAppsTv= findViewById(R.id.similar_apps_tv);
+        final TextView similarAppsTv = findViewById(R.id.similar_apps_tv);
 
         similarAppsRecyclerview.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         AppCardAdapter appCardAdapter = new AppCardAdapter(mPageViewModel, appDetails1 -> {
@@ -383,7 +384,7 @@ public class AppPageActivity extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-                Log.d("Similar Apps Empty", "---"+mAppDetails.getmAppId());
+                Log.d("Similar Apps Empty", mAppDetails.getmAppId());
                 similarAppsTv.setVisibility(View.GONE);
             }
         });

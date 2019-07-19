@@ -361,6 +361,11 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             }
+            case R.id.nav_subscriptions: {
+                Intent intent = new Intent(this, Subscriptions.class);
+                startActivity(intent);
+                break;
+            }
             case R.id.nav_about_google_play: {
                 String url = "https://support.google.com/googleplay/answer/6034670?p=about_play";
                 Intent intent = new Intent(Intent.ACTION_VIEW);
