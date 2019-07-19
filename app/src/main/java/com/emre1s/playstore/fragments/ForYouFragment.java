@@ -65,7 +65,9 @@ public class ForYouFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_for_you, container, false);
         RecyclerView forYouRecycler = view.findViewById(R.id.rv_for_you);
         forYouRecycler.setHasFixedSize(true);
@@ -112,6 +114,7 @@ public class ForYouFragment extends Fragment {
 
             }
         });
+
         pageViewModel.getTabPosition().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer tabPosition) {

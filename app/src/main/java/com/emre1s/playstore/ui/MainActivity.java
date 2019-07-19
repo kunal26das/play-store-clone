@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
@@ -86,34 +87,16 @@ public class MainActivity extends AppCompatActivity
         searchView = findViewById(R.id.floating_search_view);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        Completable.create(emitter -> {
-            initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
-                    inputStreamToString(getResources().openRawResource(R.raw.family)),
-                    inputStreamToString(getResources().openRawResource(R.raw.games)),
-                    inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
-                    inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
-            if (emitter != null) {
-                emitter.onComplete();
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
+                        inputStreamToString(getResources().openRawResource(R.raw.family)),
+                        inputStreamToString(getResources().openRawResource(R.raw.games)),
+                        inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
+                        inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
             }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d(MainActivity.class.getSimpleName(), "Task complete");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-
+        });
 
         SectionsPagerAdapter sectionsPagerAdapter = new
         SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -257,7 +240,6 @@ public class MainActivity extends AppCompatActivity
                         });
             }
         });
-
 
         searchView.attachNavigationDrawerToMenuButton(drawer);
 
