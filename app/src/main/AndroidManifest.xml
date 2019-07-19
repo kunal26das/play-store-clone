@@ -17,6 +17,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.main.ParentGuide"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.Notifications" />
         <activity
             android:name=".ui.AppDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
