@@ -16,7 +16,7 @@
             android:id="@+id/nav_subscriptions"
             android:title="@string/menu_subscriptions" />
         <item
-            android:id="@+id/nav_wish_lisy"
+            android:id="@+id/nav_wish_list"
             android:title="@string/menu_wish_list" />
     </group>
 
