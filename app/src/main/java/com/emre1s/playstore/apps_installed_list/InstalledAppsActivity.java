@@ -63,6 +63,7 @@ public class InstalledAppsActivity extends AppCompatActivity implements Navigati
 //                installedAppsAdapter.setInstalledApps(installedApps);
 //            }
 //        });
+
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
@@ -95,8 +96,10 @@ public class InstalledAppsActivity extends AppCompatActivity implements Navigati
                                 Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps complete");
                             }
                         });
+
             }
         });
+
 
     }
 

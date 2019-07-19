@@ -8,41 +8,27 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_my_apps_and_games"
-            android:title="@string/menu_my_apps_and_games" />
+            android:title="@string/menu_my_apps_and_games"
+            android:icon="@drawable/icons8_data_grid_26"/>
         <item
             android:id="@+id/nav_notifications"
-            android:title="@string/menu_notifications" />
+            android:title="@string/menu_notifications"
+            android:icon="@drawable/icons8_notification_24"/>
         <item
             android:id="@+id/nav_subscriptions"
-            android:title="@string/menu_subscriptions" />
+            android:title="@string/menu_subscriptions"
+            android:icon="@drawable/icons8_renew_24"/>
         <item
-            android:id="@+id/nav_wish_lisy"
-            android:title="@string/menu_wish_list" />
+            android:id="@+id/nav_wish_list"
+            android:title="@string/menu_wish_list"
+            android:icon="@drawable/icons8_bookmark_24"/>
     </group>
 
-    <group
-        android:id="@+id/group_two"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_account"
-            android:title="@string/menu_account" />
-        <item
-            android:id="@+id/nav_payment_methods"
-            android:title="@string/menu_payment_methods" />
-        <item
-            android:id="@+id/nav_play_protect"
-            android:title="@string/menu_play_protect" />
-        <item
-            android:id="@+id/nav_settings"
-            android:title="@string/menu_settings" />
-    </group>
 
     <group
         android:id="@+id/group_three"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_redeem"
-            android:title="@string/menu_redeem" />
+
         <item
             android:id="@+id/nav_help_and_feedback"
             android:title="@string/menu_help_and_feedback" />

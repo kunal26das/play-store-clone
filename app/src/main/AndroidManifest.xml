@@ -17,8 +17,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.main.ParentGuide"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.WishList"></activity>
+        <activity android:name=".ui.Subscriptions" />
+        <activity
+            android:name=".ui.main.ParentGuide"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.Notifications" />
         <activity
             android:name=".ui.AppDetailsActivity"
@@ -39,6 +42,7 @@
         <activity android:name=".ui.TopCharts" />
         <activity
             android:name=".ui.MainActivity"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
