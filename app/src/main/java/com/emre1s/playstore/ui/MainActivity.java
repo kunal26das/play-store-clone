@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -31,6 +32,7 @@ import com.emre1s.playstore.listeners.OnShowAllClickedListener;
 import com.emre1s.playstore.models.CategoryList;
 import com.emre1s.playstore.models.TabList;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.emre1s.playstore.ui.main.ParentGuide;
 import com.emre1s.playstore.ui.main.SectionsPagerAdapter;
 import com.facebook.stetho.Stetho;
 import com.google.android.material.appbar.AppBarLayout;
@@ -43,6 +45,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
@@ -84,34 +87,16 @@ public class MainActivity extends AppCompatActivity
         searchView = findViewById(R.id.floating_search_view);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
 
-        Completable.create(emitter -> {
-            initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
-                    inputStreamToString(getResources().openRawResource(R.raw.family)),
-                    inputStreamToString(getResources().openRawResource(R.raw.games)),
-                    inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
-                    inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
-            if (emitter != null) {
-                emitter.onComplete();
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                initializeCategories(inputStreamToString(getResources().openRawResource(R.raw.apps)),
+                        inputStreamToString(getResources().openRawResource(R.raw.family)),
+                        inputStreamToString(getResources().openRawResource(R.raw.games)),
+                        inputStreamToString(getResources().openRawResource(R.raw.apps_top_categories)),
+                        inputStreamToString(getResources().openRawResource(R.raw.games_top_categories)));
             }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d(MainActivity.class.getSimpleName(), "Task complete");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-
+        });
 
         SectionsPagerAdapter sectionsPagerAdapter = new
         SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -256,7 +241,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
         searchView.attachNavigationDrawerToMenuButton(drawer);
 
         searchView.setOnBindSuggestionCallback((suggestionView, leftIcon, textView, item, itemPosition) -> {
@@ -347,16 +331,53 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.nav_my_apps_and_games) {
-            Intent intent = new Intent(this, InstalledAppsActivity.class);
-            startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.nav_my_apps_and_games: {
+                Intent intent = new Intent(this, InstalledAppsActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_notifications: {
+                Intent intent = new Intent(this, Notifications.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_subscriptions: {
+                Intent intent = new Intent(this, Subscriptions.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_wish_list: {
+                Intent intent = new Intent(this, WishList.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_about_google_play: {
+                String url = "https://support.google.com/googleplay/answer/6034670?p=about_play";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_parent_guide: {
+                Intent intent = new Intent(this, ParentGuide.class);
+                intent.putExtra("url", "https://support.google.com/googleplay/answer/6209547");
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_help_and_feedback: {
+                Intent intent = new Intent(this, ParentGuide.class);
+                intent.putExtra("url", "https://support.google.com/googleplay/?hl=en#topic=3364260");
+                startActivity(intent);
+                break;
+            }
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return false;
     }
 
     private void promptSpeechInput() {

@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_more_apps"
-    android:layout_width="match_parent"
+<FrameLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MoreAppsActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.recyclerview.widget.RecyclerView>
+    <androidx.recyclerview.widget.RecyclerView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rv_more_apps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.MoreAppsActivity"  />
+
+    <include android:id="@+id/no_content_container"
+        android:visibility="gone"
+        layout="@layout/layout_no_content"/>
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/pb_more_apps"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        app:cpb_background_progressbar_color="@color/colorPrimary"
+        app:cpb_background_progressbar_width="4dp"
+        android:visibility="gone"
+        app:cpb_indeterminate_mode="true"
+        app:cpb_progressbar_color="@color/colorPrimary" />
+</FrameLayout>

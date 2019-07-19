@@ -75,6 +75,7 @@ public class RetrofitApiFactory {
 
                     @Override
                     public void onError(Throwable e) {
+                        databaseCallback.onFailure();
                         Log.d("kunal", "Error");
                     }
                 });
@@ -262,7 +263,7 @@ public class RetrofitApiFactory {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        searchResponseCallback.onFailure();
                     }
                 });
     }

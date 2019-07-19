@@ -67,6 +67,9 @@ public class FamilyTopChartsFragment extends Fragment {
         CircularProgressBar circularProgressBar = root.findViewById(R.id.pb_top_charts);
         circularProgressBar.setVisibility(View.VISIBLE);
         RecyclerView appList = root.findViewById(R.id.app_list);
+        CircularProgressBar circularProgressBar = root.findViewById(R.id.pb_top_charts);
+        circularProgressBar.setVisibility(View.VISIBLE);
+
         final TopChartsAdapter topChartsAdapter = new TopChartsAdapter();
 
         appList.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -82,6 +85,7 @@ public class FamilyTopChartsFragment extends Fragment {
                         CATEGORY_FAMILY, new ApiResponseCallback() {
                     @Override
                     public void onSuccess(List<App> popularApp) {
+                        circularProgressBar.setVisibility(View.GONE);
                         Log.d("Success", popularApp.size() + "");
                         if (limit != 3) {
                             topChartsAdapter.setmList(popularApp);

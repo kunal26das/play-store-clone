@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +19,10 @@ import com.emre1s.playstore.R;
 import com.emre1s.playstore.listeners.OnInstalledAppListener;
 import com.emre1s.playstore.ui.AppPageActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,6 +30,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class InstalledAppsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnInstalledAppListener {
+
+    private CircularProgressBar circularProgressBar;
+    private View installedAppsContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,44 +46,61 @@ public class InstalledAppsActivity extends AppCompatActivity implements Navigati
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        circularProgressBar = findViewById(R.id.pb_installed_apps);
+
+        circularProgressBar.setVisibility(View.VISIBLE);
+
         RecyclerView installedAppsRecyclerView = findViewById(R.id.rv_installed_app_list);
-        InstalledAppsAdapter installedAppsAdapter = new InstalledAppsAdapter(this, this);
+        InstalledAppsAdapter installedAppsAdapter = new InstalledAppsAdapter(this,
+                this);
         installedAppsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         installedAppsRecyclerView.setAdapter(installedAppsAdapter);
 
-        InstalledAppsViewModel installedAppsViewModel = ViewModelProviders.of(this).get(InstalledAppsViewModel.class);
+        InstalledAppsViewModel installedAppsViewModel = ViewModelProviders.of(this)
+                .get(InstalledAppsViewModel.class);
 //        installedAppsViewModel.getInstalledApps().observe(this, installedApps -> {
 //            if (installedApps != null) {
 //                installedAppsAdapter.setInstalledApps(installedApps);
 //            }
 //        });
-        installedAppsViewModel.getInstalledApps()
-                .firstElement()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .toObservable()
-                .subscribe(new Observer<List<InstalledApp>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                installedAppsViewModel.getInstalledApps()
+                        .firstElement()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .toObservable()
+                        .subscribe(new Observer<List<InstalledApp>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                    @Override
-                    public void onNext(List<InstalledApp> installedApps) {
-                        Log.d(InstalledAppsActivity.class.getSimpleName(), "SIZE: " + installedApps.size());
-                        installedAppsAdapter.setInstalledApps(installedApps);
-                    }
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps error " + e.getLocalizedMessage());
-                    }
+                            @Override
+                            public void onNext(List<InstalledApp> installedApps) {
+                                Log.d(InstalledAppsActivity.class.getSimpleName(), "SIZE: " + installedApps.size());
+                                installedAppsAdapter.setInstalledApps(installedApps);
+                            }
 
-                    @Override
-                    public void onComplete() {
-                        Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps complete");
-                    }
-                });
+                            @Override
+                            public void onError(Throwable e) {
+                                circularProgressBar.setVisibility(View.GONE);
+                                Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps error " + e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                circularProgressBar.setVisibility(View.GONE);
+                                Log.d(InstalledAppsActivity.class.getSimpleName(), "Installed apps complete");
+                            }
+                        });
+
+            }
+        });
+
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.emre1s.playstore.adapters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -122,6 +124,7 @@ public class ForYouAdapter extends RecyclerView.Adapter<ForYouAdapter.ViewHolder
             categoryApps.setAdapter(appCardAdapter);
             categoryApps.setItemViewCacheSize(8);
             categoryApps.setHasFixedSize(true);
+            categoryApps.setNestedScrollingEnabled(false);
             linearSnapHelper.attachToRecyclerView(categoryApps);
         }
     }

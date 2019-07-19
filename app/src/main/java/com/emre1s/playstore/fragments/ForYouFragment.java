@@ -20,7 +20,10 @@ import com.emre1s.playstore.adapters.ForYouAdapter;
 import com.emre1s.playstore.models.App;
 import com.emre1s.playstore.ui.MoreAppsActivity;
 import com.emre1s.playstore.ui.main.PageViewModel;
+import com.mikepenz.itemanimators.AlphaInAnimator;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
+
+import java.util.concurrent.Executors;
 
 public class ForYouFragment extends Fragment {
 
@@ -62,11 +65,14 @@ public class ForYouFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_for_you, container, false);
         RecyclerView forYouRecycler = view.findViewById(R.id.rv_for_you);
         forYouRecycler.setHasFixedSize(true);
         forYouRecycler.setItemViewCacheSize(20);
+        forYouRecycler.setItemAnimator(new AlphaInAnimator());
         progressBar = view.findViewById(R.id.pb_for_you);
         progressBar.setVisibility(View.VISIBLE);
         final ForYouAdapter forYouAdapter = new ForYouAdapter(getContext(),
@@ -99,6 +105,13 @@ public class ForYouFragment extends Fragment {
 //                Intent intent = new Intent(getContext(), AppPageActivity.class);
 //                intent.putExtra("packageName", app.getAppId());
 //                startActivity(intent);
+            }
+        });
+
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+
             }
         });
 
